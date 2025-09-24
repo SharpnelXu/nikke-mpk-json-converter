@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "S6qcNImwww8=",
+  "success": true,
+  "projectFilePath": "D:\\Nikke\\mpk-converter\\NikkeMpkConverter\\NikkeMpkConverter.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\sharp\\.nuget\\packages\\memorypack\\1.21.4\\memorypack.1.21.4.nupkg.sha512",
+    "C:\\Users\\sharp\\.nuget\\packages\\memorypack.core\\1.21.4\\memorypack.core.1.21.4.nupkg.sha512",
+    "C:\\Users\\sharp\\.nuget\\packages\\memorypack.generator\\1.21.4\\memorypack.generator.1.21.4.nupkg.sha512"
+  ],
+  "logs": []
+}

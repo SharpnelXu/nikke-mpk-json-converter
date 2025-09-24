@@ -1,0 +1,17 @@
+D:\Nikke\mpk-converter\NikkeMpkConverter\bin\Debug\net9.0\NikkeMpkConverter.exe
+D:\Nikke\mpk-converter\NikkeMpkConverter\bin\Debug\net9.0\NikkeMpkConverter.deps.json
+D:\Nikke\mpk-converter\NikkeMpkConverter\bin\Debug\net9.0\NikkeMpkConverter.runtimeconfig.json
+D:\Nikke\mpk-converter\NikkeMpkConverter\bin\Debug\net9.0\NikkeMpkConverter.dll
+D:\Nikke\mpk-converter\NikkeMpkConverter\bin\Debug\net9.0\NikkeMpkConverter.pdb
+D:\Nikke\mpk-converter\NikkeMpkConverter\bin\Debug\net9.0\MemoryPack.Core.dll
+D:\Nikke\mpk-converter\NikkeMpkConverter\obj\Debug\net9.0\NikkeMpkConverter.csproj.AssemblyReference.cache
+D:\Nikke\mpk-converter\NikkeMpkConverter\obj\Debug\net9.0\NikkeMpkConverter.GeneratedMSBuildEditorConfig.editorconfig
+D:\Nikke\mpk-converter\NikkeMpkConverter\obj\Debug\net9.0\NikkeMpkConverter.AssemblyInfoInputs.cache
+D:\Nikke\mpk-converter\NikkeMpkConverter\obj\Debug\net9.0\NikkeMpkConverter.AssemblyInfo.cs
+D:\Nikke\mpk-converter\NikkeMpkConverter\obj\Debug\net9.0\NikkeMpkConverter.csproj.CoreCompileInputs.cache
+D:\Nikke\mpk-converter\NikkeMpkConverter\obj\Debug\net9.0\NikkeMpk.9837C876.Up2Date
+D:\Nikke\mpk-converter\NikkeMpkConverter\obj\Debug\net9.0\NikkeMpkConverter.dll
+D:\Nikke\mpk-converter\NikkeMpkConverter\obj\Debug\net9.0\refint\NikkeMpkConverter.dll
+D:\Nikke\mpk-converter\NikkeMpkConverter\obj\Debug\net9.0\NikkeMpkConverter.pdb
+D:\Nikke\mpk-converter\NikkeMpkConverter\obj\Debug\net9.0\NikkeMpkConverter.genruntimeconfig.cache
+D:\Nikke\mpk-converter\NikkeMpkConverter\obj\Debug\net9.0\ref\NikkeMpkConverter.dll
