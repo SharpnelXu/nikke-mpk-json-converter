@@ -24,6 +24,10 @@ The goal of this project is to write a converter that is able to convert MemoryP
 
 ## Stage 2: Write serializer to verify data model
 1. For certain String fields, the actual field might be an enum, which means the reference file is still needed to figure out the enum mapping. The good news is the order of these data should match.
+2. Open the mpk file and read it as hex string, skip the first eight byte since it represents the array length.
+3. Write a serialization class that reads and seralizes each record of the reference json file individually.
+4. Convert each seralized object to hex string and calculate its length, then take equal length of hex string from the mpk hex string (skiping first 8 bytes) and see if they match.
+4. If they don't, that means a string field should be an enum instead. Stop the program and print the hex bytes.
 
 ## Stage 3: Write Converter
 1. Now the data class is ready, write a program in `converter` folder that deserialize the input, `WordTable.mpk` using the data class added.

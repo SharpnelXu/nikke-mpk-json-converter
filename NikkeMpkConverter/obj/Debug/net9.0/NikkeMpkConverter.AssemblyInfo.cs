@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NikkeMpkConverter")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0c343e368ccb459b1de055e3098ade39be190efa")]
 [assembly: System.Reflection.AssemblyProductAttribute("NikkeMpkConverter")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NikkeMpkConverter")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
