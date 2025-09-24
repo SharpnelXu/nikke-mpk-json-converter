@@ -64,7 +64,9 @@ namespace NikkeMpkConverter
 
                 // Convert the file (auto-detects format based on extension)
                 // await MpkConverter.ConvertTableAsync<Word>(inputPath + "WordTable" + inputExtension, outputPath + "WordTable" + outputExtension);
-                await MpkConverter.ConvertTableAsync<UnionRaidPreset>(inputPath + "UnionRaidPresetTable" + inputExtension, outputPath + "UnionRaidPresetTable" + outputExtension);
+                // await MpkConverter.ConvertTableAsync<UnionRaidPreset>(inputPath + "UnionRaidPresetTable" + inputExtension, outputPath + "UnionRaidPresetTable" + outputExtension);
+                // await MpkConverter.ConvertTableAsync<AttractiveLevelTable>(inputPath + "AttractiveLevelTable" + inputExtension, outputPath + "AttractiveLevelTable" + outputExtension);
+                await MpkConverter.ConvertTableAsync<CharacterShotTable>(inputPath + "CharacterShotTable" + inputExtension, outputPath + "CharacterShotTable" + outputExtension);
                 Console.WriteLine("Conversion completed successfully!");
             }
             catch (Exception ex)

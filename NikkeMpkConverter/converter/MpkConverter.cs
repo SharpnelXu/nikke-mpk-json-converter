@@ -415,6 +415,14 @@ namespace NikkeMpkConverter.converter
                     details.Add($"Mismatch at record {i}");
                     details.Add($"Expected (MPK): {mpkItemHex}");
                     details.Add($"Actual (JSON): {itemHex}");
+                    details.Add($"ItemDetails (Json): {JsonSerializer.Serialize(items[i], new JsonSerializerOptions { WriteIndented = true }) ?? "null"}");
+                    byte[] mpkItemBytes = new byte[itemBytes.Length];
+                    for (int b = 0; b < itemBytes.Length; b++)
+                    {
+                        string byteHex = mpkItemHex.Substring(b * 3, 2);
+                        mpkItemBytes[b] = Convert.ToByte(byteHex, 16);
+                    }
+                    details.Add($"ItemDetails (Mpk): {JsonSerializer.Serialize(MemoryPackSerializer.Deserialize<TItem>(mpkItemBytes), new JsonSerializerOptions { WriteIndented = true }) ?? "null"}");
 
                     // Find exactly where the mismatch starts
                     int mismatchPos = 0;
