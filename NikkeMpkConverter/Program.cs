@@ -1,8 +1,6 @@
 ﻿using NikkeMpkConverter.converter;
 using NikkeMpkConverter.serialization;
-using System;
-using System.IO;
-using System.Threading.Tasks;
+using NikkeMpkConverter.model;
 
 namespace NikkeMpkConverter
 {
@@ -36,6 +34,7 @@ namespace NikkeMpkConverter
                 // Normal conversion mode
                 string inputPath;
                 string? outputPath = null;
+                bool mpkToJson = true; // Default conversion direction
 
                 // Process command line arguments if provided
                 if (args.Length >= 1)
@@ -45,44 +44,27 @@ namespace NikkeMpkConverter
                     {
                         outputPath = args[1];
                     }
+                    if (args.Length >= 3)
+                    {
+                        mpkToJson = args[2].Equals("--mpk2json", StringComparison.OrdinalIgnoreCase);
+                    }
+
                 }
                 else
                 {
-                    // Default paths
-                    string dataDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data");
-                    inputPath = Path.Combine(dataDir, "WordTable.mpk");
-                    outputPath = null; // Let the converter determine the output path based on input extension
+                    throw new ArgumentException("Please provide the input file path as the first argument. Optionally, provide the output file path as the second argument.");
                 }
 
                 Console.WriteLine($"Input file: {inputPath}");
                 
-                // Ensure the input file exists
-                if (!File.Exists(inputPath))
-                {
-                    Console.WriteLine($"Error: Input file not found at {inputPath}");
-                    return;
-                }
-                
-                // Determine if this is MPK to JSON or JSON to MPK based on file extension
-                string extension = Path.GetExtension(inputPath).ToLowerInvariant();
-                
-                if (extension != ".mpk" && extension != ".json")
-                {
-                    Console.WriteLine($"Error: Unsupported file extension: {extension}. Only .mpk and .json are supported.");
-                    return;
-                }
-                
-                // Generate default output path if not provided
-                if (string.IsNullOrEmpty(outputPath))
-                {
-                    string outputExtension = extension == ".mpk" ? ".json" : ".mpk";
-                    outputPath = Path.ChangeExtension(inputPath, outputExtension);
-                }
+                string inputExtension = mpkToJson ? ".mpk" : ".json";
+                string outputExtension = mpkToJson ? ".json" : ".mpk";
                 
                 Console.WriteLine($"Output file: {outputPath}");
 
                 // Convert the file (auto-detects format based on extension)
-                await MpkConverter.ConvertWordTableAsync(inputPath, outputPath);
+                // await MpkConverter.ConvertTableAsync<Word>(inputPath + "WordTable" + inputExtension, outputPath + "WordTable" + outputExtension);
+                await MpkConverter.ConvertTableAsync<UnionRaidPreset>(inputPath + "UnionRaidPresetTable" + inputExtension, outputPath + "UnionRaidPresetTable" + outputExtension);
                 Console.WriteLine("Conversion completed successfully!");
             }
             catch (Exception ex)

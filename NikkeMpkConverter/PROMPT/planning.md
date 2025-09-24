@@ -31,8 +31,3 @@ The goal of this project is to write a converter that is able to convert MemoryP
 
 ## Stage 3: Write Converter
 1. Now the data class is ready, write a program in `converter` folder that deserialize the input, `WordTable.mpk` using the data class added.
-
-
-## Stage 4: Repeat for other mpk files
-1. Execute Step1 for the following files:
-    - UnionRaidPresetTable.mpk

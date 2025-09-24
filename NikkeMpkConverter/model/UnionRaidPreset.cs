@@ -3,6 +3,12 @@ using System.Text.Json.Serialization;
 
 namespace NikkeMpkConverter.model
 {
+    public enum DifficultyType
+    {
+        Normal = 1,
+        Hard = 2
+    }
+
     [MemoryPackable]
     public partial class UnionRaidPreset
     {
@@ -16,7 +22,8 @@ namespace NikkeMpkConverter.model
 
         [JsonPropertyName("difficulty_type")]
         [MemoryPackOrder(2)]
-        public string DifficultyType { get; set; } = string.Empty;
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public DifficultyType DifficultyType { get; set; }
 
         [JsonPropertyName("wave_order")]
         [MemoryPackOrder(3)]
@@ -66,12 +73,16 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(14)]
         public string MonsterImage { get; set; } = string.Empty;
 
-        [JsonPropertyName("monster_spine_scale")]
+        [JsonPropertyName("unknown_int")]
         [MemoryPackOrder(15)]
-        public float MonsterSpineScale { get; set; }
+        public int DummyInt { get; set; }
+
+        [JsonPropertyName("monster_spine_scale")]
+        [MemoryPackOrder(16)]
+        public int MonsterSpineScale { get; set; }
 
         [JsonPropertyName("reward_id")]
-        [MemoryPackOrder(16)]
+        [MemoryPackOrder(17)]
         public int RewardId { get; set; }
     }
 }
