@@ -1,0 +1,383 @@
+{
+  "version": "0.0.1",
+  "records": [
+    {
+      "id": 1000301,
+      "name_localkey": "Locale_Item:artifact_all_1",
+      "description_localkey": "Locale_Item:artifact_all_1_desc",
+      "location_id": 1,
+      "location_localkey": "Locale_Item:artifact_all_2_location",
+      "order": 1,
+      "resource_id": 10001,
+      "bg": "ele_exstage_deco_glow_01",
+      "bg_color": "FF002A",
+      "item_type": "HarmonyCube",
+      "item_sub_type": "HarmonyCube",
+      "item_rare": "SSR",
+      "class": "All",
+      "level_enhance_id": 10001,
+      "harmonycube_skill_group": [
+        {
+          "skill_group_id": 40071
+        },
+        {
+          "skill_group_id": 40072
+        },
+        {
+          "skill_group_id": 0
+        }
+      ]
+    },
+    {
+      "id": 1000302,
+      "name_localkey": "Locale_Item:artifact_all_2",
+      "description_localkey": "Locale_Item:artifact_all_2_desc",
+      "location_id": 2,
+      "location_localkey": "Locale_Item:artifact_all_3_location",
+      "order": 2,
+      "resource_id": 10002,
+      "bg": "ele_exstage_deco_glow_01",
+      "bg_color": "FF002A",
+      "item_type": "HarmonyCube",
+      "item_sub_type": "HarmonyCube",
+      "item_rare": "SSR",
+      "class": "All",
+      "level_enhance_id": 10002,
+      "harmonycube_skill_group": [
+        {
+          "skill_group_id": 40081
+        },
+        {
+          "skill_group_id": 40082
+        },
+        {
+          "skill_group_id": 0
+        }
+      ]
+    },
+    {
+      "id": 1000303,
+      "name_localkey": "Locale_Item:artifact_all_3",
+      "description_localkey": "Locale_Item:artifact_all_3_desc",
+      "location_id": 4,
+      "location_localkey": "Locale_Item:artifact_all_4_location",
+      "order": 3,
+      "resource_id": 10003,
+      "bg": "ele_exstage_deco_glow_01",
+      "bg_color": "0075FF",
+      "item_type": "HarmonyCube",
+      "item_sub_type": "HarmonyCube",
+      "item_rare": "SSR",
+      "class": "All",
+      "level_enhance_id": 10003,
+      "harmonycube_skill_group": [
+        {
+          "skill_group_id": 40091
+        },
+        {
+          "skill_group_id": 40092
+        },
+        {
+          "skill_group_id": 0
+        }
+      ]
+    },
+    {
+      "id": 1000304,
+      "name_localkey": "Locale_Item:artifact_all_4",
+      "description_localkey": "Locale_Item:artifact_all_4_desc",
+      "location_id": 8,
+      "location_localkey": "Locale_Item:artifact_all_5_location",
+      "order": 4,
+      "resource_id": 10004,
+      "bg": "ele_exstage_deco_glow_01",
+      "bg_color": "0075FF",
+      "item_type": "HarmonyCube",
+      "item_sub_type": "HarmonyCube",
+      "item_rare": "SSR",
+      "class": "All",
+      "level_enhance_id": 10004,
+      "harmonycube_skill_group": [
+        {
+          "skill_group_id": 40101
+        },
+        {
+          "skill_group_id": 40102
+        },
+        {
+          "skill_group_id": 0
+        }
+      ]
+    },
+    {
+      "id": 1000305,
+      "name_localkey": "Locale_Item:artifact_all_5",
+      "description_localkey": "Locale_Item:artifact_all_5_desc",
+      "location_id": 10,
+      "location_localkey": "Locale_Item:artifact_attacker_1_location",
+      "order": 5,
+      "resource_id": 10005,
+      "bg": "ele_exstage_deco_glow_01",
+      "bg_color": "37C3B3",
+      "item_type": "HarmonyCube",
+      "item_sub_type": "HarmonyCube",
+      "item_rare": "SSR",
+      "class": "All",
+      "level_enhance_id": 10005,
+      "harmonycube_skill_group": [
+        {
+          "skill_group_id": 40111
+        },
+        {
+          "skill_group_id": 40112
+        },
+        {
+          "skill_group_id": 0
+        }
+      ]
+    },
+    {
+      "id": 1000306,
+      "name_localkey": "Locale_Item:artifact_all_6",
+      "description_localkey": "Locale_Item:artifact_all_6_desc",
+      "location_id": 13,
+      "location_localkey": "Locale_Item:artifact_all_1_location",
+      "order": 6,
+      "resource_id": 10006,
+      "bg": "ele_exstage_deco_glow_01",
+      "bg_color": "37C3B3",
+      "item_type": "HarmonyCube",
+      "item_sub_type": "HarmonyCube",
+      "item_rare": "SSR",
+      "class": "All",
+      "level_enhance_id": 10006,
+      "harmonycube_skill_group": [
+        {
+          "skill_group_id": 40121
+        },
+        {
+          "skill_group_id": 40122
+        },
+        {
+          "skill_group_id": 0
+        }
+      ]
+    },
+    {
+      "id": 1000307,
+      "name_localkey": "Locale_Item:artifact_all_7",
+      "description_localkey": "Locale_Item:artifact_all_7_desc",
+      "location_id": 17,
+      "location_localkey": "Locale_Item:artifact_all_1_location",
+      "order": 7,
+      "resource_id": 11001,
+      "bg": "ele_exstage_deco_glow_01",
+      "bg_color": "FF8400",
+      "item_type": "HarmonyCube",
+      "item_sub_type": "HarmonyCube",
+      "item_rare": "SSR",
+      "class": "All",
+      "level_enhance_id": 11001,
+      "harmonycube_skill_group": [
+        {
+          "skill_group_id": 40131
+        },
+        {
+          "skill_group_id": 40132
+        },
+        {
+          "skill_group_id": 0
+        }
+      ]
+    },
+    {
+      "id": 1000308,
+      "name_localkey": "Locale_Item:artifact_all_8",
+      "description_localkey": "Locale_Item:artifact_all_8_desc",
+      "location_id": 23,
+      "location_localkey": "Locale_Item:artifact_all_1_location",
+      "order": 8,
+      "resource_id": 13001,
+      "bg": "ele_exstage_deco_glow_01",
+      "bg_color": "00FFB4",
+      "item_type": "HarmonyCube",
+      "item_sub_type": "HarmonyCube",
+      "item_rare": "SSR",
+      "class": "All",
+      "level_enhance_id": 10007,
+      "harmonycube_skill_group": [
+        {
+          "skill_group_id": 40141
+        },
+        {
+          "skill_group_id": 40142
+        },
+        {
+          "skill_group_id": 0
+        }
+      ]
+    },
+    {
+      "id": 1000309,
+      "name_localkey": "Locale_Item:artifact_all_9",
+      "description_localkey": "Locale_Item:artifact_all_9_desc",
+      "location_id": 26,
+      "location_localkey": "Locale_Item:artifact_all_1_location",
+      "order": 9,
+      "resource_id": 12001,
+      "bg": "ele_exstage_deco_glow_01",
+      "bg_color": "005BFF",
+      "item_type": "HarmonyCube",
+      "item_sub_type": "HarmonyCube",
+      "item_rare": "SSR",
+      "class": "All",
+      "level_enhance_id": 10008,
+      "harmonycube_skill_group": [
+        {
+          "skill_group_id": 40151
+        },
+        {
+          "skill_group_id": 40152
+        },
+        {
+          "skill_group_id": 0
+        }
+      ]
+    },
+    {
+      "id": 1000310,
+      "name_localkey": "Locale_Item:artifact_all_10",
+      "description_localkey": "Locale_Item:artifact_all_10_desc",
+      "location_id": 27,
+      "location_localkey": "Locale_Item:artifact_all_1_location",
+      "order": 10,
+      "resource_id": 13002,
+      "bg": "ele_exstage_deco_glow_01",
+      "bg_color": "00FFB4",
+      "item_type": "HarmonyCube",
+      "item_sub_type": "HarmonyCube",
+      "item_rare": "SSR",
+      "class": "All",
+      "level_enhance_id": 10009,
+      "harmonycube_skill_group": [
+        {
+          "skill_group_id": 40161
+        },
+        {
+          "skill_group_id": 40162
+        },
+        {
+          "skill_group_id": 0
+        }
+      ]
+    },
+    {
+      "id": 1000311,
+      "name_localkey": "Locale_Item:artifact_all_11",
+      "description_localkey": "Locale_Item:artifact_all_11_desc",
+      "location_id": 29,
+      "location_localkey": "Locale_Item:artifact_all_1_location",
+      "order": 11,
+      "resource_id": 12002,
+      "bg": "ele_exstage_deco_glow_01",
+      "bg_color": "005BFF",
+      "item_type": "HarmonyCube",
+      "item_sub_type": "HarmonyCube",
+      "item_rare": "SSR",
+      "class": "All",
+      "level_enhance_id": 10010,
+      "harmonycube_skill_group": [
+        {
+          "skill_group_id": 40171
+        },
+        {
+          "skill_group_id": 40172
+        },
+        {
+          "skill_group_id": 0
+        }
+      ]
+    },
+    {
+      "id": 1000312,
+      "name_localkey": "Locale_Item:artifact_all_12",
+      "description_localkey": "Locale_Item:artifact_all_12_desc",
+      "location_id": 31,
+      "location_localkey": "Locale_Item:artifact_all_1_location",
+      "order": 12,
+      "resource_id": 10009,
+      "bg": "ele_exstage_deco_glow_01",
+      "bg_color": "77E745",
+      "item_type": "HarmonyCube",
+      "item_sub_type": "HarmonyCube",
+      "item_rare": "SSR",
+      "class": "All",
+      "level_enhance_id": 10011,
+      "harmonycube_skill_group": [
+        {
+          "skill_group_id": 40181
+        },
+        {
+          "skill_group_id": 40182
+        },
+        {
+          "skill_group_id": 0
+        }
+      ]
+    },
+    {
+      "id": 1000313,
+      "name_localkey": "Locale_Item:artifact_all_13",
+      "description_localkey": "Locale_Item:artifact_all_13_desc",
+      "location_id": 33,
+      "location_localkey": "Locale_Item:artifact_all_1_location",
+      "order": 13,
+      "resource_id": 10007,
+      "bg": "ele_exstage_deco_glow_01",
+      "bg_color": "FF454B",
+      "item_type": "HarmonyCube",
+      "item_sub_type": "HarmonyCube",
+      "item_rare": "SSR",
+      "class": "All",
+      "level_enhance_id": 10012,
+      "harmonycube_skill_group": [
+        {
+          "skill_group_id": 40191
+        },
+        {
+          "skill_group_id": 40192
+        },
+        {
+          "skill_group_id": 0
+        }
+      ]
+    },
+    {
+      "id": 1000314,
+      "name_localkey": "Locale_Item:artifact_all_14",
+      "description_localkey": "Locale_Item:artifact_all_14_desc",
+      "location_id": 35,
+      "location_localkey": "Locale_Item:artifact_all_1_location",
+      "order": 14,
+      "resource_id": 10008,
+      "bg": "ele_exstage_deco_glow_01",
+      "bg_color": "54C6FD",
+      "item_type": "HarmonyCube",
+      "item_sub_type": "HarmonyCube",
+      "item_rare": "SSR",
+      "class": "All",
+      "level_enhance_id": 10013,
+      "harmonycube_skill_group": [
+        {
+          "skill_group_id": 40201
+        },
+        {
+          "skill_group_id": 40202
+        },
+        {
+          "skill_group_id": 0
+        }
+      ]
+    }
+  ]
+}
