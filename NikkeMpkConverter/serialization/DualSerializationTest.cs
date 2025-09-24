@@ -1,10 +1,6 @@
 using MemoryPack;
 using NikkeMpkConverter.model;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace NikkeMpkConverter.serialization
 {
@@ -25,7 +21,7 @@ namespace NikkeMpkConverter.serialization
                 Directory.CreateDirectory(outputDir);
                 
                 // Create a test WordTable with sample data
-                var wordTable = new WordTable
+                var wordTable = new JsonTableContainer<Word>
                 {
                     Version = "0.0.1",
                     Records = new Word[]
@@ -71,13 +67,13 @@ namespace NikkeMpkConverter.serialization
                 
                 // 3. Deserialize from JSON back to WordTable
                 string readJsonString = await File.ReadAllTextAsync(jsonOutputPath);
-                var jsonDeserialized = JsonSerializer.Deserialize<WordTable>(readJsonString, jsonOptions);
+                var jsonDeserialized = JsonSerializer.Deserialize<JsonTableContainer<Word>>(readJsonString, jsonOptions);
                 Console.WriteLine("Successfully deserialized from JSON back to WordTable");
                 Console.WriteLine($"First record ID: {jsonDeserialized?.Records[0].Id}, Resource: {jsonDeserialized?.Records[0].ResourceValue}");
                 
                 // 4. Deserialize from MPK back to WordTable
                 byte[] readMpkBytes = await File.ReadAllBytesAsync(mpkOutputPath);
-                var mpkDeserialized = MemoryPackSerializer.Deserialize<WordTable>(readMpkBytes);
+                var mpkDeserialized = MemoryPackSerializer.Deserialize<JsonTableContainer<Word>>(readMpkBytes);
                 Console.WriteLine("Successfully deserialized from MPK back to WordTable");
                 Console.WriteLine($"First record ID: {mpkDeserialized?.Records[0].Id}, Resource: {mpkDeserialized?.Records[0].ResourceValue}");
                 

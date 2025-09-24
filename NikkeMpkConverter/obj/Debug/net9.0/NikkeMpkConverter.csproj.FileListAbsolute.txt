@@ -15,3 +15,4 @@ D:\Nikke\mpk-converter\NikkeMpkConverter\obj\Debug\net9.0\refint\NikkeMpkConvert
 D:\Nikke\mpk-converter\NikkeMpkConverter\obj\Debug\net9.0\NikkeMpkConverter.pdb
 D:\Nikke\mpk-converter\NikkeMpkConverter\obj\Debug\net9.0\NikkeMpkConverter.genruntimeconfig.cache
 D:\Nikke\mpk-converter\NikkeMpkConverter\obj\Debug\net9.0\ref\NikkeMpkConverter.dll
+D:\Nikke\mpk-converter\NikkeMpkConverter\obj\Debug\net9.0\NikkeMpkConverter.sourcelink.json

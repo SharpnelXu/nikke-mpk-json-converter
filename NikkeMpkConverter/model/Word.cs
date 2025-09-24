@@ -111,25 +111,4 @@ namespace NikkeMpkConverter.model
         [JsonPropertyName("resource_value")]
         public string ResourceValue { get; set; } = string.Empty;
     }
-
-    /// <summary>
-    /// Represents the root structure of WordTable
-    /// </summary>
-    [MemoryPackable]
-    public partial class WordTable
-    {
-        /// <summary>
-        /// Version of the word table format
-        /// </summary>
-        [MemoryPackOrder(0)]
-        [JsonPropertyName("version")]
-        public string Version { get; set; } = "0.0.1";
-
-        /// <summary>
-        /// Collection of word records
-        /// </summary>
-        [MemoryPackOrder(1)]
-        [JsonPropertyName("records")]
-        public Word[] Records { get; set; } = Array.Empty<Word>();
-    }
 }
