@@ -66,7 +66,53 @@ namespace NikkeMpkConverter
                 // await MpkConverter.ConvertTableAsync<Word>(inputPath + "WordTable" + inputExtension, outputPath + "WordTable" + outputExtension);
                 // await MpkConverter.ConvertTableAsync<UnionRaidPreset>(inputPath + "UnionRaidPresetTable" + inputExtension, outputPath + "UnionRaidPresetTable" + outputExtension);
                 // await MpkConverter.ConvertTableAsync<AttractiveLevelTable>(inputPath + "AttractiveLevelTable" + inputExtension, outputPath + "AttractiveLevelTable" + outputExtension);
-                await MpkConverter.ConvertTableAsync<CharacterShotTable>(inputPath + "CharacterShotTable" + inputExtension, outputPath + "CharacterShotTable" + outputExtension);
+                await MpkConverter.ConvertTableAsync<CharacterShotTable>(
+                    inputPath + "CharacterShotTable" + inputExtension,
+                    outputPath + "CharacterShotTable" + outputExtension,
+                    (details, jsonItem, mpkItem) =>
+                    {
+                        if (jsonItem.Id != mpkItem.Id)
+                        {
+                            details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                        }
+                        else
+                        {
+                            details.Add($"ID: {jsonItem.Id}");
+                            if (jsonItem.WeaponType != mpkItem.WeaponType)
+                            {
+                                details.Add($"  WeaponType Mismatch: Json ({jsonItem.WeaponType}) vs MPK ({(int) mpkItem.WeaponType})");
+                            }
+                            if (jsonItem.AttackType != mpkItem.AttackType)
+                            {
+                                details.Add($"  AttackType Mismatch: Json ({jsonItem.AttackType}) vs MPK ({(int) mpkItem.AttackType})");
+                            }
+                            if (jsonItem.CounterEnermy != mpkItem.CounterEnermy)
+                            {
+                                details.Add($"  CounterEnermy Mismatch: Json ({jsonItem.CounterEnermy}) vs MPK ({(int) mpkItem.CounterEnermy})");
+                            }
+                            if (jsonItem.PreferTarget != mpkItem.PreferTarget)
+                            {
+                                details.Add($"  PreferTarget Mismatch: Json ({jsonItem.PreferTarget}) vs MPK ({(int) mpkItem.PreferTarget})");
+                            }
+                            if (jsonItem.PreferTargetCondition != mpkItem.PreferTargetCondition)
+                            {
+                                details.Add($"  PreferTargetCondition Mismatch: Json ({jsonItem.PreferTargetCondition}) vs MPK ({(int) mpkItem.PreferTargetCondition})");
+                            }
+                            if (jsonItem.FireType != mpkItem.FireType)
+                            {
+                                details.Add($"  FireType Mismatch: Json ({jsonItem.FireType}) vs MPK ({(int) mpkItem.FireType})");
+                            }
+                            if (jsonItem.InputType != mpkItem.InputType)
+                            {
+                                details.Add($"  InputType Mismatch: Json ({jsonItem.InputType}) vs MPK ({(int) mpkItem.InputType})");
+                            }
+                            if (jsonItem.ShakeType != mpkItem.ShakeType)
+                            {
+                                details.Add($"  ShakeType Mismatch: Json ({jsonItem.ShakeType}) vs MPK ({(int) mpkItem.ShakeType})");
+                            }
+                        }
+                    }
+                );
                 Console.WriteLine("Conversion completed successfully!");
             }
             catch (Exception ex)

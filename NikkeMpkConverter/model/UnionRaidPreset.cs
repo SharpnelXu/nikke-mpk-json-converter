@@ -75,7 +75,8 @@ namespace NikkeMpkConverter.model
 
         [JsonPropertyName("unknown_int")]
         [MemoryPackOrder(15)]
-        public int DummyInt { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public int DummyInt { get; set; } = 0;
 
         [JsonPropertyName("monster_spine_scale")]
         [MemoryPackOrder(16)]

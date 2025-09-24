@@ -2,6 +2,7 @@ using MemoryPack;
 using NikkeMpkConverter.model;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace NikkeMpkConverter.converter
 {
@@ -19,16 +20,16 @@ namespace NikkeMpkConverter.converter
         /// <param name="createContainer">Function to create a container from an array of items (optional)</param>
         /// <returns>The deserialized JsonTableContainer object</returns>
         public static async Task<JsonTableContainer<TItem>> ConvertMpkToJsonAsync<TItem>(
-            string inputPath, 
+            string inputPath,
             string? outputPath = null,
             Func<TItem[], JsonTableContainer<TItem>>? createContainer = null)
         {
             Console.WriteLine($"Converting MPK to JSON: {inputPath}...");
-            
+
             // Read all bytes from the .mpk file
             byte[] bytes = await File.ReadAllBytesAsync(inputPath);
             Console.WriteLine($"File size: {bytes.Length} bytes");
-            
+
             // Display file header for diagnostics
             Console.WriteLine("First 16 bytes in hex:");
             StringBuilder hexDump = new StringBuilder();
@@ -37,24 +38,24 @@ namespace NikkeMpkConverter.converter
                 hexDump.Append($"{bytes[i]:X2} ");
             }
             Console.WriteLine(hexDump.ToString());
-            
+
             if (bytes.Length >= 4)
             {
                 int arrayLength = BitConverter.ToInt32(bytes, 0);
                 Console.WriteLine($"First 4 bytes as Int32 (array length): {arrayLength}");
             }
-            
+
             JsonTableContainer<TItem> container = new JsonTableContainer<TItem>();
-            
+
             try
             {
                 Console.WriteLine($"Trying to deserialize as {typeof(TItem).Name}[]...");
                 var items = MemoryPackSerializer.Deserialize<TItem[]>(bytes);
-                
+
                 if (items != null)
                 {
                     Console.WriteLine($"Successfully deserialized {items.Length} items");
-                    
+
                     // Create a container object from the items
                     if (createContainer != null)
                     {
@@ -74,27 +75,27 @@ namespace NikkeMpkConverter.converter
             catch (Exception ex)
             {
                 Console.WriteLine($"Error during deserialization: {ex.Message}");
-                
+
                 throw new InvalidOperationException("Error deserializing MPK file", ex);
             }
-            
+
             // If outputPath is provided, save the result as JSON
             if (!string.IsNullOrEmpty(outputPath))
             {
                 var jsonOptions = new JsonSerializerOptions
                 {
-                    WriteIndented = true // For pretty-printed JSON
+                    WriteIndented = true, // For pretty-printed JSON
                 };
-                
+
                 string jsonString = JsonSerializer.Serialize(container, jsonOptions);
                 await File.WriteAllTextAsync(outputPath, jsonString);
-                
+
                 Console.WriteLine($"Conversion complete. Output saved to {outputPath}");
             }
-            
+
             return container;
         }
-        
+
         /// <summary>
         /// Converts a JSON file to MPK format
         /// </summary>
@@ -104,15 +105,15 @@ namespace NikkeMpkConverter.converter
         /// <param name="getItems">Function to extract items from the container (optional)</param>
         /// <returns>The serialized bytes</returns>
         public static async Task<byte[]> ConvertJsonToMpkAsync<TItem>(
-            string inputPath, 
+            string inputPath,
             string? outputPath = null,
             Func<JsonTableContainer<TItem>, TItem[]>? getItems = null)
         {
             Console.WriteLine($"Converting JSON to MPK: {inputPath}...");
-            
+
             // Read the JSON file
             string jsonContent = await File.ReadAllTextAsync(inputPath);
-            
+
             // Deserialize the JSON to the container type
             var jsonOptions = new JsonSerializerOptions
             {
@@ -120,21 +121,21 @@ namespace NikkeMpkConverter.converter
                 ReadCommentHandling = JsonCommentHandling.Skip,
                 PropertyNameCaseInsensitive = true
             };
-            
+
             JsonTableContainer<TItem> container;
             TItem[] items;
-            
+
             try
             {
                 var deserializedContainer = JsonSerializer.Deserialize<JsonTableContainer<TItem>>(jsonContent, jsonOptions);
-                
+
                 if (deserializedContainer == null)
                 {
                     throw new InvalidOperationException($"Failed to deserialize JSON to JsonTableContainer<{typeof(TItem).Name}>");
                 }
-                
+
                 container = deserializedContainer;
-                
+
                 // Extract items from the container
                 if (getItems != null)
                 {
@@ -149,19 +150,19 @@ namespace NikkeMpkConverter.converter
                     }
                     items = container.Records;
                 }
-                
+
                 if (items == null || items.Length == 0)
                 {
                     throw new InvalidOperationException("No items found to serialize");
                 }
-                
+
                 Console.WriteLine($"Successfully deserialized JSON with {items.Length} items");
             }
             catch (Exception ex)
             {
                 throw new InvalidOperationException($"Error deserializing JSON: {ex.Message}", ex);
             }
-            
+
             // Serialize to MemoryPack format
             byte[] mpkBytes;
             try
@@ -179,17 +180,17 @@ namespace NikkeMpkConverter.converter
             {
                 throw new InvalidOperationException($"Error serializing to MPK: {ex.Message}", ex);
             }
-            
+
             // If outputPath is provided, save the result as MPK
             if (!string.IsNullOrEmpty(outputPath))
             {
                 await File.WriteAllBytesAsync(outputPath, mpkBytes);
                 Console.WriteLine($"Conversion complete. Output saved to {outputPath}");
             }
-            
+
             return mpkBytes;
         }
-        
+
         /// <summary>
         /// Determines the format of the input file and converts to the opposite format
         /// </summary>
@@ -200,19 +201,19 @@ namespace NikkeMpkConverter.converter
         {
             // Determine the input and output formats based on file extension
             string extension = Path.GetExtension(inputPath).ToLowerInvariant();
-            
+
             // Generate output path if not provided
             if (string.IsNullOrEmpty(outputPath))
             {
                 string outputExtension = extension == ".mpk" ? ".json" : ".mpk";
                 outputPath = Path.ChangeExtension(inputPath, outputExtension);
             }
-            
+
             // Convert based on input format
             if (extension == ".mpk")
             {
                 await ConvertMpkToJsonAsync<Word>(
-                    inputPath, 
+                    inputPath,
                     outputPath,
                     (words) => new JsonTableContainer<Word> { Version = "0.0.1", Records = words }
                 );
@@ -221,7 +222,7 @@ namespace NikkeMpkConverter.converter
             {
                 await VerifyJsonToMpkConversion<Word>(
                     outputPath,
-                    inputPath, 
+                    inputPath,
                     (container) => container.Records
                 );
             }
@@ -230,24 +231,24 @@ namespace NikkeMpkConverter.converter
                 throw new ArgumentException($"Unsupported file extension: {extension}. Only .mpk and .json are supported.");
             }
         }
-        
-        public static async Task ConvertTableAsync<TItem>(string inputPath, string? outputPath = null)
+
+        public static async Task ConvertTableAsync<TItem>(string inputPath, string? outputPath = null, Action<List<string>, TItem, TItem>? logItemDetails = null)
         {
             // Determine the input and output formats based on file extension
             string extension = Path.GetExtension(inputPath).ToLowerInvariant();
-            
+
             // Generate output path if not provided
             if (string.IsNullOrEmpty(outputPath))
             {
                 string outputExtension = extension == ".mpk" ? ".json" : ".mpk";
                 outputPath = Path.ChangeExtension(inputPath, outputExtension);
             }
-            
+
             // Convert based on input format
             if (extension == ".mpk")
             {
                 await ConvertMpkToJsonAsync<TItem>(
-                    inputPath, 
+                    inputPath,
                     outputPath,
                     (items) => new JsonTableContainer<TItem> { Version = "0.0.1", Records = items }
                 );
@@ -256,8 +257,9 @@ namespace NikkeMpkConverter.converter
             {
                 await VerifyJsonToMpkConversion<TItem>(
                     outputPath,
-                    inputPath, 
-                    (container) => container.Records
+                    inputPath,
+                    (container) => container.Records,
+                    logItemDetails
                 );
             }
             else
@@ -280,6 +282,7 @@ namespace NikkeMpkConverter.converter
             string mpkPath,
             string jsonPath,
             Func<JsonTableContainer<TItem>, TItem[]>? getItems = null,
+            Action<List<string>, TItem, TItem>? logItemDetails = null,
             bool stopOnFirstMismatch = true)
         {
             Console.WriteLine($"Verifying JSON to MPK conversion compatibility...");
@@ -414,15 +417,14 @@ namespace NikkeMpkConverter.converter
                     var details = new List<string>();
                     details.Add($"Mismatch at record {i}");
                     details.Add($"Expected (MPK): {mpkItemHex}");
-                    details.Add($"Actual (JSON): {itemHex}");
-                    details.Add($"ItemDetails (Json): {JsonSerializer.Serialize(items[i], new JsonSerializerOptions { WriteIndented = true }) ?? "null"}");
+                    details.Add($"Actual  (JSON): {itemHex}");
                     byte[] mpkItemBytes = new byte[itemBytes.Length];
                     for (int b = 0; b < itemBytes.Length; b++)
                     {
                         string byteHex = mpkItemHex.Substring(b * 3, 2);
                         mpkItemBytes[b] = Convert.ToByte(byteHex, 16);
                     }
-                    details.Add($"ItemDetails (Mpk): {JsonSerializer.Serialize(MemoryPackSerializer.Deserialize<TItem>(mpkItemBytes), new JsonSerializerOptions { WriteIndented = true }) ?? "null"}");
+                    TItem? mpkItem = MemoryPackSerializer.Deserialize<TItem>(mpkItemBytes);
 
                     // Find exactly where the mismatch starts
                     int mismatchPos = 0;
@@ -443,6 +445,8 @@ namespace NikkeMpkConverter.converter
                         details.Add($"MPK context: ...{mpkItemHex.Substring(contextStart, contextLength)}...");
                         details.Add($"JSON context: ...{itemHex.Substring(contextStart, contextLength)}...");
                         details.Add("This likely indicates a string field that should be an enum instead");
+                        details.Add($"Json details: {JsonSerializer.Serialize(items[i], new JsonSerializerOptions { WriteIndented = true })}");
+                        details.Add($"MPK  details: {JsonSerializer.Serialize(mpkItem, new JsonSerializerOptions { WriteIndented = true })}");
                     }
                     else
                     {
@@ -450,6 +454,11 @@ namespace NikkeMpkConverter.converter
                     }
 
                     mismatchDetails[i] = details;
+
+                    if (logItemDetails != null && mpkItem != null)
+                    {
+                        logItemDetails(details, items[i], mpkItem);
+                    }
 
                     if (stopOnFirstMismatch)
                     {
