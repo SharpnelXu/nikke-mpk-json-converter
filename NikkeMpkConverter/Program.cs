@@ -63,28 +63,28 @@ namespace NikkeMpkConverter
                 Console.WriteLine($"Output file: {outputPath}");
 
                 // Convert the file (auto-detects format based on extension)
-                // await SerializationAsync(inputPath, outputPath!, inputExtension, outputExtension);
+                await SerializationAsync(inputPath, outputPath!, inputExtension, outputExtension);
                 
-                await MpkConverter.ConvertTableAsync<FavoriteItemLevelData>(
-                    inputPath + "FavoriteItemLevelTable" + inputExtension,
-                    outputPath + "FavoriteItemLevelTable" + outputExtension,
-                    (details, jsonItem, mpkItem) =>
-                    {
-                        if (jsonItem.Id != mpkItem.Id)
-                        {
-                            details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
-                        }
-                        else
-                        {
-                            details.Add($"ID: {jsonItem.Id}");
-                            // if (jsonItem.OriginalRare != mpkItem.OriginalRare)
-                            // {
-                            //     details.Add($"  OriginalRare Mismatch: Json ({jsonItem.OriginalRare}) vs MPK ({(int) mpkItem.OriginalRare})");
-                            // }
-                        }
-                    },
-                    stopOnFirstMismatch: true
-                );
+                // await MpkConverter.ConvertTableAsync<FavoriteItemData>(
+                //     inputPath + "FavoriteItemTable" + inputExtension,
+                //     outputPath + "FavoriteItemTable" + outputExtension,
+                //     (details, jsonItem, mpkItem) =>
+                //     {
+                //         if (jsonItem.Id != mpkItem.Id)
+                //         {
+                //             details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                //         }
+                //         else
+                //         {
+                //             details.Add($"ID: {jsonItem.Id}");
+                //             // if (jsonItem.OriginalRare != mpkItem.OriginalRare)
+                //             // {
+                //             //     details.Add($"  OriginalRare Mismatch: Json ({jsonItem.OriginalRare}) vs MPK ({(int) mpkItem.OriginalRare})");
+                //             // }
+                //         }
+                //     },
+                //     stopOnFirstMismatch: true
+                // );
                 
                 Console.WriteLine("Conversion completed successfully!");
             }
@@ -261,12 +261,12 @@ namespace NikkeMpkConverter
                 },
                 stopOnFirstMismatch: false
             );
-                
+
             await MpkConverter.ConvertTableAsync<CoverStatEnhance>(
                 inputPath + "CoverStatEnhanceTable" + inputExtension,
                 outputPath + "CoverStatEnhanceTable" + outputExtension
             );
-                
+
             await MpkConverter.ConvertTableAsync<CurrencyData>(
                 inputPath + "CurrencyTable" + inputExtension,
                 outputPath + "CurrencyTable" + outputExtension
@@ -285,6 +285,11 @@ namespace NikkeMpkConverter
             await MpkConverter.ConvertTableAsync<FavoriteItemLevelData>(
                 inputPath + "FavoriteItemLevelTable" + inputExtension,
                 outputPath + "FavoriteItemLevelTable" + outputExtension
+            );
+            
+            await MpkConverter.ConvertTableAsync<FavoriteItemData>(
+                inputPath + "FavoriteItemTable" + inputExtension,
+                outputPath + "FavoriteItemTable" + outputExtension
             );
         }
     }
