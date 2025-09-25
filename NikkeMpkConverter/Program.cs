@@ -65,9 +65,9 @@ namespace NikkeMpkConverter
                 // Convert the file (auto-detects format based on extension)
                 // await SerializationAsync(inputPath, outputPath!, inputExtension, outputExtension);
                 
-                await MpkConverter.ConvertTableAsync<CoverStatEnhance>(
-                    inputPath + "CoverStatEnhanceTable" + inputExtension,
-                    outputPath + "CoverStatEnhanceTable" + outputExtension,
+                await MpkConverter.ConvertTableAsync<CurrencyData>(
+                    inputPath + "CurrencyTable" + inputExtension,
+                    outputPath + "CurrencyTable" + outputExtension,
                     (details, jsonItem, mpkItem) =>
                     {
                         if (jsonItem.Id != mpkItem.Id)
@@ -83,7 +83,7 @@ namespace NikkeMpkConverter
                             // }
                         }
                     },
-                    stopOnFirstMismatch: false
+                    stopOnFirstMismatch: true
                 );
                 
                 Console.WriteLine("Conversion completed successfully!");
@@ -265,6 +265,11 @@ namespace NikkeMpkConverter
             await MpkConverter.ConvertTableAsync<CoverStatEnhance>(
                 inputPath + "CoverStatEnhanceTable" + inputExtension,
                 outputPath + "CoverStatEnhanceTable" + outputExtension
+            );
+                
+            await MpkConverter.ConvertTableAsync<CurrencyData>(
+                inputPath + "CurrencyTable" + inputExtension,
+                outputPath + "CurrencyTable" + outputExtension
             );
         }
     }
