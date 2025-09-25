@@ -237,6 +237,7 @@ namespace NikkeMpkConverter.converter
             string? outputPath = null,
             Action<List<string>, TItem, TItem>? logItemDetails = null,
             Func<TItem, TItem?, bool>? shouldSkipFailure = null, 
+            Action<HashSet<string>, TItem>? checkMpkItemDetails = null,
             bool stopOnFirstMismatch = true)
         {
             // Determine the input and output formats based on file extension
@@ -266,7 +267,8 @@ namespace NikkeMpkConverter.converter
                     (container) => container.Records,
                     logItemDetails,
                     shouldSkipFailure,
-                    stopOnFirstMismatch
+                    checkMpkItemDetails,
+                    stopOnFirstMismatch: stopOnFirstMismatch
                 );
             }
             else
@@ -291,6 +293,7 @@ namespace NikkeMpkConverter.converter
             Func<JsonTableContainer<TItem>, TItem[]>? getItems = null,
             Action<List<string>, TItem, TItem>? logItemDetails = null,
             Func<TItem, TItem?, bool>? shouldSkipFailure = null, 
+            Action<HashSet<string>, TItem>? checkMpkItemDetails = null,
             bool stopOnFirstMismatch = true)
         {
             Console.WriteLine($"Verifying JSON to MPK conversion compatibility...");
@@ -549,7 +552,7 @@ namespace NikkeMpkConverter.converter
 
                     // Extract the corresponding portion from the MPK hex string
                     string mpkItemHex = mpkItemMap.TryGetValue(
-                        (int)typeof(TItem).GetProperty("Id")!.GetValue(items[i])!, 
+                        (int)typeof(TItem).GetProperty("Id")!.GetValue(items[i])!,
                         out var mpkItem) && mpkItem != null
                         ? BitConverter.ToString(MemoryPackSerializer.Serialize(mpkItem)).Replace("-", " ")
                         : "";
@@ -613,6 +616,23 @@ namespace NikkeMpkConverter.converter
                             Console.WriteLine("Found mismatch. Stopping verification as requested.");
                             break;
                         }
+                    }
+                }
+
+                if (mpkItems != null && checkMpkItemDetails != null)
+                {
+                    var details = new HashSet<string>();
+                    for (int i = 0; i < mpkItems.Length; i++)
+                    {
+                        if (i > 0 && i % 100 == 0)
+                        {
+                            Console.WriteLine($"Processed {i} of {mpkItems.Length} MPK records for detail check...");
+                        }
+                        checkMpkItemDetails(details, mpkItems[i]);
+                    }
+                    foreach (var detail in details)
+                    {
+                        Console.WriteLine(detail);
                     }
                 }
             }

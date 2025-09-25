@@ -54,7 +54,7 @@ namespace NikkeMpkConverter.model
         Buff = 0,
         BuffEtc = 3,
         DeBuff = 1,
-        DeBuffEtc = 4,
+        DebuffEtc = 4,
         Unknown = -1
     }
 
@@ -96,7 +96,7 @@ namespace NikkeMpkConverter.model
         ImmuneMetal = 35,
         ImmuneBio = 36,
         ImmuneDamage = 37,
-        ImmuneDamage_MainHp = 38,
+        ImmuneDamage_MainHP = 38,
         Immortal = 40,
         GravityBomb = 41,
         DamageReduction = 42,
@@ -239,6 +239,7 @@ namespace NikkeMpkConverter.model
         DefIgnoreSkillDamageInstant = 203,
         DamageShareLowestPriority = 205,
         ForcedReload = 206,
+        StatDefGluttony = 207,
         PlusBuffCount = 1640,
         Unknown = -1
     }
@@ -334,7 +335,7 @@ namespace NikkeMpkConverter.model
         OnPelletCriticalHitNum = 84,
         OnFunctionDamageCriticalHit = 86,
         OnFullChargeBonusRangeHitNum = 87,
-        OnRaptureDead = 89
+        OnDeadV2 = 89
     }
 
     public enum StatusTriggerType
