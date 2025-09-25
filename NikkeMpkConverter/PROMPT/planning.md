@@ -10,7 +10,7 @@ The goal of this project is to write a converter that is able to convert MemoryP
 ## Input
 - All inputs are located in the `data` folder.
 - The files that contains MemoryPack serialized data always have the `.mpk` extension.
-- For each `***.mpk` file, there is also a deserialized data file `***.json`, which can be used as references, e.g. `WordTable.mpk` matches `WordTable.json`. 
+- For each `***.mpk` file, there is also a deserialized data file `***.json` located in `sample` folder, which can be used as references, e.g. `WordTable.mpk` matches `WordTable.json`. 
     - The order of data should match.
     - However, there could be more data in `*.mpk` files.
 
@@ -21,6 +21,7 @@ The goal of this project is to write a converter that is able to convert MemoryP
 3. Ignore the `version` field, as it's not useful. Focus on the `records` field, it should be a list of json objects, and this list is what `WordTable.mpk` file actually serializes.
 4. Read the json objects in the `records` list, write the corresponding data model class using MemoryPack, output the data models to `model` folder. The class of this model class can be `Word`, as the input is `WordTable.json`.
 5. Make it so the data class created is compatible to both MemoryPack and Json. The json property name should match exactly to what the reference file provides.
+6. Add JsonPropertyOrder property for each field matching MemoryPackOrder.
 
 ## Stage 2: Write serializer to verify data model
 1. For certain String fields, the actual field might be an enum, which means the reference file is still needed to figure out the enum mapping. The good news is the order of these data should match.

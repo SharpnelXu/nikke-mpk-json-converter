@@ -395,7 +395,7 @@ namespace NikkeMpkConverter.converter
                 string itemHex = BitConverter.ToString(itemBytes).Replace("-", " ");
 
                 // Check if we have enough MPK data left to compare
-                if (currentMpkPosition + itemBytes.Length * 3 > mpkHex.Length)
+                if (currentMpkPosition + itemBytes.Length * 3 - 1> mpkHex.Length)
                 {
                     Console.WriteLine($"Warning: MPK data is shorter than expected at item {i}");
                     overallSuccess = false;
