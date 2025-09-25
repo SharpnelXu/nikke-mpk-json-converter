@@ -65,9 +65,9 @@ namespace NikkeMpkConverter
                 // Convert the file (auto-detects format based on extension)
                 // await SerializationAsync(inputPath, outputPath!, inputExtension, outputExtension);
                 
-                await MpkConverter.ConvertTableAsync<CurrencyData>(
-                    inputPath + "CurrencyTable" + inputExtension,
-                    outputPath + "CurrencyTable" + outputExtension,
+                await MpkConverter.ConvertTableAsync<CustomPackageSlotData>(
+                    inputPath + "CustomPackageGroupTable" + inputExtension,
+                    outputPath + "CustomPackageGroupTable" + outputExtension,
                     (details, jsonItem, mpkItem) =>
                     {
                         if (jsonItem.Id != mpkItem.Id)
@@ -270,6 +270,11 @@ namespace NikkeMpkConverter
             await MpkConverter.ConvertTableAsync<CurrencyData>(
                 inputPath + "CurrencyTable" + inputExtension,
                 outputPath + "CurrencyTable" + outputExtension
+            );
+
+            await MpkConverter.ConvertTableAsync<CustomPackageSlotData>(
+                inputPath + "CustomPackageGroupTable" + inputExtension,
+                outputPath + "CustomPackageGroupTable" + outputExtension
             );
         }
     }

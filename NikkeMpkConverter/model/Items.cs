@@ -71,9 +71,9 @@ namespace NikkeMpkConverter.model
     public enum ProductType
     {
         Unknown = -1,
-        Item = 1,
-        Currency = 2,
-        CharacterCostume = 3
+        Item = 5,
+        Currency = 3,
+        CharacterCostume = 2
     }
 
     /// <summary>
