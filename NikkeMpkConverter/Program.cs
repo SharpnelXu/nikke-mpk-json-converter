@@ -65,9 +65,9 @@ namespace NikkeMpkConverter
                 // Convert the file (auto-detects format based on extension)
                 // await SerializationAsync(inputPath, outputPath!, inputExtension, outputExtension);
                 
-                await MpkConverter.ConvertTableAsync<NikkeCharacterData>(
-                    inputPath + "CharacterTable" + inputExtension,
-                    outputPath + "CharacterTable" + outputExtension,
+                await MpkConverter.ConvertTableAsync<CoverStatEnhance>(
+                    inputPath + "CoverStatEnhanceTable" + inputExtension,
+                    outputPath + "CoverStatEnhanceTable" + outputExtension,
                     (details, jsonItem, mpkItem) =>
                     {
                         if (jsonItem.Id != mpkItem.Id)
@@ -77,58 +77,10 @@ namespace NikkeMpkConverter
                         else
                         {
                             details.Add($"ID: {jsonItem.Id}");
-                            if (jsonItem.OriginalRare != mpkItem.OriginalRare)
-                            {
-                                details.Add($"  OriginalRare Mismatch: Json ({jsonItem.OriginalRare}) vs MPK ({(int) mpkItem.OriginalRare})");
-                            }
-                            if (jsonItem.CharacterClass != mpkItem.CharacterClass)
-                            {
-                                details.Add($"  NikkeClass Mismatch: Json ({jsonItem.CharacterClass}) vs MPK ({(int) mpkItem.CharacterClass})");
-                            }
-                            if (jsonItem.UseBurstSkill != mpkItem.UseBurstSkill)
-                            {
-                                details.Add($"  BurstStep Mismatch: Json ({jsonItem.UseBurstSkill}) vs MPK ({(int) mpkItem.UseBurstSkill})");
-                            }
-                            if (jsonItem.ChangeBurstStep != mpkItem.ChangeBurstStep)
-                            {
-                                details.Add($"  BurstStep Mismatch: Json ({jsonItem.ChangeBurstStep}) vs MPK ({(int) mpkItem.ChangeBurstStep})");
-                            }
-                            if (jsonItem.Skill1Table != mpkItem.Skill1Table)
-                            {
-                                details.Add($"  SkillType Mismatch: Json ({jsonItem.Skill1Table}) vs MPK ({(int) mpkItem.Skill1Table})");
-                            }
-                            if (jsonItem.Skill2Table != mpkItem.Skill2Table)
-                            {
-                                details.Add($"  SkillType Mismatch: Json ({jsonItem.Skill2Table}) vs MPK ({(int) mpkItem.Skill2Table})");
-                            }
-                            if (jsonItem.EffCategoryType != mpkItem.EffCategoryType)
-                            {
-                                details.Add($"  EffCategoryType Mismatch: Json ({jsonItem.EffCategoryType}) vs MPK ({(int) mpkItem.EffCategoryType})");
-                            }
-                            if (jsonItem.CategoryType1 != mpkItem.CategoryType1)
-                            {
-                                details.Add($"  CategoryType Mismatch: Json ({jsonItem.CategoryType1}) vs MPK ({(int) mpkItem.CategoryType1})");
-                            }
-                            if (jsonItem.CategoryType2 != mpkItem.CategoryType2)
-                            {
-                                details.Add($"  CategoryType Mismatch: Json ({jsonItem.CategoryType2}) vs MPK ({(int) mpkItem.CategoryType2})");
-                            }
-                            if (jsonItem.CategoryType3 != mpkItem.CategoryType3)
-                            {
-                                details.Add($"  CategoryType Mismatch: Json ({jsonItem.CategoryType3}) vs MPK ({(int) mpkItem.CategoryType3})");
-                            }
-                            if (jsonItem.Corporation != mpkItem.Corporation)
-                            {
-                                details.Add($"  Corporation Mismatch: Json ({jsonItem.Corporation}) vs MPK ({(int) mpkItem.Corporation})");
-                            }
-                            if (jsonItem.CorporationSubType != mpkItem.CorporationSubType)
-                            {
-                                details.Add($"  CorporationSubType Mismatch: Json ({jsonItem.CorporationSubType}) vs MPK ({(int) mpkItem.CorporationSubType})");
-                            }
-                            if (jsonItem.Squad != mpkItem.Squad)
-                            {
-                                details.Add($"  Squad Mismatch: Json ({jsonItem.Squad}) vs MPK ({(int) mpkItem.Squad})");
-                            }
+                            // if (jsonItem.OriginalRare != mpkItem.OriginalRare)
+                            // {
+                            //     details.Add($"  OriginalRare Mismatch: Json ({jsonItem.OriginalRare}) vs MPK ({(int) mpkItem.OriginalRare})");
+                            // }
                         }
                     },
                     stopOnFirstMismatch: false
@@ -240,7 +192,7 @@ namespace NikkeMpkConverter
                 inputPath + "CharacterStatTable" + inputExtension,
                 outputPath + "CharacterStatTable" + outputExtension
             );
-            
+
             await MpkConverter.ConvertTableAsync<NikkeCharacterData>(
                 inputPath + "CharacterTable" + inputExtension,
                 outputPath + "CharacterTable" + outputExtension,
@@ -255,59 +207,64 @@ namespace NikkeMpkConverter
                         details.Add($"ID: {jsonItem.Id}");
                         if (jsonItem.OriginalRare != mpkItem.OriginalRare)
                         {
-                            details.Add($"  OriginalRare Mismatch: Json ({jsonItem.OriginalRare}) vs MPK ({(int) mpkItem.OriginalRare})");
+                            details.Add($"  OriginalRare Mismatch: Json ({jsonItem.OriginalRare}) vs MPK ({(int)mpkItem.OriginalRare})");
                         }
                         if (jsonItem.CharacterClass != mpkItem.CharacterClass)
                         {
-                            details.Add($"  NikkeClass Mismatch: Json ({jsonItem.CharacterClass}) vs MPK ({(int) mpkItem.CharacterClass})");
+                            details.Add($"  NikkeClass Mismatch: Json ({jsonItem.CharacterClass}) vs MPK ({(int)mpkItem.CharacterClass})");
                         }
                         if (jsonItem.UseBurstSkill != mpkItem.UseBurstSkill)
                         {
-                            details.Add($"  BurstStep Mismatch: Json ({jsonItem.UseBurstSkill}) vs MPK ({(int) mpkItem.UseBurstSkill})");
+                            details.Add($"  BurstStep Mismatch: Json ({jsonItem.UseBurstSkill}) vs MPK ({(int)mpkItem.UseBurstSkill})");
                         }
                         if (jsonItem.ChangeBurstStep != mpkItem.ChangeBurstStep)
                         {
-                            details.Add($"  BurstStep Mismatch: Json ({jsonItem.ChangeBurstStep}) vs MPK ({(int) mpkItem.ChangeBurstStep})");
+                            details.Add($"  BurstStep Mismatch: Json ({jsonItem.ChangeBurstStep}) vs MPK ({(int)mpkItem.ChangeBurstStep})");
                         }
                         if (jsonItem.Skill1Table != mpkItem.Skill1Table)
                         {
-                            details.Add($"  SkillType Mismatch: Json ({jsonItem.Skill1Table}) vs MPK ({(int) mpkItem.Skill1Table})");
+                            details.Add($"  SkillType Mismatch: Json ({jsonItem.Skill1Table}) vs MPK ({(int)mpkItem.Skill1Table})");
                         }
                         if (jsonItem.Skill2Table != mpkItem.Skill2Table)
                         {
-                            details.Add($"  SkillType Mismatch: Json ({jsonItem.Skill2Table}) vs MPK ({(int) mpkItem.Skill2Table})");
+                            details.Add($"  SkillType Mismatch: Json ({jsonItem.Skill2Table}) vs MPK ({(int)mpkItem.Skill2Table})");
                         }
                         if (jsonItem.EffCategoryType != mpkItem.EffCategoryType)
                         {
-                            details.Add($"  EffCategoryType Mismatch: Json ({jsonItem.EffCategoryType}) vs MPK ({(int) mpkItem.EffCategoryType})");
+                            details.Add($"  EffCategoryType Mismatch: Json ({jsonItem.EffCategoryType}) vs MPK ({(int)mpkItem.EffCategoryType})");
                         }
                         if (jsonItem.CategoryType1 != mpkItem.CategoryType1)
                         {
-                            details.Add($"  CategoryType Mismatch: Json ({jsonItem.CategoryType1}) vs MPK ({(int) mpkItem.CategoryType1})");
+                            details.Add($"  CategoryType Mismatch: Json ({jsonItem.CategoryType1}) vs MPK ({(int)mpkItem.CategoryType1})");
                         }
                         if (jsonItem.CategoryType2 != mpkItem.CategoryType2)
                         {
-                            details.Add($"  CategoryType Mismatch: Json ({jsonItem.CategoryType2}) vs MPK ({(int) mpkItem.CategoryType2})");
+                            details.Add($"  CategoryType Mismatch: Json ({jsonItem.CategoryType2}) vs MPK ({(int)mpkItem.CategoryType2})");
                         }
                         if (jsonItem.CategoryType3 != mpkItem.CategoryType3)
                         {
-                            details.Add($"  CategoryType Mismatch: Json ({jsonItem.CategoryType3}) vs MPK ({(int) mpkItem.CategoryType3})");
+                            details.Add($"  CategoryType Mismatch: Json ({jsonItem.CategoryType3}) vs MPK ({(int)mpkItem.CategoryType3})");
                         }
                         if (jsonItem.Corporation != mpkItem.Corporation)
                         {
-                            details.Add($"  Corporation Mismatch: Json ({jsonItem.Corporation}) vs MPK ({(int) mpkItem.Corporation})");
+                            details.Add($"  Corporation Mismatch: Json ({jsonItem.Corporation}) vs MPK ({(int)mpkItem.Corporation})");
                         }
                         if (jsonItem.CorporationSubType != mpkItem.CorporationSubType)
                         {
-                            details.Add($"  CorporationSubType Mismatch: Json ({jsonItem.CorporationSubType}) vs MPK ({(int) mpkItem.CorporationSubType})");
+                            details.Add($"  CorporationSubType Mismatch: Json ({jsonItem.CorporationSubType}) vs MPK ({(int)mpkItem.CorporationSubType})");
                         }
                         if (jsonItem.Squad != mpkItem.Squad)
                         {
-                            details.Add($"  Squad Mismatch: Json ({jsonItem.Squad}) vs MPK ({(int) mpkItem.Squad})");
+                            details.Add($"  Squad Mismatch: Json ({jsonItem.Squad}) vs MPK ({(int)mpkItem.Squad})");
                         }
                     }
                 },
                 stopOnFirstMismatch: false
+            );
+                
+            await MpkConverter.ConvertTableAsync<CoverStatEnhance>(
+                inputPath + "CoverStatEnhanceTable" + inputExtension,
+                outputPath + "CoverStatEnhanceTable" + outputExtension
             );
         }
     }
