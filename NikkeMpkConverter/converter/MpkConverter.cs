@@ -232,7 +232,7 @@ namespace NikkeMpkConverter.converter
             }
         }
 
-        public static async Task ConvertTableAsync<TItem>(string inputPath, string? outputPath = null, Action<List<string>, TItem, TItem>? logItemDetails = null)
+        public static async Task ConvertTableAsync<TItem>(string inputPath, string? outputPath = null, Action<List<string>, TItem, TItem>? logItemDetails = null, bool stopOnFirstMismatch = true)
         {
             // Determine the input and output formats based on file extension
             string extension = Path.GetExtension(inputPath).ToLowerInvariant();
@@ -259,7 +259,8 @@ namespace NikkeMpkConverter.converter
                     outputPath,
                     inputPath,
                     (container) => container.Records,
-                    logItemDetails
+                    logItemDetails,
+                    stopOnFirstMismatch
                 );
             }
             else
@@ -416,8 +417,11 @@ namespace NikkeMpkConverter.converter
                     // Generate detailed mismatch information
                     var details = new List<string>();
                     details.Add($"Mismatch at record {i}");
-                    details.Add($"Expected (MPK): {mpkItemHex}");
-                    details.Add($"Actual  (JSON): {itemHex}");
+                    if (stopOnFirstMismatch)
+                    {
+                        details.Add($"Expected (MPK): {mpkItemHex}");
+                        details.Add($"Actual  (JSON): {itemHex}");
+                    }
 
                     // Find exactly where the mismatch starts
                     int mismatchPos = 0;
@@ -435,9 +439,12 @@ namespace NikkeMpkConverter.converter
                         int contextStart = Math.Max(0, mismatchPos - 15);
                         int contextLength = Math.Min(30, Math.Min(itemHex.Length, mpkItemHex.Length) - contextStart);
 
-                        details.Add($"MPK context: ...{mpkItemHex.Substring(contextStart, contextLength)}...");
-                        details.Add($"JSON context: ...{itemHex.Substring(contextStart, contextLength)}...");
-                        details.Add("This likely indicates a string field that should be an enum instead");
+                        if (stopOnFirstMismatch)
+                        {
+                            details.Add($"MPK context: ...{mpkItemHex.Substring(contextStart, contextLength)}...");
+                            details.Add($"JSON context: ...{itemHex.Substring(contextStart, contextLength)}...");
+                            details.Add("This likely indicates a string field that should be an enum instead");
+                        }
                     }
                     else
                     {
@@ -456,8 +463,11 @@ namespace NikkeMpkConverter.converter
 
                         if (logItemDetails != null && mpkItem != null)
                         {
-                            details.Add($"Json details: {JsonSerializer.Serialize(items[i], new JsonSerializerOptions { WriteIndented = true })}");
-                            details.Add($"MPK  details: {JsonSerializer.Serialize(mpkItem, new JsonSerializerOptions { WriteIndented = true })}");
+                            if (stopOnFirstMismatch)
+                            {
+                                details.Add($"Json details: {JsonSerializer.Serialize(items[i], new JsonSerializerOptions { WriteIndented = true })}");
+                                details.Add($"MPK  details: {JsonSerializer.Serialize(mpkItem, new JsonSerializerOptions { WriteIndented = true })}");
+                            }
                             logItemDetails(details, items[i], mpkItem);
                         }
 
@@ -489,17 +499,40 @@ namespace NikkeMpkConverter.converter
                 Console.WriteLine($"Verification failed. Found {mismatchIndexes.Count} mismatches.");
 
                 // Print details of the first few mismatches
-                int detailLimit = Math.Min(3, mismatchIndexes.Count);
-                for (int i = 0; i < detailLimit; i++)
+                if (stopOnFirstMismatch)
                 {
-                    int index = mismatchIndexes[i];
-                    Console.WriteLine($"--- Mismatch {i + 1} of {mismatchIndexes.Count} (record index {index}) ---");
-                    foreach (string detail in mismatchDetails[index])
+                    int detailLimit = Math.Min(20, mismatchIndexes.Count);
+                    for (int i = 0; i < detailLimit; i++)
+                    {
+                        int index = mismatchIndexes[i];
+                        Console.WriteLine($"--- Mismatch {i + 1} of {mismatchIndexes.Count} (record index {index}) ---");
+                        foreach (string detail in mismatchDetails[index])
+                        {
+                            Console.WriteLine(detail);
+                        }
+                    }
+                }
+                else
+                {
+                    HashSet<string> uniqueDetails = new HashSet<string>();
+                    foreach (var details in mismatchDetails)
+                    {
+                        foreach (var detail in details.Value)
+                        {
+                            if (detail.StartsWith("  "))
+                            {
+                                uniqueDetails.Add(detail);
+                            }
+                        }
+                    }
+                    foreach (var detail in uniqueDetails)
                     {
                         Console.WriteLine(detail);
                     }
                 }
+                
             }
+                
 
             return (overallSuccess, mismatchIndexes, mismatchDetails);
         }

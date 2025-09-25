@@ -102,7 +102,8 @@ namespace NikkeMpkConverter
                                 details.Add($"  DurationType Mismatch: Json ({jsonItem.DurationType}) vs MPK ({(int)mpkItem.DurationType})");
                             }
                         }
-                    }
+                    },
+                    stopOnFirstMismatch: false
                 );
                 
                 Console.WriteLine("Conversion completed successfully!");

@@ -47,38 +47,38 @@ namespace NikkeMpkConverter.model
     {
         None = 0,
 
-        Random,
-        HaveDebuff,
-        NotStun,
+        Random = 31,
+        HaveDebuff = 51,
+        NotStun = 32,
         Front = 7,
         Back = 8,
-        LongInitChargeTime,
+        LongInitChargeTime = 54,
 
         HighAttack = 17,
-        HighAttackFirstSelf = 13,
+        HighAttackFirstSelf = 37,
         HighAttackLastSelf = 23,
         HighDefence = 15,
-        HighMaxHP,
+        HighMaxHP = 13,
         HighHP = 12,
-        LowDefence = 99,
+        LowDefence = 14,
         LowHP = 11,
-        LowHPCover = 100,
-        LowHPLastSelf,
-        LowHPRatio,
-        NearAim,
+        LowHPCover = 47,
+        LowHPLastSelf = 18,
+        LowHPRatio = 48,
+        NearAim = 53,
 
-        Attacker,
-        Defender,
-        Supporter,
+        Attacker = 1,
+        Defender = 2,
+        Supporter = 3,
 
-        Fire = 200,
-        Water,
-        Electronic,
-        Iron,
-        Wind,
+        Fire = 41,
+        Water = 42,
+        Electronic = 44,
+        Iron = 43,
+        Wind = 45,
         TargetAR = 25,
         TargetGL = 28,
-        TargetPS,
+        TargetPS = 29,
         Unknown = -1
     }
 
@@ -86,13 +86,13 @@ namespace NikkeMpkConverter.model
     {
         Unknown = -1,
         None = 0,
+        ExcludeSelf = 1,
+        DestroyCover = 2,
         IncludeNoneTargetLast = 3,
         IncludeNoneTargetNone = 4,
-        ExcludeSelf,
-        DestroyCover,
-        OnlyAR,
-        OnlySG,
-        OnlyRL
+        OnlySG = 5,
+        OnlyAR = 6,
+        OnlyRL = 10
     }
     
     public enum ShotTiming
