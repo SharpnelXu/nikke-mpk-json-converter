@@ -65,45 +65,10 @@ namespace NikkeMpkConverter
                 // Convert the file (auto-detects format based on extension)
                 // await SerializationAsync(inputPath, outputPath!, inputExtension, outputExtension);
                 
-                await MpkConverter.ConvertTableAsync<SkillData>(
-                    inputPath + "CharacterSkillTable" + inputExtension,
-                    outputPath + "CharacterSkillTable" + outputExtension,
-                    (details, jsonItem, mpkItem) =>
-                    {
-                        if (jsonItem.Id != mpkItem.Id)
-                        {
-                            details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
-                        }
-                        else
-                        {
-                            details.Add($"ID: {jsonItem.Id}");
-                            if (jsonItem.AttackType != mpkItem.AttackType)
-                            {
-                                details.Add($"  AttackType Mismatch: Json ({jsonItem.AttackType}) vs MPK ({(int)mpkItem.AttackType})");
-                            }
-                            if (jsonItem.CounterType != mpkItem.CounterType)
-                            {
-                                details.Add($"  CounterType Mismatch: Json ({jsonItem.CounterType}) vs MPK ({(int)mpkItem.CounterType})");
-                            }
-                            if (jsonItem.PreferTarget != mpkItem.PreferTarget)
-                            {
-                                details.Add($"  PreferTarget Mismatch: Json ({jsonItem.PreferTarget}) vs MPK ({(int)mpkItem.PreferTarget})");
-                            }
-                            if (jsonItem.PreferTargetCondition != mpkItem.PreferTargetCondition)
-                            {
-                                details.Add($"  PreferTargetCondition Mismatch: Json ({jsonItem.PreferTargetCondition}) vs MPK ({(int)mpkItem.PreferTargetCondition})");
-                            }
-                            if (jsonItem.SkillType != mpkItem.SkillType)
-                            {
-                                details.Add($"  SkillType Mismatch: Json ({jsonItem.SkillType}) vs MPK ({(int)mpkItem.SkillType})");
-                            }
-                            if (jsonItem.DurationType != mpkItem.DurationType)
-                            {
-                                details.Add($"  DurationType Mismatch: Json ({jsonItem.DurationType}) vs MPK ({(int)mpkItem.DurationType})");
-                            }
-                        }
-                    },
-                    stopOnFirstMismatch: false
+                await MpkConverter.ConvertTableAsync<CharacterStat>(
+                    inputPath + "CharacterStatTable" + inputExtension,
+                    outputPath + "CharacterStatTable" + outputExtension,
+                    stopOnFirstMismatch: true
                 );
                 
                 Console.WriteLine("Conversion completed successfully!");
@@ -208,7 +173,10 @@ namespace NikkeMpkConverter
                 }
             );
             
-                
+            await MpkConverter.ConvertTableAsync<CharacterStat>(
+                inputPath + "CharacterStatTable" + inputExtension,
+                outputPath + "CharacterStatTable" + outputExtension
+            );
         }
     }
 }
