@@ -232,7 +232,12 @@ namespace NikkeMpkConverter.converter
             }
         }
 
-        public static async Task ConvertTableAsync<TItem>(string inputPath, string? outputPath = null, Action<List<string>, TItem, TItem>? logItemDetails = null, bool stopOnFirstMismatch = true)
+        public static async Task ConvertTableAsync<TItem>(
+            string inputPath,
+            string? outputPath = null,
+            Action<List<string>, TItem, TItem>? logItemDetails = null,
+            Func<TItem, TItem?, bool>? shouldSkipFailure = null, 
+            bool stopOnFirstMismatch = true)
         {
             // Determine the input and output formats based on file extension
             string extension = Path.GetExtension(inputPath).ToLowerInvariant();
@@ -260,6 +265,7 @@ namespace NikkeMpkConverter.converter
                     inputPath,
                     (container) => container.Records,
                     logItemDetails,
+                    shouldSkipFailure,
                     stopOnFirstMismatch
                 );
             }
@@ -284,6 +290,7 @@ namespace NikkeMpkConverter.converter
             string jsonPath,
             Func<JsonTableContainer<TItem>, TItem[]>? getItems = null,
             Action<List<string>, TItem, TItem>? logItemDetails = null,
+            Func<TItem, TItem?, bool>? shouldSkipFailure = null, 
             bool stopOnFirstMismatch = true)
         {
             Console.WriteLine($"Verifying JSON to MPK conversion compatibility...");
@@ -362,94 +369,55 @@ namespace NikkeMpkConverter.converter
             Dictionary<int, List<string>> mismatchDetails = new Dictionary<int, List<string>>();
 
             // Track our position in the MPK hex string
-            int currentMpkPosition = 0;
-
-            // Process each item individually to compare with MPK content
-            for (int i = 0; i < items.Length; i++)
+            if (stopOnFirstMismatch)
             {
-                if (i > 0 && i % 100 == 0)
+                // Sequential item matching
+                int currentMpkPosition = 0;
+                // Process each item individually to compare with MPK content
+                for (int i = 0; i < items.Length; i++)
                 {
-                    Console.WriteLine($"Processed {i} of {items.Length} records...");
-                }
-
-                // Serialize the current item with MemoryPack
-                byte[] itemBytes;
-                try
-                {
-                    itemBytes = MemoryPackSerializer.Serialize(items[i]);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error serializing item {i}: {ex.Message}");
-                    overallSuccess = false;
-                    mismatchIndexes.Add(i);
-                    mismatchDetails[i] = new List<string> { $"Serialization error: {ex.Message}" };
-
-                    if (stopOnFirstMismatch)
+                    if (i > 0 && i % 100 == 0)
                     {
-                        break;
-                    }
-                    continue;
-                }
-
-                // Convert item bytes to hex for comparison
-                string itemHex = BitConverter.ToString(itemBytes).Replace("-", " ");
-
-                // Check if we have enough MPK data left to compare
-                if (currentMpkPosition + itemBytes.Length * 3 - 1> mpkHex.Length)
-                {
-                    Console.WriteLine($"Warning: MPK data is shorter than expected at item {i}");
-                    overallSuccess = false;
-                    mismatchIndexes.Add(i);
-                    mismatchDetails[i] = new List<string> { "MPK data is shorter than expected" };
-                    break;
-                }
-
-                // Extract the corresponding portion from the MPK hex string
-                string mpkItemHex = mpkHex.Substring(currentMpkPosition, itemBytes.Length * 3 - 1);
-
-                // Compare the two hex strings
-                if (itemHex != mpkItemHex)
-                {
-                    overallSuccess = false;
-                    mismatchIndexes.Add(i);
-
-                    // Generate detailed mismatch information
-                    var details = new List<string>();
-                    details.Add($"Mismatch at record {i}");
-                    if (stopOnFirstMismatch)
-                    {
-                        details.Add($"Expected (MPK): {mpkItemHex}");
-                        details.Add($"Actual  (JSON): {itemHex}");
+                        Console.WriteLine($"Processed {i} of {items.Length} records...");
                     }
 
-                    // Find exactly where the mismatch starts
-                    int mismatchPos = 0;
-                    while (mismatchPos < Math.Min(itemHex.Length, mpkItemHex.Length) &&
-                           itemHex[mismatchPos] == mpkItemHex[mismatchPos])
+                    // Serialize the current item with MemoryPack
+                    byte[] itemBytes;
+                    try
                     {
-                        mismatchPos++;
+                        itemBytes = MemoryPackSerializer.Serialize(items[i]);
                     }
-
-                    if (mismatchPos < Math.Min(itemHex.Length, mpkItemHex.Length))
+                    catch (Exception ex)
                     {
-                        details.Add($"First difference at position {mismatchPos}");
-
-                        // Show context around the mismatch
-                        int contextStart = Math.Max(0, mismatchPos - 15);
-                        int contextLength = Math.Min(30, Math.Min(itemHex.Length, mpkItemHex.Length) - contextStart);
+                        Console.WriteLine($"Error serializing item {i}: {ex.Message}");
+                        overallSuccess = false;
+                        mismatchIndexes.Add(i);
+                        mismatchDetails[i] = new List<string> { $"Serialization error: {ex.Message}" };
 
                         if (stopOnFirstMismatch)
                         {
-                            details.Add($"MPK context: ...{mpkItemHex.Substring(contextStart, contextLength)}...");
-                            details.Add($"JSON context: ...{itemHex.Substring(contextStart, contextLength)}...");
-                            details.Add("This likely indicates a string field that should be an enum instead");
+                            break;
                         }
+                        continue;
                     }
-                    else
+
+                    // Convert item bytes to hex for comparison
+                    string itemHex = BitConverter.ToString(itemBytes).Replace("-", " ");
+
+                    // Check if we have enough MPK data left to compare
+                    if (currentMpkPosition + itemBytes.Length * 3 - 1 > mpkHex.Length)
                     {
-                        details.Add($"Difference in length: MPK={mpkItemHex.Length}, JSON={itemHex.Length}");
+                        Console.WriteLine($"Warning: MPK data is shorter than expected at item {i}");
+                        overallSuccess = false;
+                        mismatchIndexes.Add(i);
+                        mismatchDetails[i] = new List<string> { "MPK data is shorter than expected" };
+                        break;
                     }
+
+                    // Extract the corresponding portion from the MPK hex string
+                    string mpkItemHex = mpkHex.Substring(currentMpkPosition, itemBytes.Length * 3 - 1);
+                    var details = new List<string>();
+                    TItem? mpkItem = default;
 
                     try
                     {
@@ -459,7 +427,55 @@ namespace NikkeMpkConverter.converter
                             string byteHex = mpkItemHex.Substring(b * 3, 2);
                             mpkItemBytes[b] = Convert.ToByte(byteHex, 16);
                         }
-                        TItem? mpkItem = MemoryPackSerializer.Deserialize<TItem>(mpkItemBytes);
+                        mpkItem = MemoryPackSerializer.Deserialize<TItem>(mpkItemBytes);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        details.Add($"Error deserializing MPK item for details: {ex.Message}");
+                    }
+
+                    // Compare the two hex strings
+                    if (itemHex != mpkItemHex && (shouldSkipFailure == null || !shouldSkipFailure(items[i], mpkItem)))
+                    {
+                        overallSuccess = false;
+                        mismatchIndexes.Add(i);
+
+                        // Generate detailed mismatch information
+                        details.Add($"Mismatch at record {i}");
+                        if (stopOnFirstMismatch)
+                        {
+                            details.Add($"Expected (MPK): {mpkItemHex}");
+                            details.Add($"Actual  (JSON): {itemHex}");
+                        }
+
+                        // Find exactly where the mismatch starts
+                        int mismatchPos = 0;
+                        while (mismatchPos < Math.Min(itemHex.Length, mpkItemHex.Length) &&
+                            itemHex[mismatchPos] == mpkItemHex[mismatchPos])
+                        {
+                            mismatchPos++;
+                        }
+
+                        if (mismatchPos < Math.Min(itemHex.Length, mpkItemHex.Length))
+                        {
+                            details.Add($"First difference at position {mismatchPos}");
+
+                            // Show context around the mismatch
+                            int contextStart = Math.Max(0, mismatchPos - 15);
+                            int contextLength = Math.Min(30, Math.Min(itemHex.Length, mpkItemHex.Length) - contextStart);
+
+                            if (stopOnFirstMismatch)
+                            {
+                                details.Add($"MPK context: ...{mpkItemHex.Substring(contextStart, contextLength)}...");
+                                details.Add($"JSON context: ...{itemHex.Substring(contextStart, contextLength)}...");
+                                details.Add("This likely indicates a string field that should be an enum instead");
+                            }
+                        }
+                        else
+                        {
+                            details.Add($"Difference in length: MPK={mpkItemHex.Length}, JSON={itemHex.Length}");
+                        }
 
                         if (logItemDetails != null && mpkItem != null)
                         {
@@ -470,24 +486,137 @@ namespace NikkeMpkConverter.converter
                             }
                             logItemDetails(details, items[i], mpkItem);
                         }
+                        mismatchDetails[i] = details;
 
+                        if (stopOnFirstMismatch)
+                        {
+                            Console.WriteLine("Found mismatch. Stopping verification as requested.");
+                            break;
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        details.Add($"Error deserializing MPK item for details: {ex.Message}");
-                    }
-                    mismatchDetails[i] = details;
 
-                    if (stopOnFirstMismatch)
+                    // Move to the next position in the MPK hex string
+                    currentMpkPosition += itemBytes.Length * 3;
+                }
+            }
+            else
+            {
+                // try deserializing all items at once and comparing
+                var mpkItems = MemoryPackSerializer.Deserialize<TItem[]>(mpkBytes);
+                Dictionary<int, TItem> mpkItemMap = new Dictionary<int, TItem>();
+                if (mpkItems != null)
+                {
+                    for (int i = 0; i < mpkItems.Length; i++)
                     {
-                        Console.WriteLine("Found mismatch. Stopping verification as requested.");
-                        break;
+                        var idProperty = typeof(TItem).GetProperty("Id");
+                        if (idProperty != null)
+                        {
+                            int idValue = (int)idProperty.GetValue(mpkItems[i])!;
+                            mpkItemMap[idValue] = mpkItems[i];
+                        }
                     }
                 }
 
-                // Move to the next position in the MPK hex string
-                currentMpkPosition += itemBytes.Length * 3;
+                for (int i = 0; i < items.Length; i++)
+                {
+                    if (i > 0 && i % 100 == 0)
+                    {
+                        Console.WriteLine($"Processed {i} of {items.Length} records...");
+                    }
+
+                    // Serialize the current item with MemoryPack
+                    byte[] itemBytes;
+                    try
+                    {
+                        itemBytes = MemoryPackSerializer.Serialize(items[i]);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error serializing item {i}: {ex.Message}");
+                        overallSuccess = false;
+                        mismatchIndexes.Add(i);
+                        mismatchDetails[i] = new List<string> { $"Serialization error: {ex.Message}" };
+
+                        if (stopOnFirstMismatch)
+                        {
+                            break;
+                        }
+                        continue;
+                    }
+
+                    // Convert item bytes to hex for comparison
+                    string itemHex = BitConverter.ToString(itemBytes).Replace("-", " ");
+
+                    // Extract the corresponding portion from the MPK hex string
+                    string mpkItemHex = mpkItemMap.TryGetValue(
+                        (int)typeof(TItem).GetProperty("Id")!.GetValue(items[i])!, 
+                        out var mpkItem) && mpkItem != null
+                        ? BitConverter.ToString(MemoryPackSerializer.Serialize(mpkItem)).Replace("-", " ")
+                        : "";
+                    var details = new List<string>();
+
+                    // Compare the two hex strings
+                    if (itemHex != mpkItemHex && (shouldSkipFailure == null || !shouldSkipFailure(items[i], mpkItem)))
+                    {
+                        overallSuccess = false;
+                        mismatchIndexes.Add(i);
+
+                        // Generate detailed mismatch information
+                        details.Add($"Mismatch at record {i}");
+                        if (stopOnFirstMismatch)
+                        {
+                            details.Add($"Expected (MPK): {mpkItemHex}");
+                            details.Add($"Actual  (JSON): {itemHex}");
+                        }
+
+                        // Find exactly where the mismatch starts
+                        int mismatchPos = 0;
+                        while (mismatchPos < Math.Min(itemHex.Length, mpkItemHex.Length) &&
+                            itemHex[mismatchPos] == mpkItemHex[mismatchPos])
+                        {
+                            mismatchPos++;
+                        }
+
+                        if (mismatchPos < Math.Min(itemHex.Length, mpkItemHex.Length))
+                        {
+                            details.Add($"First difference at position {mismatchPos}");
+
+                            // Show context around the mismatch
+                            int contextStart = Math.Max(0, mismatchPos - 15);
+                            int contextLength = Math.Min(30, Math.Min(itemHex.Length, mpkItemHex.Length) - contextStart);
+
+                            if (stopOnFirstMismatch)
+                            {
+                                details.Add($"MPK context: ...{mpkItemHex.Substring(contextStart, contextLength)}...");
+                                details.Add($"JSON context: ...{itemHex.Substring(contextStart, contextLength)}...");
+                                details.Add("This likely indicates a string field that should be an enum instead");
+                            }
+                        }
+                        else
+                        {
+                            details.Add($"Difference in length: MPK={mpkItemHex.Length}, JSON={itemHex.Length}");
+                        }
+
+                        if (logItemDetails != null && mpkItem != null)
+                        {
+                            if (stopOnFirstMismatch)
+                            {
+                                details.Add($"Json details: {JsonSerializer.Serialize(items[i], new JsonSerializerOptions { WriteIndented = true })}");
+                                details.Add($"MPK  details: {JsonSerializer.Serialize(mpkItem, new JsonSerializerOptions { WriteIndented = true })}");
+                            }
+                            logItemDetails(details, items[i], mpkItem);
+                        }
+                        mismatchDetails[i] = details;
+
+                        if (stopOnFirstMismatch)
+                        {
+                            Console.WriteLine("Found mismatch. Stopping verification as requested.");
+                            break;
+                        }
+                    }
+                }
             }
+
 
             // Report results
             if (overallSuccess)
