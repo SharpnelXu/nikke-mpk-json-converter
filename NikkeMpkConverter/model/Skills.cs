@@ -6,21 +6,21 @@ namespace NikkeMpkConverter.model
     public enum CharacterSkillType
     {
         None = 0,
-        SetBuff = 1,
-        InstantAll = 2,
-        InstantArea = 3,
+        SetBuff = 8,
+        InstantAll = 6,
+        InstantArea = 15,
         InstantCircle = 4,
         InstantCircleSeparate = 5,
-        InstantNumber = 6,
+        InstantNumber = 2,
         InstantSequentialAttack = 7,
-        InstallBarrier = 8,
+        InstallBarrier = 1,
         InstallDecoy = 9,
         ChangeWeapon = 10,
         LaunchWeapon = 11,
         LaserBeam = 12,
         ExplosiveCircuit = 13,
         Stigma = 14,
-        HitMonsterGetBuff = 15,
+        HitMonsterGetBuff = 20,
         InstantAllParts = 16,
         TargetHitCountGetBuff = 17,
         Unknown = -1
@@ -391,19 +391,6 @@ namespace NikkeMpkConverter.model
         Unknown = -1
     }
 
-    public enum Source
-    {
-        Skill1 = 0,
-        Skill2 = 1,
-        Burst = 2,
-        Equip = 3,
-        Cube = 4,
-        Doll = 5,
-        RaptureSkill = 6,
-        Bullet = 7,
-        RapturePassive = 8
-    }
-
     /// <summary>
     /// Represents skill value data containing type and value information
     /// </summary>
@@ -416,7 +403,8 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(0)]
         [JsonPropertyOrder(0)]
         [JsonPropertyName("skill_value_type")]
-        public string RawSkillValueType { get; set; } = string.Empty;
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public ValueType SkillValueType { get; set; } = ValueType.Unknown;
 
         /// <summary>
         /// Skill value numeric value
@@ -424,22 +412,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(1)]
         [JsonPropertyOrder(1)]
         [JsonPropertyName("skill_value")]
-        public int SkillValue { get; set; }
-
-        /// <summary>
-        /// Parsed skill value type enum
-        /// </summary>
-        [MemoryPackIgnore]
-        [JsonIgnore]
-        public ValueType SkillValueType => ParseValueType(RawSkillValueType);
-
-        private static ValueType ParseValueType(string? value) => value switch
-        {
-            "None" => ValueType.None,
-            "Integer" => ValueType.Integer,
-            "Percent" => ValueType.Percent,
-            _ => ValueType.Unknown
-        };
+        public long SkillValue { get; set; }
     }
 
     /// <summary>
@@ -459,7 +432,7 @@ namespace NikkeMpkConverter.model
         /// <summary>
         /// Skill cooldown time
         /// </summary>
-        [MemoryPackOrder(1)]
+        [MemoryPackOrder(5)]
         [JsonPropertyOrder(1)]
         [JsonPropertyName("skill_cooltime")]
         public int SkillCooltime { get; set; }
@@ -467,33 +440,37 @@ namespace NikkeMpkConverter.model
         /// <summary>
         /// Raw attack type string
         /// </summary>
-        [MemoryPackOrder(2)]
+        [MemoryPackOrder(1)]
         [JsonPropertyOrder(2)]
         [JsonPropertyName("attack_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public AttackType AttackType { get; set; } = AttackType.None;
 
         /// <summary>
         /// Counter type information
         /// </summary>
-        [MemoryPackOrder(3)]
+        [MemoryPackOrder(2)]
         [JsonPropertyOrder(3)]
         [JsonPropertyName("counter_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public CounterType CounterType { get; set; } = CounterType.None;
 
         /// <summary>
         /// Raw preferred target string
         /// </summary>
-        [MemoryPackOrder(4)]
+        [MemoryPackOrder(3)]
         [JsonPropertyOrder(4)]
         [JsonPropertyName("prefer_target")]
-        public PreferTarget RawPreferTarget { get; set; } = PreferTarget.None;
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public PreferTarget PreferTarget { get; set; } = PreferTarget.None;
 
         /// <summary>
         /// Raw preferred target condition string
         /// </summary>
-        [MemoryPackOrder(5)]
+        [MemoryPackOrder(4)]
         [JsonPropertyOrder(5)]
         [JsonPropertyName("prefer_target_condition")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public PreferTargetCondition PreferTargetCondition { get; set; } = PreferTargetCondition.None;
 
         /// <summary>
@@ -502,6 +479,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(6)]
         [JsonPropertyOrder(6)]
         [JsonPropertyName("skill_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public CharacterSkillType SkillType { get; set; } = CharacterSkillType.None;
 
         /// <summary>
@@ -518,6 +496,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(8)]
         [JsonPropertyOrder(8)]
         [JsonPropertyName("duration_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public DurationType DurationType { get; set; } = DurationType.None;
 
         /// <summary>
@@ -571,7 +550,7 @@ namespace NikkeMpkConverter.model
         /// <summary>
         /// Icon identifier
         /// </summary>
-        [MemoryPackOrder(15)]
+        [MemoryPackOrder(16)]
         [JsonPropertyOrder(15)]
         [JsonPropertyName("icon")]
         public string Icon { get; set; } = string.Empty;
@@ -579,7 +558,7 @@ namespace NikkeMpkConverter.model
         /// <summary>
         /// Shake effect identifier
         /// </summary>
-        [MemoryPackOrder(16)]
+        [MemoryPackOrder(15)]
         [JsonPropertyOrder(16)]
         [JsonPropertyName("shake_id")]
         public int ShakeId { get; set; }
@@ -691,7 +670,8 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(4)]
         [JsonPropertyOrder(4)]
         [JsonPropertyName("buff")]
-        public BuffType BuffType { get; set; } = BuffType.None;
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public BuffType BuffType { get; set; } = BuffType.Unknown;
 
         /// <summary>
         /// Raw buff remove type string
@@ -699,6 +679,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(5)]
         [JsonPropertyOrder(5)]
         [JsonPropertyName("buff_remove")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public BuffRemoveType BuffRemoveType { get; set; } = BuffRemoveType.None;
 
         /// <summary>
@@ -707,6 +688,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(6)]
         [JsonPropertyOrder(6)]
         [JsonPropertyName("function_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public FunctionType FunctionType { get; set; } = FunctionType.None;
 
         /// <summary>
@@ -715,6 +697,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(7)]
         [JsonPropertyOrder(7)]
         [JsonPropertyName("function_value_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public ValueType FunctionValueType { get; set; } = ValueType.None;
 
         /// <summary>
@@ -723,6 +706,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(8)]
         [JsonPropertyOrder(8)]
         [JsonPropertyName("function_standard")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public StandardType FunctionStandard { get; set; } = StandardType.None;
 
         /// <summary>
@@ -755,6 +739,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(12)]
         [JsonPropertyOrder(12)]
         [JsonPropertyName("delay_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public DurationType DelayType { get; set; } = DurationType.None;
 
         /// <summary>
@@ -771,6 +756,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(14)]
         [JsonPropertyOrder(14)]
         [JsonPropertyName("duration_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public DurationType DurationType { get; set; } = DurationType.None;
 
         /// <summary>
@@ -795,6 +781,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(17)]
         [JsonPropertyOrder(17)]
         [JsonPropertyName("function_target")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public FunctionTargetType FunctionTarget { get; set; } = FunctionTargetType.None;
 
         /// <summary>
@@ -803,6 +790,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(18)]
         [JsonPropertyOrder(18)]
         [JsonPropertyName("timing_trigger_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public TimingTriggerType TimingTriggerType { get; set; } = TimingTriggerType.None;
 
         /// <summary>
@@ -811,6 +799,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(19)]
         [JsonPropertyOrder(19)]
         [JsonPropertyName("timing_trigger_standard")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public StandardType TimingTriggerStandard { get; set; } = StandardType.None;
 
         /// <summary>
@@ -827,6 +816,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(21)]
         [JsonPropertyOrder(21)]
         [JsonPropertyName("status_trigger_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public StatusTriggerType StatusTriggerType { get; set; } = StatusTriggerType.None;
 
         /// <summary>
@@ -835,6 +825,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(22)]
         [JsonPropertyOrder(22)]
         [JsonPropertyName("status_trigger_standard")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public StandardType StatusTriggerStandard { get; set; } = StandardType.None;
 
         /// <summary>
@@ -843,6 +834,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(23)]
         [JsonPropertyOrder(23)]
         [JsonPropertyName("status_trigger_value")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public int StatusTriggerValue { get; set; }
 
         /// <summary>
@@ -851,6 +843,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(24)]
         [JsonPropertyOrder(24)]
         [JsonPropertyName("status_trigger2_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public StatusTriggerType StatusTrigger2Type { get; set; } = StatusTriggerType.None;
 
         /// <summary>
@@ -859,6 +852,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(25)]
         [JsonPropertyOrder(25)]
         [JsonPropertyName("status_trigger2_standard")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public StandardType StatusTrigger2Standard { get; set; } = StandardType.None;
 
         /// <summary>
@@ -875,6 +869,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(27)]
         [JsonPropertyOrder(27)]
         [JsonPropertyName("keeping_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public FunctionStatus KeepingType { get; set; } = FunctionStatus.Off;
 
         /// <summary>
@@ -1194,60 +1189,5 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(9)]
         [JsonPropertyName("description_value_list")]
         public SkillDescriptionValue[] DescriptionValues { get; set; } = [];
-    }
-
-    /// <summary>
-    /// Represents word group data
-    /// </summary>
-    [MemoryPackable]
-    public partial class WordGroupData
-    {
-        /// <summary>
-        /// Unique word group identifier
-        /// </summary>
-        [MemoryPackOrder(0)]
-        [JsonPropertyOrder(0)]
-        [JsonPropertyName("id")]
-        public int Id { get; set; }
-
-        /// <summary>
-        /// Group identifier
-        /// </summary>
-        [MemoryPackOrder(1)]
-        [JsonPropertyOrder(1)]
-        [JsonPropertyName("group")]
-        public string Group { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Page number
-        /// </summary>
-        [MemoryPackOrder(2)]
-        [JsonPropertyOrder(2)]
-        [JsonPropertyName("page_number")]
-        public int PageNumber { get; set; }
-
-        /// <summary>
-        /// Order within the page
-        /// </summary>
-        [MemoryPackOrder(3)]
-        [JsonPropertyOrder(3)]
-        [JsonPropertyName("order")]
-        public int Order { get; set; }
-
-        /// <summary>
-        /// Resource type
-        /// </summary>
-        [MemoryPackOrder(4)]
-        [JsonPropertyOrder(4)]
-        [JsonPropertyName("resource_type")]
-        public ResourceType ResourceType { get; set; } = ResourceType.Unknown;
-
-        /// <summary>
-        /// Resource value
-        /// </summary>
-        [MemoryPackOrder(5)]
-        [JsonPropertyOrder(5)]
-        [JsonPropertyName("resource_value")]
-        public string ResourceValue { get; set; } = string.Empty;
     }
 }

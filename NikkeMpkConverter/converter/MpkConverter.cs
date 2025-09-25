@@ -418,13 +418,6 @@ namespace NikkeMpkConverter.converter
                     details.Add($"Mismatch at record {i}");
                     details.Add($"Expected (MPK): {mpkItemHex}");
                     details.Add($"Actual  (JSON): {itemHex}");
-                    byte[] mpkItemBytes = new byte[itemBytes.Length];
-                    for (int b = 0; b < itemBytes.Length; b++)
-                    {
-                        string byteHex = mpkItemHex.Substring(b * 3, 2);
-                        mpkItemBytes[b] = Convert.ToByte(byteHex, 16);
-                    }
-                    TItem? mpkItem = MemoryPackSerializer.Deserialize<TItem>(mpkItemBytes);
 
                     // Find exactly where the mismatch starts
                     int mismatchPos = 0;
@@ -445,20 +438,35 @@ namespace NikkeMpkConverter.converter
                         details.Add($"MPK context: ...{mpkItemHex.Substring(contextStart, contextLength)}...");
                         details.Add($"JSON context: ...{itemHex.Substring(contextStart, contextLength)}...");
                         details.Add("This likely indicates a string field that should be an enum instead");
-                        details.Add($"Json details: {JsonSerializer.Serialize(items[i], new JsonSerializerOptions { WriteIndented = true })}");
-                        details.Add($"MPK  details: {JsonSerializer.Serialize(mpkItem, new JsonSerializerOptions { WriteIndented = true })}");
                     }
                     else
                     {
                         details.Add($"Difference in length: MPK={mpkItemHex.Length}, JSON={itemHex.Length}");
                     }
 
-                    mismatchDetails[i] = details;
-
-                    if (logItemDetails != null && mpkItem != null)
+                    try
                     {
-                        logItemDetails(details, items[i], mpkItem);
+                        byte[] mpkItemBytes = new byte[itemBytes.Length];
+                        for (int b = 0; b < itemBytes.Length; b++)
+                        {
+                            string byteHex = mpkItemHex.Substring(b * 3, 2);
+                            mpkItemBytes[b] = Convert.ToByte(byteHex, 16);
+                        }
+                        TItem? mpkItem = MemoryPackSerializer.Deserialize<TItem>(mpkItemBytes);
+
+                        if (logItemDetails != null && mpkItem != null)
+                        {
+                            details.Add($"Json details: {JsonSerializer.Serialize(items[i], new JsonSerializerOptions { WriteIndented = true })}");
+                            details.Add($"MPK  details: {JsonSerializer.Serialize(mpkItem, new JsonSerializerOptions { WriteIndented = true })}");
+                            logItemDetails(details, items[i], mpkItem);
+                        }
+
                     }
+                    catch (Exception ex)
+                    {
+                        details.Add($"Error deserializing MPK item for details: {ex.Message}");
+                    }
+                    mismatchDetails[i] = details;
 
                     if (stopOnFirstMismatch)
                     {

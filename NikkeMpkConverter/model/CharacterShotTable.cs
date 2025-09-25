@@ -25,7 +25,7 @@ namespace NikkeMpkConverter.model
         Water = 5,
         Wind = 6,
         Iron = 7,
-        Electric = 8,
+        Electronic = 8,
         Unknown = -1
     }
 
@@ -54,15 +54,15 @@ namespace NikkeMpkConverter.model
         Back = 8,
         LongInitChargeTime,
 
-        HighAttack,
-        HighAttackFirstSelf,
-        HighAttackLastSelf = 80,
-        HighDefence,
+        HighAttack = 17,
+        HighAttackFirstSelf = 13,
+        HighAttackLastSelf = 23,
+        HighDefence = 15,
         HighMaxHP,
         HighHP = 12,
         LowDefence = 99,
-        LowHP = 100,
-        LowHPCover,
+        LowHP = 11,
+        LowHPCover = 100,
         LowHPLastSelf,
         LowHPRatio,
         NearAim,
@@ -86,7 +86,7 @@ namespace NikkeMpkConverter.model
     {
         Unknown = -1,
         None = 0,
-        IncludeNoneTargetLast,
+        IncludeNoneTargetLast = 3,
         IncludeNoneTargetNone = 4,
         ExcludeSelf,
         DestroyCover,
