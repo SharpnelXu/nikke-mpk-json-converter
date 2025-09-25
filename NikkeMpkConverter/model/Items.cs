@@ -41,8 +41,8 @@ namespace NikkeMpkConverter.model
     public enum StatType
     {
         Atk = 1,
-        Defence = 2,
-        Hp = 3,
+        Defence = 3,
+        Hp = 2,
         None = 0
     }
 

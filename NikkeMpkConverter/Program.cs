@@ -281,6 +281,11 @@ namespace NikkeMpkConverter
                 inputPath + "CustomPackageShopTable" + inputExtension,
                 outputPath + "CustomPackageShopTable" + outputExtension
             );
+
+            await MpkConverter.ConvertTableAsync<FavoriteItemLevelData>(
+                inputPath + "FavoriteItemLevelTable" + inputExtension,
+                outputPath + "FavoriteItemLevelTable" + outputExtension
+            );
         }
     }
 }
