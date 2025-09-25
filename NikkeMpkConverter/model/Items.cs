@@ -76,6 +76,12 @@ namespace NikkeMpkConverter.model
         CharacterCostume = 2
     }
 
+    public enum BuyLimitType
+    {
+        None = 0,
+        Account = 1
+    }
+
     /// <summary>
     /// Equipment data from ItemEquipTable
     /// </summary>
@@ -892,7 +898,8 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(9)]
         [JsonPropertyOrder(9)]
         [JsonPropertyName("buy_limit_type")]
-        public string BuyLimitType { get; set; } = "Account";
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public BuyLimitType BuyLimitType { get; set; } = BuyLimitType.None;
 
         [MemoryPackOrder(10)]
         [JsonPropertyOrder(10)]

@@ -65,9 +65,9 @@ namespace NikkeMpkConverter
                 // Convert the file (auto-detects format based on extension)
                 // await SerializationAsync(inputPath, outputPath!, inputExtension, outputExtension);
                 
-                await MpkConverter.ConvertTableAsync<CustomPackageSlotData>(
-                    inputPath + "CustomPackageGroupTable" + inputExtension,
-                    outputPath + "CustomPackageGroupTable" + outputExtension,
+                await MpkConverter.ConvertTableAsync<FavoriteItemLevelData>(
+                    inputPath + "FavoriteItemLevelTable" + inputExtension,
+                    outputPath + "FavoriteItemLevelTable" + outputExtension,
                     (details, jsonItem, mpkItem) =>
                     {
                         if (jsonItem.Id != mpkItem.Id)
@@ -275,6 +275,11 @@ namespace NikkeMpkConverter
             await MpkConverter.ConvertTableAsync<CustomPackageSlotData>(
                 inputPath + "CustomPackageGroupTable" + inputExtension,
                 outputPath + "CustomPackageGroupTable" + outputExtension
+            );
+
+            await MpkConverter.ConvertTableAsync<CustomPackageShopData>(
+                inputPath + "CustomPackageShopTable" + inputExtension,
+                outputPath + "CustomPackageShopTable" + outputExtension
             );
         }
     }
