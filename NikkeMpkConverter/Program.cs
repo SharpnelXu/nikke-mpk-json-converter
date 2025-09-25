@@ -77,13 +77,129 @@ namespace NikkeMpkConverter
                         else
                         {
                             details.Add($"ID: {jsonItem.Id}");
-                            // if (jsonItem.OriginalRare != mpkItem.OriginalRare)
-                            // {
-                            //     details.Add($"  OriginalRare Mismatch: Json ({jsonItem.OriginalRare}) vs MPK ({(int) mpkItem.OriginalRare})");
-                            // }
+                            if (jsonItem.BuffType != mpkItem.BuffType)
+                            {
+                                details.Add($"  BuffType Mismatch: Json ({jsonItem.BuffType}) vs MPK ({(int) mpkItem.BuffType})");
+                            }
+                            if (jsonItem.BuffRemoveType != mpkItem.BuffRemoveType)
+                            {
+                                details.Add($"  BuffRemoveType Mismatch: Json ({jsonItem.BuffRemoveType}) vs MPK ({(int) mpkItem.BuffRemoveType})");
+                            }
+                            if (jsonItem.FunctionType != mpkItem.FunctionType)
+                            {
+                                details.Add($"  FunctionType Mismatch: Json ({jsonItem.FunctionType}) vs MPK ({(int) mpkItem.FunctionType})");
+                            }
+                            if (jsonItem.FunctionValueType != mpkItem.FunctionValueType)
+                            {
+                                details.Add($"  ValueType Mismatch: Json ({jsonItem.FunctionValueType}) vs MPK ({(int) mpkItem.FunctionValueType})");
+                            }
+                            if (jsonItem.FunctionStandard != mpkItem.FunctionStandard)
+                            {
+                                details.Add($"  StandardType Mismatch: Json ({jsonItem.FunctionStandard}) vs MPK ({(int) mpkItem.FunctionStandard})");
+                            }
+                            if (jsonItem.DelayType != mpkItem.DelayType)
+                            {
+                                details.Add($"  DurationType Mismatch: Json ({jsonItem.DelayType}) vs MPK ({(int) mpkItem.DelayType})");
+                            }
+                            if (jsonItem.DurationType != mpkItem.DurationType)
+                            {
+                                details.Add($"  DurationType Mismatch: Json ({jsonItem.DurationType}) vs MPK ({(int) mpkItem.DurationType})");
+                            }
+                            if (jsonItem.FunctionTarget != mpkItem.FunctionTarget)
+                            {
+                                details.Add($"  FunctionTargetType Mismatch: Json ({jsonItem.FunctionTarget}) vs MPK ({(int) mpkItem.FunctionTarget})");
+                            }
+                            if (jsonItem.TimingTriggerType != mpkItem.TimingTriggerType)
+                            {
+                                details.Add($"  TimingTriggerType Mismatch: Json ({jsonItem.TimingTriggerType}) vs MPK ({(int) mpkItem.TimingTriggerType})");
+                            }
+                            if (jsonItem.TimingTriggerStandard != mpkItem.TimingTriggerStandard)
+                            {
+                                details.Add($"  StandardType Mismatch: Json ({jsonItem.TimingTriggerStandard}) vs MPK ({(int) mpkItem.TimingTriggerStandard})");
+                            }
+                            if (jsonItem.StatusTriggerType != mpkItem.StatusTriggerType)
+                            {
+                                details.Add($"  StatusTriggerType Mismatch: Json ({jsonItem.StatusTriggerType}) vs MPK ({(int) mpkItem.StatusTriggerType})");
+                            }
+                            if (jsonItem.StatusTriggerStandard != mpkItem.StatusTriggerStandard)
+                            {
+                                details.Add($"  StandardType Mismatch: Json ({jsonItem.StatusTriggerStandard}) vs MPK ({(int) mpkItem.StatusTriggerStandard})");
+                            }
+                            if (jsonItem.StatusTrigger2Type != mpkItem.StatusTrigger2Type)
+                            {
+                                details.Add($"  StatusTriggerType Mismatch: Json ({jsonItem.StatusTrigger2Type}) vs MPK ({(int) mpkItem.StatusTrigger2Type})");
+                            }
+                            if (jsonItem.StatusTrigger2Standard != mpkItem.StatusTrigger2Standard)
+                            {
+                                details.Add($"  StandardType Mismatch: Json ({jsonItem.StatusTrigger2Standard}) vs MPK ({(int) mpkItem.StatusTrigger2Standard})");
+                            }
+                            if (jsonItem.KeepingType != mpkItem.KeepingType)
+                            {
+                                details.Add($"  FunctionStatus Mismatch: Json ({jsonItem.KeepingType}) vs MPK ({(int) mpkItem.KeepingType})");
+                            }
+                            if (jsonItem.ShotFxListType != mpkItem.ShotFxListType)
+                            {
+                                details.Add($"  ShotFxListType Mismatch: Json ({jsonItem.ShotFxListType}) vs MPK ({(int) mpkItem.ShotFxListType})");
+                            }
+                            if (jsonItem.FxTarget01 != mpkItem.FxTarget01)
+                            {
+                                details.Add($"  FxTarget Mismatch: Json ({jsonItem.FxTarget01}) vs MPK ({(int) mpkItem.FxTarget01})");
+                            }
+                            if (jsonItem.FxSocketPoint01 != mpkItem.FxSocketPoint01)
+                            {
+                                details.Add($"  SocketPoint Mismatch: Json ({jsonItem.FxSocketPoint01}) vs MPK ({(int) mpkItem.FxSocketPoint01})");
+                            }
+                            if (jsonItem.FxTarget02 != mpkItem.FxTarget02)
+                            {
+                                details.Add($"  FxTarget Mismatch: Json ({jsonItem.FxTarget02}) vs MPK ({(int) mpkItem.FxTarget02})");
+                            }
+                            if (jsonItem.FxSocketPoint02 != mpkItem.FxSocketPoint02)
+                            {
+                                details.Add($"  SocketPoint Mismatch: Json ({jsonItem.FxSocketPoint02}) vs MPK ({(int) mpkItem.FxSocketPoint02})");
+                            }
+                            if (jsonItem.FxTarget03 != mpkItem.FxTarget03)
+                            {
+                                details.Add($"  FxTarget Mismatch: Json ({jsonItem.FxTarget03}) vs MPK ({(int) mpkItem.FxTarget03})");
+                            }
+                            if (jsonItem.FxSocketPoint03 != mpkItem.FxSocketPoint03)
+                            {
+                                details.Add($"  SocketPoint Mismatch: Json ({jsonItem.FxSocketPoint03}) vs MPK ({(int) mpkItem.FxSocketPoint03})");
+                            }
+                            if (jsonItem.FxTargetFull != mpkItem.FxTargetFull)
+                            {
+                                details.Add($"  FxTarget Mismatch: Json ({jsonItem.FxTargetFull}) vs MPK ({(int) mpkItem.FxTargetFull})");
+                            }
+                            if (jsonItem.FxSocketPointFull != mpkItem.FxSocketPointFull)
+                            {
+                                details.Add($"  SocketPoint Mismatch: Json ({jsonItem.FxSocketPointFull}) vs MPK ({(int) mpkItem.FxSocketPointFull})");
+                            }
+                            if (jsonItem.FxTarget01Arena != mpkItem.FxTarget01Arena)
+                            {
+                                details.Add($"  FxTarget Mismatch: Json ({jsonItem.FxTarget01Arena}) vs MPK ({(int) mpkItem.FxTarget01Arena})");
+                            }
+                            if (jsonItem.FxSocketPoint01Arena != mpkItem.FxSocketPoint01Arena)
+                            {
+                                details.Add($"  SocketPoint Mismatch: Json ({jsonItem.FxSocketPoint01Arena}) vs MPK ({(int) mpkItem.FxSocketPoint01Arena})");
+                            }
+                            if (jsonItem.FxTarget02Arena != mpkItem.FxTarget02Arena)
+                            {
+                                details.Add($"  FxTarget Mismatch: Json ({jsonItem.FxTarget02Arena}) vs MPK ({(int) mpkItem.FxTarget02Arena})");
+                            }
+                            if (jsonItem.FxSocketPoint02Arena != mpkItem.FxSocketPoint02Arena)
+                            {
+                                details.Add($"  SocketPoint Mismatch: Json ({jsonItem.FxSocketPoint02Arena}) vs MPK ({(int) mpkItem.FxSocketPoint02Arena})");
+                            }
+                            if (jsonItem.FxTarget03Arena != mpkItem.FxTarget03Arena)
+                            {
+                                details.Add($"  FxTarget Mismatch: Json ({jsonItem.FxTarget03Arena}) vs MPK ({(int) mpkItem.FxTarget03Arena})");
+                            }
+                            if (jsonItem.FxSocketPoint03Arena != mpkItem.FxSocketPoint03Arena)
+                            {
+                                details.Add($"  SocketPoint Mismatch: Json ({jsonItem.FxSocketPoint03Arena}) vs MPK ({(int) mpkItem.FxSocketPoint03Arena})");
+                            }
                         }
                     },
-                    stopOnFirstMismatch: true
+                    stopOnFirstMismatch: false
                 );
                 
                 Console.WriteLine("Conversion completed successfully!");

@@ -28,16 +28,15 @@ namespace NikkeMpkConverter.model
 
     public enum DurationType
     {
-        None = 0,
         TimeSec = 1,
         Shots = 2,
         Battles = 3,
         Hits = 4,
-        TimeSecBattles = 5,
-        TimeSec_Ver2 = 6,
-        Hits_Ver2 = 7,
-        ReloadAllAmmoCount = 8,
-        Unknown = -1
+        TimeSecBattles = 6,
+        TimeSec_Ver2 = 10,
+        Hits_Ver2 = 9,
+        ReloadAllAmmoCount = 12,
+        None = 0
     }
 
     public enum ValueType
@@ -50,20 +49,21 @@ namespace NikkeMpkConverter.model
 
     public enum BuffType
     {
-        Etc = 0,
-        Buff = 1,
-        BuffEtc = 2,
-        DeBuff = 3,
+        None = -2,
+        Etc = 2,
+        Buff = 0,
+        BuffEtc = 3,
+        DeBuff = 1,
         DeBuffEtc = 4,
         Unknown = -1
     }
 
     public enum BuffRemoveType
     {
-        None = 0,
-        Etc = 1,
-        Clear = 2,
-        Resist = 3,
+        Resist = 0,
+        Clear = 1,
+        Etc = 2,
+        None = 3,
         Unknown = -1
     }
 
@@ -246,7 +246,7 @@ namespace NikkeMpkConverter.model
     public enum StandardType
     {
         Unknown = -1,
-        None = 0,
+        None = 1,
         User = 1,
         FunctionTarget = 2,
         TriggerTarget = 3
@@ -257,11 +257,11 @@ namespace NikkeMpkConverter.model
         Unknown = -1,
         None = 0,
         Self = 1,
-        Target = 2,
-        TargetCover = 3,
-        AllCharacter = 4,
-        AllMonster = 5,
-        UserCover = 6
+        AllCharacter = 2,
+        AllMonster = 3,
+        Target = 4,
+        UserCover = 5,
+        TargetCover = 6
     }
 
     public enum TimingTriggerType
@@ -384,8 +384,9 @@ namespace NikkeMpkConverter.model
 
     public enum FunctionStatus
     {
-        On = 1,
-        Off = 0,
+        None = 0,
+        On = 2,
+        Off = 3,
         Unknown = -1
     }
 
@@ -400,12 +401,12 @@ namespace NikkeMpkConverter.model
     public enum SocketPoint
     {
         None = 0,
-        Center = 1,
-        Bottom = 2,
+        Top = 1,
+        Center = 2,
         Head = 3,
-        Top = 4,
-        Cover = 5,
-        World = 6,
+        Cover = 4,
+        Bottom = 6,
+        World = 7,
         Core = 7
     }
 
@@ -736,7 +737,7 @@ namespace NikkeMpkConverter.model
         /// <summary>
         /// Raw function value type string
         /// </summary>
-        [MemoryPackOrder(9)]
+        [MemoryPackOrder(10)]
         [JsonPropertyOrder(9)]
         [JsonPropertyName("function_value_type")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
@@ -745,7 +746,7 @@ namespace NikkeMpkConverter.model
         /// <summary>
         /// Raw function standard string
         /// </summary>
-        [MemoryPackOrder(10)]
+        [MemoryPackOrder(9)]
         [JsonPropertyOrder(10)]
         [JsonPropertyName("function_standard")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
@@ -757,7 +758,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(11)]
         [JsonPropertyOrder(11)]
         [JsonPropertyName("function_value")]
-        public int FunctionValue { get; set; }
+        public long FunctionValue { get; set; }
 
         /// <summary>
         /// Full count value
@@ -876,7 +877,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(25)]
         [JsonPropertyOrder(25)]
         [JsonPropertyName("status_trigger_value")]
-        public int StatusTriggerValue { get; set; }
+        public long StatusTriggerValue { get; set; }
 
         /// <summary>
         /// Raw status trigger 2 type string
@@ -902,7 +903,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(28)]
         [JsonPropertyOrder(28)]
         [JsonPropertyName("status_trigger2_value")]
-        public int StatusTrigger2Value { get; set; }
+        public long StatusTrigger2Value { get; set; }
 
         /// <summary>
         /// Raw keeping type string
