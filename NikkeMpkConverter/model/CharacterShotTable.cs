@@ -3,15 +3,17 @@ using System.Text.Json.Serialization;
 
 namespace NikkeMpkConverter.model
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum WeaponType
     {
         None = 0,
         AR = 1,
-        SG = 5,
         RL = 2,
-        SMG = 9,
-        MG = 4,
         SR = 3,
+        MG = 4,
+        SG = 5,
+        GL = 6,
+        SMG = 9,
         UNKNOWN = -1
     }
 
@@ -99,6 +101,8 @@ namespace NikkeMpkConverter.model
     {
         Sequence = 2,
         Concurrence = 1,
+        ConcurrenceGroup = 3,
+        None = 0,
         Unknown = -1
     }
 
