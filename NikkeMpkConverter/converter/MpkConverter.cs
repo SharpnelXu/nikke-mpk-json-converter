@@ -590,7 +590,7 @@ namespace NikkeMpkConverter.converter
 
                             if (stopOnFirstMismatch)
                             {
-                                details.Add($"MPK context: ...{mpkItemHex.Substring(contextStart, contextLength)}...");
+                                details.Add($"MPK  context: ...{mpkItemHex.Substring(contextStart, contextLength)}...");
                                 details.Add($"JSON context: ...{itemHex.Substring(contextStart, contextLength)}...");
                                 details.Add("This likely indicates a string field that should be an enum instead");
                             }

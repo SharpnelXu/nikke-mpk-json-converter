@@ -1,6 +1,7 @@
 ﻿using NikkeMpkConverter.converter;
 using NikkeMpkConverter.serialization;
 using NikkeMpkConverter.model;
+using System.Text.Json;
 
 namespace NikkeMpkConverter
 {
@@ -63,59 +64,83 @@ namespace NikkeMpkConverter
                 Console.WriteLine($"Output file: {outputPath}");
 
                 // Convert the file (auto-detects format based on extension)
-                // await SerializationAsync(inputPath, outputPath!, inputExtension, outputExtension);
+                await SerializationAsync(inputPath, outputPath!, inputExtension, outputExtension);
 
-                await MpkConverter.ConvertTableAsync<MaterialItemData>(
-                    inputPath + "ItemMaterialTable" + inputExtension,
-                    outputPath + "ItemMaterialTable" + outputExtension,
-                    (details, jsonItem, mpkItem) =>
-                    {
-                        if (jsonItem.Id != mpkItem.Id)
-                        {
-                            details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
-                        }
-                        else
-                        {
-                            details.Add($"ID: {jsonItem.Id}");
-                            if (jsonItem.ItemType != mpkItem.ItemType)
-                            {
-                                details.Add($"  ItemType Mismatch: Json ({jsonItem.ItemType}) vs MPK ({(int)mpkItem.ItemType})");
-                            }
-                            if (jsonItem.ItemSubType != mpkItem.ItemSubType)
-                            {
-                                details.Add($"  ItemSubType Mismatch: Json ({jsonItem.ItemSubType}) vs MPK ({(int)mpkItem.ItemSubType})");
-                            }
-                            if (jsonItem.ItemRarity != mpkItem.ItemRarity)
-                            {
-                                details.Add($"  Rarity Mismatch: Json ({jsonItem.ItemRarity}) vs MPK ({(int)mpkItem.ItemRarity})");
-                            }
-                            if (jsonItem.MaterialType != mpkItem.MaterialType)
-                            {
-                                details.Add($"  MaterialType Mismatch: Json ({jsonItem.MaterialType}) vs MPK ({(int)mpkItem.MaterialType})");
-                            }
-                        }
-                    },
-                    checkMpkItemDetails: (details, mpkItem) =>
-                    {
-                        if (Enum.IsDefined(typeof(ItemType), (int)mpkItem.ItemType) == false)
-                        {
-                            details.Add($"  Unknown ItemType in MPK: {(int)mpkItem.ItemType}");
-                        }
-                        if (Enum.IsDefined(typeof(ItemSubType), (int)mpkItem.ItemSubType) == false)
-                        {
-                            details.Add($"  Unknown ItemSubType in MPK: {(int)mpkItem.ItemSubType}");
-                        }
-                        if (Enum.IsDefined(typeof(Rarity), (int)mpkItem.ItemRarity) == false)
-                        {
-                            details.Add($"  Unknown Rarity in MPK: {(int)mpkItem.ItemRarity}");
-                        }
-                        if (Enum.IsDefined(typeof(MaterialType), (int)mpkItem.MaterialType) == false)
-                        {
-                            details.Add($"  Unknown MaterialType in MPK: {(int)mpkItem.MaterialType}");
-                        }
-                    },
-                    stopOnFirstMismatch: false
-                );
+                // await MpkConverter.ConvertTableAsync<NikkeCharacterData>(
+                //     inputPath + "CharacterTable" + inputExtension,
+                //     outputPath + "CharacterTable" + outputExtension,
+                //     (details, jsonItem, mpkItem) =>
+                //     {
+                //         if (jsonItem.Id != mpkItem.Id)
+                //         {
+                //             details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                //         }
+                //         else
+                //         {
+                //             details.Add($"ID: {jsonItem.Id}");
+                //             if (jsonItem.OriginalRare != mpkItem.OriginalRare)
+                //             {
+                //                 details.Add($"  OriginalRare Mismatch: Json ({jsonItem.OriginalRare}) vs MPK ({(int)mpkItem.OriginalRare})");
+                //             }
+                //             if (jsonItem.CharacterClass != mpkItem.CharacterClass)
+                //             {
+                //                 details.Add($"  NikkeClass Mismatch: Json ({jsonItem.CharacterClass}) vs MPK ({(int)mpkItem.CharacterClass})");
+                //             }
+                //             if (jsonItem.UseBurstSkill != mpkItem.UseBurstSkill)
+                //             {
+                //                 details.Add($"  BurstStep Mismatch: Json ({jsonItem.UseBurstSkill}) vs MPK ({(int)mpkItem.UseBurstSkill})");
+                //             }
+                //             if (jsonItem.ChangeBurstStep != mpkItem.ChangeBurstStep)
+                //             {
+                //                 details.Add($"  BurstStep Mismatch: Json ({jsonItem.ChangeBurstStep}) vs MPK ({(int)mpkItem.ChangeBurstStep})");
+                //             }
+                //             if (jsonItem.Skill1Table != mpkItem.Skill1Table)
+                //             {
+                //                 details.Add($"  SkillType Mismatch: Json ({jsonItem.Skill1Table}) vs MPK ({(int)mpkItem.Skill1Table})");
+                //             }
+                //             if (jsonItem.Skill2Table != mpkItem.Skill2Table)
+                //             {
+                //                 details.Add($"  SkillType Mismatch: Json ({jsonItem.Skill2Table}) vs MPK ({(int)mpkItem.Skill2Table})");
+                //             }
+                //             if (jsonItem.EffCategoryType != mpkItem.EffCategoryType)
+                //             {
+                //                 details.Add($"  EffCategoryType Mismatch: Json ({jsonItem.EffCategoryType}) vs MPK ({(int)mpkItem.EffCategoryType})");
+                //             }
+                //             if (jsonItem.CategoryType1 != mpkItem.CategoryType1)
+                //             {
+                //                 details.Add($"  CategoryType Mismatch: Json ({jsonItem.CategoryType1}) vs MPK ({(int)mpkItem.CategoryType1})");
+                //             }
+                //             if (jsonItem.CategoryType2 != mpkItem.CategoryType2)
+                //             {
+                //                 details.Add($"  CategoryType Mismatch: Json ({jsonItem.CategoryType2}) vs MPK ({(int)mpkItem.CategoryType2})");
+                //             }
+                //             if (jsonItem.CategoryType3 != mpkItem.CategoryType3)
+                //             {
+                //                 details.Add($"  CategoryType Mismatch: Json ({jsonItem.CategoryType3}) vs MPK ({(int)mpkItem.CategoryType3})");
+                //             }
+                //             if (jsonItem.Corporation != mpkItem.Corporation)
+                //             {
+                //                 details.Add($"  Corporation Mismatch: Json ({jsonItem.Corporation}) vs MPK ({(int)mpkItem.Corporation})");
+                //             }
+                //             if (jsonItem.CorporationSubType != mpkItem.CorporationSubType)
+                //             {
+                //                 details.Add($"  CorporationSubType Mismatch: Json ({jsonItem.CorporationSubType}) vs MPK ({(int)mpkItem.CorporationSubType})");
+                //             }
+                //             if (jsonItem.Squad != mpkItem.Squad)
+                //             {
+                //                 details.Add($"  Squad Mismatch: Json ({jsonItem.Squad}) vs MPK ({(int)mpkItem.Squad})");
+                //             }
+                //         }
+                //     },
+                //     shouldSkipFailure: (jsonItem, mpkToJsonItem) =>
+                //     {
+                //         jsonItem.Order = mpkToJsonItem?.Order ?? jsonItem.Order;
+                //         jsonItem.SurfaceCategory = mpkToJsonItem?.SurfaceCategory ?? jsonItem.SurfaceCategory;
+                //         return mpkToJsonItem != null && JsonSerializer.Serialize(jsonItem).Equals(JsonSerializer.Serialize(mpkToJsonItem));
+                //     },
+                //     stopOnFirstMismatch: false
+                // );
+
                 
                 Console.WriteLine("Conversion completed successfully!");
             }
@@ -128,10 +153,26 @@ namespace NikkeMpkConverter
 
         static async Task SerializationAsync(string inputPath, string outputPath, string inputExtension, string outputExtension)
         {
-            await MpkConverter.ConvertTableAsync<Word>(inputPath + "WordTable" + inputExtension, outputPath + "WordTable" + outputExtension);
-            await MpkConverter.ConvertTableAsync<UnionRaidPreset>(inputPath + "UnionRaidPresetTable" + inputExtension, outputPath + "UnionRaidPresetTable" + outputExtension);
-            await MpkConverter.ConvertTableAsync<AttractiveLevelTable>(inputPath + "AttractiveLevelTable" + inputExtension, outputPath + "AttractiveLevelTable" + outputExtension);
-            await MpkConverter.ConvertTableAsync<CharacterStatEnhance>(inputPath + "CharacterStatEnhanceTable" + inputExtension, outputPath + "CharacterStatEnhanceTable" + outputExtension);
+            await MpkConverter.ConvertTableAsync<Word>(
+                inputPath + "WordTable" + inputExtension,
+                outputPath + "WordTable" + outputExtension,
+                stopOnFirstMismatch: false
+            );
+            await MpkConverter.ConvertTableAsync<UnionRaidPreset>(
+                inputPath + "UnionRaidPresetTable" + inputExtension,
+                 outputPath + "UnionRaidPresetTable" + outputExtension,
+                stopOnFirstMismatch: false
+                );
+            await MpkConverter.ConvertTableAsync<AttractiveLevelTable>(
+                inputPath + "AttractiveLevelTable" + inputExtension,
+                outputPath + "AttractiveLevelTable" + outputExtension,
+                stopOnFirstMismatch: false
+            );
+            await MpkConverter.ConvertTableAsync<CharacterStatEnhance>(
+                inputPath + "CharacterStatEnhanceTable" + inputExtension,
+                outputPath + "CharacterStatEnhanceTable" + outputExtension,
+                stopOnFirstMismatch: false
+            );
             await MpkConverter.ConvertTableAsync<CharacterShotTable>(
                 inputPath + "CharacterShotTable" + inputExtension,
                 outputPath + "CharacterShotTable" + outputExtension,
@@ -177,7 +218,8 @@ namespace NikkeMpkConverter
                             details.Add($"  ShakeType Mismatch: Json ({jsonItem.ShakeType}) vs MPK ({(int)mpkItem.ShakeType})");
                         }
                     }
-                }
+                },
+                stopOnFirstMismatch: false
             );
             await MpkConverter.ConvertTableAsync<SkillData>(
                 inputPath + "CharacterSkillTable" + inputExtension,
@@ -216,12 +258,14 @@ namespace NikkeMpkConverter
                             details.Add($"  DurationType Mismatch: Json ({jsonItem.DurationType}) vs MPK ({(int)mpkItem.DurationType})");
                         }
                     }
-                }
+                },
+                stopOnFirstMismatch: false
             );
 
             await MpkConverter.ConvertTableAsync<CharacterStat>(
                 inputPath + "CharacterStatTable" + inputExtension,
-                outputPath + "CharacterStatTable" + outputExtension
+                outputPath + "CharacterStatTable" + outputExtension,
+                stopOnFirstMismatch: false
             );
 
             await MpkConverter.ConvertTableAsync<NikkeCharacterData>(
@@ -289,37 +333,51 @@ namespace NikkeMpkConverter
                             details.Add($"  Squad Mismatch: Json ({jsonItem.Squad}) vs MPK ({(int)mpkItem.Squad})");
                         }
                     }
-                }
+                },
+            
+                shouldSkipFailure: (jsonItem, mpkToJsonItem) =>
+                {
+                    jsonItem.Order = mpkToJsonItem?.Order ?? jsonItem.Order;
+                    jsonItem.SurfaceCategory = mpkToJsonItem?.SurfaceCategory ?? jsonItem.SurfaceCategory;
+                    return mpkToJsonItem != null && JsonSerializer.Serialize(jsonItem).Equals(JsonSerializer.Serialize(mpkToJsonItem));
+                },
+                stopOnFirstMismatch: false
             );
 
             await MpkConverter.ConvertTableAsync<CoverStatEnhance>(
                 inputPath + "CoverStatEnhanceTable" + inputExtension,
-                outputPath + "CoverStatEnhanceTable" + outputExtension
+                outputPath + "CoverStatEnhanceTable" + outputExtension,
+                stopOnFirstMismatch: false
             );
 
             await MpkConverter.ConvertTableAsync<CurrencyData>(
                 inputPath + "CurrencyTable" + inputExtension,
-                outputPath + "CurrencyTable" + outputExtension
+                outputPath + "CurrencyTable" + outputExtension,
+                stopOnFirstMismatch: false
             );
 
             await MpkConverter.ConvertTableAsync<CustomPackageSlotData>(
                 inputPath + "CustomPackageGroupTable" + inputExtension,
-                outputPath + "CustomPackageGroupTable" + outputExtension
+                outputPath + "CustomPackageGroupTable" + outputExtension,
+                stopOnFirstMismatch: false
             );
 
             await MpkConverter.ConvertTableAsync<CustomPackageShopData>(
                 inputPath + "CustomPackageShopTable" + inputExtension,
-                outputPath + "CustomPackageShopTable" + outputExtension
+                outputPath + "CustomPackageShopTable" + outputExtension,
+                stopOnFirstMismatch: false
             );
 
             await MpkConverter.ConvertTableAsync<FavoriteItemLevelData>(
                 inputPath + "FavoriteItemLevelTable" + inputExtension,
-                outputPath + "FavoriteItemLevelTable" + outputExtension
+                outputPath + "FavoriteItemLevelTable" + outputExtension,
+                stopOnFirstMismatch: false
             );
 
             await MpkConverter.ConvertTableAsync<FavoriteItemData>(
                 inputPath + "FavoriteItemTable" + inputExtension,
-                outputPath + "FavoriteItemTable" + outputExtension
+                outputPath + "FavoriteItemTable" + outputExtension,
+                stopOnFirstMismatch: false
             );
 
             await MpkConverter.ConvertTableAsync<FunctionData>(
@@ -589,7 +647,8 @@ namespace NikkeMpkConverter
                         details.Add($"  Unknown FxSocketPoint in MPK: {(int)mpkItem.FxSocketPoint03Arena}");
                     }
 
-                }
+                },
+                stopOnFirstMismatch: false
             );
 
             await MpkConverter.ConvertTableAsync<InAppShopData>(
@@ -640,7 +699,8 @@ namespace NikkeMpkConverter
                     {
                         details.Add($"  Unknown ShopType in MPK: {(int)mpkItem.ShopType}");
                     }
-                }
+                },
+                stopOnFirstMismatch: false
             );
 
             await MpkConverter.ConvertTableAsync<ConsumeItemData>(
@@ -757,7 +817,8 @@ namespace NikkeMpkConverter
 
             await MpkConverter.ConvertTableAsync<HarmonyCubeLevelData>(
                 inputPath + "ItemHarmonyCubeLevelTable" + inputExtension,
-                outputPath + "ItemHarmonyCubeLevelTable" + outputExtension
+                outputPath + "ItemHarmonyCubeLevelTable" + outputExtension,
+                stopOnFirstMismatch: false
             );
 
             await MpkConverter.ConvertTableAsync<HarmonyCubeData>(
@@ -807,6 +868,131 @@ namespace NikkeMpkConverter
                     if (Enum.IsDefined(typeof(NikkeClass), (int)mpkItem.CharacterClass) == false)
                     {
                         details.Add($"  Unknown NikkeClass in MPK: {(int)mpkItem.CharacterClass}");
+                    }
+                },
+                stopOnFirstMismatch: false
+            );
+
+            await MpkConverter.ConvertTableAsync<MaterialItemData>(
+                inputPath + "ItemMaterialTable" + inputExtension,
+                outputPath + "ItemMaterialTable" + outputExtension,
+                (details, jsonItem, mpkItem) =>
+                {
+                    if (jsonItem.Id != mpkItem.Id)
+                    {
+                        details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                    }
+                    else
+                    {
+                        details.Add($"ID: {jsonItem.Id}");
+                        if (jsonItem.ItemType != mpkItem.ItemType)
+                        {
+                            details.Add($"  ItemType Mismatch: Json ({jsonItem.ItemType}) vs MPK ({(int)mpkItem.ItemType})");
+                        }
+                        if (jsonItem.ItemSubType != mpkItem.ItemSubType)
+                        {
+                            details.Add($"  ItemSubType Mismatch: Json ({jsonItem.ItemSubType}) vs MPK ({(int)mpkItem.ItemSubType})");
+                        }
+                        if (jsonItem.ItemRarity != mpkItem.ItemRarity)
+                        {
+                            details.Add($"  Rarity Mismatch: Json ({jsonItem.ItemRarity}) vs MPK ({(int)mpkItem.ItemRarity})");
+                        }
+                        if (jsonItem.MaterialType != mpkItem.MaterialType)
+                        {
+                            details.Add($"  MaterialType Mismatch: Json ({jsonItem.MaterialType}) vs MPK ({(int)mpkItem.MaterialType})");
+                        }
+                    }
+                },
+                checkMpkItemDetails: (details, mpkItem) =>
+                {
+                    if (Enum.IsDefined(typeof(ItemType), (int)mpkItem.ItemType) == false)
+                    {
+                        details.Add($"  Unknown ItemType in MPK: {(int)mpkItem.ItemType}");
+                    }
+                    if (Enum.IsDefined(typeof(ItemSubType), (int)mpkItem.ItemSubType) == false)
+                    {
+                        details.Add($"  Unknown ItemSubType in MPK: {(int)mpkItem.ItemSubType}");
+                    }
+                    if (Enum.IsDefined(typeof(Rarity), (int)mpkItem.ItemRarity) == false)
+                    {
+                        details.Add($"  Unknown Rarity in MPK: {(int)mpkItem.ItemRarity}");
+                    }
+                    if (Enum.IsDefined(typeof(MaterialType), (int)mpkItem.MaterialType) == false)
+                    {
+                        details.Add($"  Unknown MaterialType in MPK: {(int)mpkItem.MaterialType}");
+                    }
+                },
+                stopOnFirstMismatch: false
+            );
+            
+
+            await MpkConverter.ConvertTableAsync<PieceItemData>(
+                inputPath + "ItemPieceTable" + inputExtension,
+                outputPath + "ItemPieceTable" + outputExtension,
+                (details, jsonItem, mpkItem) =>
+                {
+                    if (jsonItem.Id != mpkItem.Id)
+                    {
+                        details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                    }
+                    else
+                    {
+                        details.Add($"ID: {jsonItem.Id}");
+                        if (jsonItem.ItemType != mpkItem.ItemType)
+                        {
+                            details.Add($"  ItemType Mismatch: Json ({jsonItem.ItemType}) vs MPK ({(int)mpkItem.ItemType})");
+                        }
+                        if (jsonItem.ItemSubType != mpkItem.ItemSubType)
+                        {
+                            details.Add($"  ItemSubType Mismatch: Json ({jsonItem.ItemSubType}) vs MPK ({(int)mpkItem.ItemSubType})");
+                        }
+                        if (jsonItem.ItemRarity != mpkItem.ItemRarity)
+                        {
+                            details.Add($"  Rarity Mismatch: Json ({jsonItem.ItemRarity}) vs MPK ({(int)mpkItem.ItemRarity})");
+                        }
+                        if (jsonItem.UseType != mpkItem.UseType)
+                        {
+                            details.Add($"  UseType Mismatch: Json ({jsonItem.UseType}) vs MPK ({(int)mpkItem.UseType})");
+                        }
+                        if (jsonItem.CharacterClass != mpkItem.CharacterClass)
+                        {
+                            details.Add($"  CharacterClass Mismatch: Json ({jsonItem.CharacterClass}) vs MPK ({(int)mpkItem.CharacterClass})");
+                        }
+                        if (jsonItem.Corporation != mpkItem.Corporation)
+                        {
+                            details.Add($"  Corporation Mismatch: Json ({jsonItem.Corporation}) vs MPK ({(int)mpkItem.Corporation})");
+                        }
+                        if (jsonItem.CorporationSubType != mpkItem.CorporationSubType)
+                        {
+                            details.Add($"  CorporationSubType Mismatch: Json ({jsonItem.CorporationSubType}) vs MPK ({(int)mpkItem.CorporationSubType})");
+                        }
+                    }
+                },
+                (jsonItem, mpkToJsonItem) =>
+                {
+                    return mpkToJsonItem != null && (
+                        (jsonItem.Id == 5310309) ||
+                        (jsonItem.Id == 5310308) ||
+                        (jsonItem.Id == 5310307)
+                    );
+                },
+                checkMpkItemDetails: (details, mpkItem) =>
+                {
+                    if (Enum.IsDefined(typeof(ItemType), (int)mpkItem.ItemType) == false)
+                    {
+                        details.Add($"  Unknown ItemType in MPK: {(int)mpkItem.ItemType}");
+                    }
+                    if (Enum.IsDefined(typeof(ItemSubType), (int)mpkItem.ItemSubType) == false)
+                    {
+                        details.Add($"  Unknown ItemSubType in MPK: {(int)mpkItem.ItemSubType}");
+                    }
+                    if (Enum.IsDefined(typeof(Rarity), (int)mpkItem.ItemRarity) == false)
+                    {
+                        details.Add($"  Unknown Rarity in MPK: {(int)mpkItem.ItemRarity}");
+                    }
+                    if (Enum.IsDefined(typeof(UseType), (int)mpkItem.UseType) == false)
+                    {
+                        details.Add($"  Unknown UseType in MPK: {(int)mpkItem.UseType}");
                     }
                 },
                 stopOnFirstMismatch: false

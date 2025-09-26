@@ -8,6 +8,7 @@ namespace NikkeMpkConverter.model
         Unknown = -1,
         Equip = 1,
         Material = 3,
+        Piece = 4,
         HarmonyCube = 5,
     }
 
@@ -49,6 +50,9 @@ namespace NikkeMpkConverter.model
         Box = 5,
         Equip_Material = 7,
         AttractiveMaterial = 11,
+        CharacterPiece = 12,
+        SummonPiece = 13,
+        MaterialPiece = 14,
         TimeReward = 15,
         OutpostBuild_Material = 16,
         RecycleRoom_Material = 17,
@@ -97,8 +101,10 @@ namespace NikkeMpkConverter.model
     public enum UseType
     {
         Unknown = -1,
-        CurrencyTimeReward = 7,
+        None = 0,
         SelectBox = 3,
+        SummonRandomCharacter = 6,
+        CurrencyTimeReward = 7,
         BundleBox = 8,
         ItemRandomBox = 9,
         SelectBoxRowCharacter = 11,
@@ -1263,6 +1269,100 @@ namespace NikkeMpkConverter.model
 
         [MemoryPackOrder(10)]
         [JsonPropertyOrder(10)]
+        [JsonPropertyName("stack_max")]
+        public int StackMax { get; set; }
+    }
+
+    /// <summary>
+    /// Piece item data from ItemPieceTable
+    /// </summary>
+    [MemoryPackable]
+    public partial class PieceItemData
+    {
+        [MemoryPackOrder(0)]
+        [JsonPropertyOrder(0)]
+        [JsonPropertyName("id")]
+        public int Id { get; set; }
+
+        [MemoryPackOrder(1)]
+        [JsonPropertyOrder(1)]
+        [JsonPropertyName("name_localkey")]
+        public string NameKey { get; set; } = string.Empty;
+
+        [MemoryPackOrder(2)]
+        [JsonPropertyOrder(2)]
+        [JsonPropertyName("description_localkey")]
+        public string DescriptionKey { get; set; } = string.Empty;
+
+        [MemoryPackOrder(3)]
+        [JsonPropertyOrder(3)]
+        [JsonPropertyName("resource_id")]
+        public int ResourceId { get; set; }
+
+        [MemoryPackOrder(4)]
+        [JsonPropertyOrder(4)]
+        [JsonPropertyName("item_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public ItemType ItemType { get; set; } = ItemType.Unknown;
+
+        [MemoryPackOrder(5)]
+        [JsonPropertyOrder(5)]
+        [JsonPropertyName("item_sub_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public ItemSubType ItemSubType { get; set; } = ItemSubType.Unknown;
+
+        [MemoryPackOrder(6)]
+        [JsonPropertyOrder(6)]
+        [JsonPropertyName("item_rare")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public Rarity ItemRarity { get; set; } = Rarity.Unknown;
+
+        [MemoryPackOrder(7)]
+        [JsonPropertyOrder(7)]
+        [JsonPropertyName("corporation")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public Corporation Corporation { get; set; } = Corporation.Unknown;
+
+        [MemoryPackOrder(8)]
+        [JsonPropertyOrder(8)]
+        [JsonPropertyName("corporation_sub_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public CorporationSubType CorporationSubType { get; set; } = CorporationSubType.NORMAL;
+
+        [MemoryPackOrder(9)]
+        [JsonPropertyOrder(9)]
+        [JsonPropertyName("class")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public NikkeClass CharacterClass { get; set; } = NikkeClass.Unknown;
+
+        [MemoryPackOrder(10)]
+        [JsonPropertyOrder(10)]
+        [JsonPropertyName("use_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public UseType UseType { get; set; } = UseType.Unknown;
+
+        [MemoryPackOrder(11)]
+        [JsonPropertyOrder(11)]
+        [JsonPropertyName("use_id")]
+        public int UseId { get; set; }
+
+        [MemoryPackOrder(12)]
+        [JsonPropertyOrder(12)]
+        [JsonPropertyName("use_value")]
+        public int UseValue { get; set; }
+
+        [MemoryPackOrder(13)]
+        [JsonPropertyOrder(13)]
+        [JsonPropertyName("use_limit_count")]
+        public bool UseLimitCount { get; set; }
+
+        [MemoryPackOrder(14)]
+        [JsonPropertyOrder(14)]
+        [JsonPropertyName("use_limit_count_value")]
+        public int UseLimitCountValue { get; set; }
+
+        [MemoryPackOrder(15)]
+        [JsonPropertyOrder(15)]
         [JsonPropertyName("stack_max")]
         public int StackMax { get; set; }
     }

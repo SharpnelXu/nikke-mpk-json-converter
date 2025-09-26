@@ -14,6 +14,7 @@ namespace NikkeMpkConverter.model
     public enum NikkeClass
     {
         Unknown = -1,
+        None = 0,
         Attacker = 1,
         Defender = 2,
         Supporter = 3,
@@ -103,7 +104,7 @@ namespace NikkeMpkConverter.model
         LifeTonic = 22,
         Pioneer = 23,
         Inherit = 24,
-        [JsonPropertyName("777")]
+        [JsonStringEnumMemberName("777")]
         _777 = 26,
         UnderworldQueen = 27,
         MMR = 28,
