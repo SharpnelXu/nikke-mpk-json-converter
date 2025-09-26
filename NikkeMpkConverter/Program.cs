@@ -65,9 +65,9 @@ namespace NikkeMpkConverter
                 // Convert the file (auto-detects format based on extension)
                 // await SerializationAsync(inputPath, outputPath!, inputExtension, outputExtension);
 
-                await MpkConverter.ConvertTableAsync<FunctionData>(
-                    inputPath + "FunctionTable" + inputExtension,
-                    outputPath + "FunctionTable" + outputExtension,
+                await MpkConverter.ConvertTableAsync<InAppShopData>(
+                    inputPath + "InAppShopManagerTable" + inputExtension,
+                    outputPath + "InAppShopManagerTable" + outputExtension,
                     (details, jsonItem, mpkItem) =>
                     {
                         if (jsonItem.Id != mpkItem.Id)
@@ -76,147 +76,43 @@ namespace NikkeMpkConverter
                         }
                         else
                         {
-                            details.Add($"ID: {jsonItem.Id}, GroupID: {jsonItem.GroupId}");
-                            // if (jsonItem.BuffType != mpkItem.BuffType)
-                            // {
-                            //     details.Add($"  BuffType Mismatch: Json ({jsonItem.BuffType}) vs MPK ({(int)mpkItem.BuffType})");
-                            // }
-                        
+                            details.Add($"ID: {jsonItem.Id}");
+                            if (jsonItem.MainCategoryType != mpkItem.MainCategoryType)
+                            {
+                                details.Add($"  MainCategoryType Mismatch: Json ({jsonItem.MainCategoryType}) vs MPK ({(int)mpkItem.MainCategoryType})");
+                            }
+                            if (jsonItem.RenewType != mpkItem.RenewType)
+                            {
+                                details.Add($"  RenewType Mismatch: Json ({jsonItem.RenewType}) vs MPK ({(int)mpkItem.RenewType})");
+                            }
+                            if (jsonItem.ShopType != mpkItem.ShopType)
+                            {
+                                details.Add($"  ShopType Mismatch: Json ({jsonItem.ShopType}) vs MPK ({(int)mpkItem.ShopType})");
+                            }
+                            if (jsonItem.ShopCategory != mpkItem.ShopCategory)
+                            {
+                                details.Add($"  ShopCategory Mismatch: Json ({jsonItem.ShopCategory}) vs MPK ({(int)mpkItem.ShopCategory})");
+                            }
                         }
-                    },
-                    (jsonItem, mpkToJsonItem) =>
-                    {
-                        return mpkToJsonItem != null && (
-                            (jsonItem.StatusTriggerType == StatusTriggerType.IsAlive && mpkToJsonItem.StatusTriggerType == StatusTriggerType.IsAliveV2) ||
-                            (jsonItem.StatusTrigger2Type == StatusTriggerType.IsAlive && mpkToJsonItem.StatusTrigger2Type == StatusTriggerType.IsAliveV2) ||
-                            (jsonItem.FunctionType == FunctionType.ImmuneStun && mpkToJsonItem.FunctionType == FunctionType.ImmuneStunD) ||
-                            (jsonItem.GroupId == 2142103) ||
-                            (jsonItem.TimingTriggerType == TimingTriggerType.OnDead && mpkToJsonItem.TimingTriggerType == TimingTriggerType.OnDeadV2)
-                        );
                     },
                     checkMpkItemDetails: (details, mpkItem) =>
                     {
-                        if (Enum.IsDefined(typeof(BuffType), (int)mpkItem.BuffType) == false)
+                        if (Enum.IsDefined(typeof(MainCategoryType), (int)mpkItem.MainCategoryType) == false)
                         {
-                            details.Add($"  Unknown BuffType in MPK: {(int) mpkItem.BuffType}");
+                            details.Add($"  Unknown MainCategoryType in MPK: {(int) mpkItem.MainCategoryType}");
                         }
-                        if (Enum.IsDefined(typeof(BuffRemoveType), (int)mpkItem.BuffRemoveType) == false)
+                        if (Enum.IsDefined(typeof(RenewType), (int)mpkItem.RenewType) == false)
                         {
-                            details.Add($"  Unknown BuffRemoveType in MPK: {(int) mpkItem.BuffRemoveType}");
+                            details.Add($"  Unknown RenewType in MPK: {(int) mpkItem.RenewType}");
                         }
-                        if (Enum.IsDefined(typeof(FunctionType), (int)mpkItem.FunctionType) == false)
+                        if (Enum.IsDefined(typeof(ShopCategory), (int)mpkItem.ShopCategory) == false)
                         {
-                            details.Add($"  Unknown FunctionType in MPK: {(int) mpkItem.FunctionType}");
+                            details.Add($"  Unknown ShopCategory in MPK: {(int) mpkItem.ShopCategory}");
                         }
-                        if (Enum.IsDefined(typeof(NikkeMpkConverter.model.ValueType), (int)mpkItem.FunctionValueType) == false)
+                        if (Enum.IsDefined(typeof(ShopType), (int)mpkItem.ShopType) == false)
                         {
-                            details.Add($"  Unknown FunctionValueType in MPK: {(int) mpkItem.FunctionValueType}");
+                            details.Add($"  Unknown ShopType in MPK: {(int) mpkItem.ShopType}");
                         }
-                        if (Enum.IsDefined(typeof(StandardType), (int)mpkItem.FunctionStandard) == false)
-                        {
-                            details.Add($"  Unknown StandardType in MPK: {(int) mpkItem.FunctionStandard}");
-                        }
-                        if (Enum.IsDefined(typeof(DurationType), (int)mpkItem.DelayType) == false)
-                        {
-                            details.Add($"  Unknown DurationType in MPK: {(int) mpkItem.DelayType}");
-                        }
-                        if (Enum.IsDefined(typeof(DurationType), (int)mpkItem.DurationType) == false)
-                        {
-                            details.Add($"  Unknown DurationType in MPK: {(int) mpkItem.DurationType}");
-                        }
-                        if (Enum.IsDefined(typeof(FunctionTargetType), (int)mpkItem.FunctionTarget) == false)
-                        {
-                            details.Add($"  Unknown FunctionTargetType in MPK: {(int) mpkItem.FunctionTarget}");
-                        }
-                        if (Enum.IsDefined(typeof(TimingTriggerType), (int)mpkItem.TimingTriggerType) == false)
-                        {
-                            details.Add($"  Unknown TimingTriggerType in MPK: {(int) mpkItem.TimingTriggerType}");
-                        }
-                        if (Enum.IsDefined(typeof(StandardType), (int)mpkItem.TimingTriggerStandard) == false)
-                        {
-                            details.Add($"  Unknown StandardType in MPK: {(int) mpkItem.TimingTriggerStandard}");
-                        }
-                        if (Enum.IsDefined(typeof(StatusTriggerType), (int)mpkItem.StatusTriggerType) == false)
-                        {
-                            details.Add($"  Unknown StatusTriggerType in MPK: {(int) mpkItem.StatusTriggerType}");
-                        }
-                        if (Enum.IsDefined(typeof(StandardType), (int)mpkItem.StatusTriggerStandard) == false)
-                        {
-                            details.Add($"  Unknown StandardType in MPK: {(int) mpkItem.StatusTriggerStandard}");
-                        }
-                        if (Enum.IsDefined(typeof(StatusTriggerType), (int)mpkItem.StatusTrigger2Type) == false)
-                        {
-                            details.Add($"  Unknown StatusTrigger2Type in MPK: {(int) mpkItem.StatusTrigger2Type}");
-                        }
-                        if (Enum.IsDefined(typeof(StandardType), (int)mpkItem.StatusTrigger2Standard) == false)
-                        {
-                            details.Add($"  Unknown StandardType in MPK: {(int) mpkItem.StatusTrigger2Standard}");
-                        }
-                        if (Enum.IsDefined(typeof(FunctionStatus), (int)mpkItem.KeepingType) == false)
-                        {
-                            details.Add($"  Unknown KeepingType in MPK: {(int) mpkItem.KeepingType}");
-                        }
-                        if (Enum.IsDefined(typeof(ShotFx), (int)mpkItem.ShotFxListType) == false)
-                        {
-                            details.Add($"  Unknown ShotFxListType in MPK: {(int) mpkItem.ShotFxListType}");
-                        }
-                        if (Enum.IsDefined(typeof(FxTarget), (int)mpkItem.FxTarget01) == false)
-                        {
-                            details.Add($"  Unknown FxTarget in MPK: {(int) mpkItem.FxTarget01}");
-                        }
-                        if (Enum.IsDefined(typeof(SocketPoint), (int)mpkItem.FxSocketPoint01) == false)
-                        {
-                            details.Add($"  Unknown FxSocketPoint in MPK: {(int) mpkItem.FxSocketPoint01}");
-                        }
-                        if (Enum.IsDefined(typeof(FxTarget), (int)mpkItem.FxTarget02) == false)
-                        {
-                            details.Add($"  Unknown FxTarget in MPK: {(int) mpkItem.FxTarget02}");
-                        }
-                        if (Enum.IsDefined(typeof(SocketPoint), (int)mpkItem.FxSocketPoint02) == false)
-                        {
-                            details.Add($"  Unknown FxSocketPoint in MPK: {(int) mpkItem.FxSocketPoint02}");
-                        }
-                        if (Enum.IsDefined(typeof(FxTarget), (int)mpkItem.FxTarget03) == false)
-                        {
-                            details.Add($"  Unknown FxTarget in MPK: {(int) mpkItem.FxTarget03}");
-                        }
-                        if (Enum.IsDefined(typeof(SocketPoint), (int)mpkItem.FxSocketPoint03) == false)
-                        {
-                            details.Add($"  Unknown FxSocketPoint in MPK: {(int) mpkItem.FxSocketPoint03}");
-                        }
-                        if (Enum.IsDefined(typeof(FxTarget), (int)mpkItem.FxTargetFull) == false)
-                        {
-                            details.Add($"  Unknown FxTarget in MPK: {(int) mpkItem.FxTargetFull}");
-                        }
-                        if (Enum.IsDefined(typeof(SocketPoint), (int)mpkItem.FxSocketPointFull) == false)
-                        {
-                            details.Add($"  Unknown FxSocketPoint in MPK: {(int) mpkItem.FxSocketPointFull}");
-                        }
-                        if (Enum.IsDefined(typeof(FxTarget), (int)mpkItem.FxTarget01Arena) == false)
-                        {
-                            details.Add($"  Unknown FxTarget in MPK: {(int) mpkItem.FxTarget01Arena}");
-                        }
-                        if (Enum.IsDefined(typeof(SocketPoint), (int)mpkItem.FxSocketPoint01Arena) == false)
-                        {
-                            details.Add($"  Unknown FxSocketPoint in MPK: {(int) mpkItem.FxSocketPoint01Arena}");
-                        }
-                        if (Enum.IsDefined(typeof(FxTarget), (int)mpkItem.FxTarget02Arena) == false)
-                        {
-                            details.Add($"  Unknown FxTarget in MPK: {(int) mpkItem.FxTarget02Arena}");
-                        }
-                        if (Enum.IsDefined(typeof(SocketPoint), (int)mpkItem.FxSocketPoint02Arena) == false)
-                        {
-                            details.Add($"  Unknown FxSocketPoint in MPK: {(int) mpkItem.FxSocketPoint02Arena}");
-                        }
-                        if (Enum.IsDefined(typeof(FxTarget), (int)mpkItem.FxTarget03Arena) == false)
-                        {
-                            details.Add($"  Unknown FxTarget in MPK: {(int) mpkItem.FxTarget03Arena}");
-                        }
-                        if (Enum.IsDefined(typeof(SocketPoint), (int)mpkItem.FxSocketPoint03Arena) == false)
-                        {
-                            details.Add($"  Unknown FxSocketPoint in MPK: {(int) mpkItem.FxSocketPoint03Arena}");
-                        }
-                    
                     },
                     stopOnFirstMismatch: false
                 );
@@ -425,7 +321,7 @@ namespace NikkeMpkConverter
                 inputPath + "FavoriteItemTable" + inputExtension,
                 outputPath + "FavoriteItemTable" + outputExtension
             );
-            
+
             await MpkConverter.ConvertTableAsync<FunctionData>(
                 inputPath + "FunctionTable" + inputExtension,
                 outputPath + "FunctionTable" + outputExtension,
@@ -574,125 +470,176 @@ namespace NikkeMpkConverter
                 {
                     if (Enum.IsDefined(typeof(BuffType), (int)mpkItem.BuffType) == false)
                     {
-                        details.Add($"  Unknown BuffType in MPK: {(int) mpkItem.BuffType}");
+                        details.Add($"  Unknown BuffType in MPK: {(int)mpkItem.BuffType}");
                     }
                     if (Enum.IsDefined(typeof(BuffRemoveType), (int)mpkItem.BuffRemoveType) == false)
                     {
-                        details.Add($"  Unknown BuffRemoveType in MPK: {(int) mpkItem.BuffRemoveType}");
+                        details.Add($"  Unknown BuffRemoveType in MPK: {(int)mpkItem.BuffRemoveType}");
                     }
                     if (Enum.IsDefined(typeof(FunctionType), (int)mpkItem.FunctionType) == false)
                     {
-                        details.Add($"  Unknown FunctionType in MPK: {(int) mpkItem.FunctionType}");
+                        details.Add($"  Unknown FunctionType in MPK: {(int)mpkItem.FunctionType}");
                     }
                     if (Enum.IsDefined(typeof(NikkeMpkConverter.model.ValueType), (int)mpkItem.FunctionValueType) == false)
                     {
-                        details.Add($"  Unknown FunctionValueType in MPK: {(int) mpkItem.FunctionValueType}");
+                        details.Add($"  Unknown FunctionValueType in MPK: {(int)mpkItem.FunctionValueType}");
                     }
                     if (Enum.IsDefined(typeof(StandardType), (int)mpkItem.FunctionStandard) == false)
                     {
-                        details.Add($"  Unknown StandardType in MPK: {(int) mpkItem.FunctionStandard}");
+                        details.Add($"  Unknown StandardType in MPK: {(int)mpkItem.FunctionStandard}");
                     }
                     if (Enum.IsDefined(typeof(DurationType), (int)mpkItem.DelayType) == false)
                     {
-                        details.Add($"  Unknown DurationType in MPK: {(int) mpkItem.DelayType}");
+                        details.Add($"  Unknown DurationType in MPK: {(int)mpkItem.DelayType}");
                     }
                     if (Enum.IsDefined(typeof(DurationType), (int)mpkItem.DurationType) == false)
                     {
-                        details.Add($"  Unknown DurationType in MPK: {(int) mpkItem.DurationType}");
+                        details.Add($"  Unknown DurationType in MPK: {(int)mpkItem.DurationType}");
                     }
                     if (Enum.IsDefined(typeof(FunctionTargetType), (int)mpkItem.FunctionTarget) == false)
                     {
-                        details.Add($"  Unknown FunctionTargetType in MPK: {(int) mpkItem.FunctionTarget}");
+                        details.Add($"  Unknown FunctionTargetType in MPK: {(int)mpkItem.FunctionTarget}");
                     }
                     if (Enum.IsDefined(typeof(TimingTriggerType), (int)mpkItem.TimingTriggerType) == false)
                     {
-                        details.Add($"  Unknown TimingTriggerType in MPK: {(int) mpkItem.TimingTriggerType}");
+                        details.Add($"  Unknown TimingTriggerType in MPK: {(int)mpkItem.TimingTriggerType}");
                     }
                     if (Enum.IsDefined(typeof(StandardType), (int)mpkItem.TimingTriggerStandard) == false)
                     {
-                        details.Add($"  Unknown StandardType in MPK: {(int) mpkItem.TimingTriggerStandard}");
+                        details.Add($"  Unknown StandardType in MPK: {(int)mpkItem.TimingTriggerStandard}");
                     }
                     if (Enum.IsDefined(typeof(StatusTriggerType), (int)mpkItem.StatusTriggerType) == false)
                     {
-                        details.Add($"  Unknown StatusTriggerType in MPK: {(int) mpkItem.StatusTriggerType}");
+                        details.Add($"  Unknown StatusTriggerType in MPK: {(int)mpkItem.StatusTriggerType}");
                     }
                     if (Enum.IsDefined(typeof(StandardType), (int)mpkItem.StatusTriggerStandard) == false)
                     {
-                        details.Add($"  Unknown StandardType in MPK: {(int) mpkItem.StatusTriggerStandard}");
+                        details.Add($"  Unknown StandardType in MPK: {(int)mpkItem.StatusTriggerStandard}");
                     }
                     if (Enum.IsDefined(typeof(StatusTriggerType), (int)mpkItem.StatusTrigger2Type) == false)
                     {
-                        details.Add($"  Unknown StatusTrigger2Type in MPK: {(int) mpkItem.StatusTrigger2Type}");
+                        details.Add($"  Unknown StatusTrigger2Type in MPK: {(int)mpkItem.StatusTrigger2Type}");
                     }
                     if (Enum.IsDefined(typeof(StandardType), (int)mpkItem.StatusTrigger2Standard) == false)
                     {
-                        details.Add($"  Unknown StandardType in MPK: {(int) mpkItem.StatusTrigger2Standard}");
+                        details.Add($"  Unknown StandardType in MPK: {(int)mpkItem.StatusTrigger2Standard}");
                     }
                     if (Enum.IsDefined(typeof(FunctionStatus), (int)mpkItem.KeepingType) == false)
                     {
-                        details.Add($"  Unknown KeepingType in MPK: {(int) mpkItem.KeepingType}");
+                        details.Add($"  Unknown KeepingType in MPK: {(int)mpkItem.KeepingType}");
                     }
                     if (Enum.IsDefined(typeof(ShotFx), (int)mpkItem.ShotFxListType) == false)
                     {
-                        details.Add($"  Unknown ShotFxListType in MPK: {(int) mpkItem.ShotFxListType}");
+                        details.Add($"  Unknown ShotFxListType in MPK: {(int)mpkItem.ShotFxListType}");
                     }
                     if (Enum.IsDefined(typeof(FxTarget), (int)mpkItem.FxTarget01) == false)
                     {
-                        details.Add($"  Unknown FxTarget in MPK: {(int) mpkItem.FxTarget01}");
+                        details.Add($"  Unknown FxTarget in MPK: {(int)mpkItem.FxTarget01}");
                     }
                     if (Enum.IsDefined(typeof(SocketPoint), (int)mpkItem.FxSocketPoint01) == false)
                     {
-                        details.Add($"  Unknown FxSocketPoint in MPK: {(int) mpkItem.FxSocketPoint01}");
+                        details.Add($"  Unknown FxSocketPoint in MPK: {(int)mpkItem.FxSocketPoint01}");
                     }
                     if (Enum.IsDefined(typeof(FxTarget), (int)mpkItem.FxTarget02) == false)
                     {
-                        details.Add($"  Unknown FxTarget in MPK: {(int) mpkItem.FxTarget02}");
+                        details.Add($"  Unknown FxTarget in MPK: {(int)mpkItem.FxTarget02}");
                     }
                     if (Enum.IsDefined(typeof(SocketPoint), (int)mpkItem.FxSocketPoint02) == false)
                     {
-                        details.Add($"  Unknown FxSocketPoint in MPK: {(int) mpkItem.FxSocketPoint02}");
+                        details.Add($"  Unknown FxSocketPoint in MPK: {(int)mpkItem.FxSocketPoint02}");
                     }
                     if (Enum.IsDefined(typeof(FxTarget), (int)mpkItem.FxTarget03) == false)
                     {
-                        details.Add($"  Unknown FxTarget in MPK: {(int) mpkItem.FxTarget03}");
+                        details.Add($"  Unknown FxTarget in MPK: {(int)mpkItem.FxTarget03}");
                     }
                     if (Enum.IsDefined(typeof(SocketPoint), (int)mpkItem.FxSocketPoint03) == false)
                     {
-                        details.Add($"  Unknown FxSocketPoint in MPK: {(int) mpkItem.FxSocketPoint03}");
+                        details.Add($"  Unknown FxSocketPoint in MPK: {(int)mpkItem.FxSocketPoint03}");
                     }
                     if (Enum.IsDefined(typeof(FxTarget), (int)mpkItem.FxTargetFull) == false)
                     {
-                        details.Add($"  Unknown FxTarget in MPK: {(int) mpkItem.FxTargetFull}");
+                        details.Add($"  Unknown FxTarget in MPK: {(int)mpkItem.FxTargetFull}");
                     }
                     if (Enum.IsDefined(typeof(SocketPoint), (int)mpkItem.FxSocketPointFull) == false)
                     {
-                        details.Add($"  Unknown FxSocketPoint in MPK: {(int) mpkItem.FxSocketPointFull}");
+                        details.Add($"  Unknown FxSocketPoint in MPK: {(int)mpkItem.FxSocketPointFull}");
                     }
                     if (Enum.IsDefined(typeof(FxTarget), (int)mpkItem.FxTarget01Arena) == false)
                     {
-                        details.Add($"  Unknown FxTarget in MPK: {(int) mpkItem.FxTarget01Arena}");
+                        details.Add($"  Unknown FxTarget in MPK: {(int)mpkItem.FxTarget01Arena}");
                     }
                     if (Enum.IsDefined(typeof(SocketPoint), (int)mpkItem.FxSocketPoint01Arena) == false)
                     {
-                        details.Add($"  Unknown FxSocketPoint in MPK: {(int) mpkItem.FxSocketPoint01Arena}");
+                        details.Add($"  Unknown FxSocketPoint in MPK: {(int)mpkItem.FxSocketPoint01Arena}");
                     }
                     if (Enum.IsDefined(typeof(FxTarget), (int)mpkItem.FxTarget02Arena) == false)
                     {
-                        details.Add($"  Unknown FxTarget in MPK: {(int) mpkItem.FxTarget02Arena}");
+                        details.Add($"  Unknown FxTarget in MPK: {(int)mpkItem.FxTarget02Arena}");
                     }
                     if (Enum.IsDefined(typeof(SocketPoint), (int)mpkItem.FxSocketPoint02Arena) == false)
                     {
-                        details.Add($"  Unknown FxSocketPoint in MPK: {(int) mpkItem.FxSocketPoint02Arena}");
+                        details.Add($"  Unknown FxSocketPoint in MPK: {(int)mpkItem.FxSocketPoint02Arena}");
                     }
                     if (Enum.IsDefined(typeof(FxTarget), (int)mpkItem.FxTarget03Arena) == false)
                     {
-                        details.Add($"  Unknown FxTarget in MPK: {(int) mpkItem.FxTarget03Arena}");
+                        details.Add($"  Unknown FxTarget in MPK: {(int)mpkItem.FxTarget03Arena}");
                     }
                     if (Enum.IsDefined(typeof(SocketPoint), (int)mpkItem.FxSocketPoint03Arena) == false)
                     {
-                        details.Add($"  Unknown FxSocketPoint in MPK: {(int) mpkItem.FxSocketPoint03Arena}");
+                        details.Add($"  Unknown FxSocketPoint in MPK: {(int)mpkItem.FxSocketPoint03Arena}");
                     }
-                
+
+                }
+            );
+            
+            await MpkConverter.ConvertTableAsync<InAppShopData>(
+                inputPath + "InAppShopManagerTable" + inputExtension,
+                outputPath + "InAppShopManagerTable" + outputExtension,
+                (details, jsonItem, mpkItem) =>
+                {
+                    if (jsonItem.Id != mpkItem.Id)
+                    {
+                        details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                    }
+                    else
+                    {
+                        details.Add($"ID: {jsonItem.Id}");
+                        if (jsonItem.MainCategoryType != mpkItem.MainCategoryType)
+                        {
+                            details.Add($"  MainCategoryType Mismatch: Json ({jsonItem.MainCategoryType}) vs MPK ({(int)mpkItem.MainCategoryType})");
+                        }
+                        if (jsonItem.RenewType != mpkItem.RenewType)
+                        {
+                            details.Add($"  RenewType Mismatch: Json ({jsonItem.RenewType}) vs MPK ({(int)mpkItem.RenewType})");
+                        }
+                        if (jsonItem.ShopType != mpkItem.ShopType)
+                        {
+                            details.Add($"  ShopType Mismatch: Json ({jsonItem.ShopType}) vs MPK ({(int)mpkItem.ShopType})");
+                        }
+                        if (jsonItem.ShopCategory != mpkItem.ShopCategory)
+                        {
+                            details.Add($"  ShopCategory Mismatch: Json ({jsonItem.ShopCategory}) vs MPK ({(int)mpkItem.ShopCategory})");
+                        }
+                    }
+                },
+                checkMpkItemDetails: (details, mpkItem) =>
+                {
+                    if (Enum.IsDefined(typeof(MainCategoryType), (int)mpkItem.MainCategoryType) == false)
+                    {
+                        details.Add($"  Unknown MainCategoryType in MPK: {(int) mpkItem.MainCategoryType}");
+                    }
+                    if (Enum.IsDefined(typeof(RenewType), (int)mpkItem.RenewType) == false)
+                    {
+                        details.Add($"  Unknown RenewType in MPK: {(int) mpkItem.RenewType}");
+                    }
+                    if (Enum.IsDefined(typeof(ShopCategory), (int)mpkItem.ShopCategory) == false)
+                    {
+                        details.Add($"  Unknown ShopCategory in MPK: {(int) mpkItem.ShopCategory}");
+                    }
+                    if (Enum.IsDefined(typeof(ShopType), (int)mpkItem.ShopType) == false)
+                    {
+                        details.Add($"  Unknown ShopType in MPK: {(int) mpkItem.ShopType}");
+                    }
                 }
             );
         }

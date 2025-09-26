@@ -53,35 +53,6 @@ namespace NikkeMpkConverter.model
         Favorite = 2
     }
 
-    public enum ShopCategory
-    {
-        Unknown = -1,
-        TimeLimitPackageShop = 1,
-        CustomPackageShop = 2,
-        StepUpPackageShop = 3,
-        RenewPackageShop = 4,
-        PassCostumeShop = 5,
-        PopupPackageShop = 6,
-        CostumeShop = 7,
-        CampaignPackageShop = 8,
-        MonthlyAmountShop = 9,
-        JewelShop = 10
-    }
-
-    public enum ProductType
-    {
-        Unknown = -1,
-        Item = 5,
-        Currency = 3,
-        CharacterCostume = 2
-    }
-
-    public enum BuyLimitType
-    {
-        None = 0,
-        Account = 1
-    }
-
     /// <summary>
     /// Equipment data from ItemEquipTable
     /// </summary>
@@ -608,6 +579,61 @@ namespace NikkeMpkConverter.model
         public bool IsActive { get; set; }
     }
 
+    public enum ShopCategory
+    {
+        Unknown = -1,
+        JewelShop = 0,
+        TimeLimitPackageShop = 2,
+        RenewPackageShop = 3,
+        PopupPackageShop = 4,
+        CostumeShop = 5,
+        MonthlyAmountShop = 6,
+        CampaignPackageShop = 7,
+        StepUpPackageShop = 8,
+        CustomPackageShop = 10,
+        PassCostumeShop = 11
+    }
+
+    public enum ProductType
+    {
+        Unknown = -1,
+        Item = 5,
+        Currency = 3,
+        CharacterCostume = 2
+    }
+
+    public enum BuyLimitType
+    {
+        None = 0,
+        Account = 1
+    }
+
+    public enum MainCategoryType
+    {
+        Unknown = -1,
+        PopupPackageTab = 0,
+        TimeLimitPackageTab = 1,
+        RenewPackageTab = 2,
+        CostumeTab = 3,
+        CampaignPackageTab = 4,
+        MonthlyAmountTab = 5,
+        JewelTab = 6,
+        PassCostumeTab = 7
+    }
+
+    public enum RenewType
+    {
+        NoRenew = 6,
+        AutoDay = 1,
+        AutoWeek = 2,
+        AutoMonth = 3
+    }
+
+    public enum ShopType
+    {
+        InAppShop = 0,
+    }
+
     /// <summary>
     /// In-app shop data from InAppShopManagerTable
     /// </summary>
@@ -622,7 +648,8 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(1)]
         [JsonPropertyOrder(1)]
         [JsonPropertyName("main_category_type")]
-        public string MainCategoryType { get; set; } = string.Empty;
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public MainCategoryType MainCategoryType { get; set; } = MainCategoryType.Unknown;
 
         [MemoryPackOrder(2)]
         [JsonPropertyOrder(2)]
@@ -667,17 +694,18 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(10)]
         [JsonPropertyOrder(10)]
         [JsonPropertyName("renew_type")]
-        public string RenewType { get; set; } = "NoRenew";
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public RenewType RenewType { get; set; } = RenewType.NoRenew;
 
         [MemoryPackOrder(11)]
         [JsonPropertyOrder(11)]
         [JsonPropertyName("start_date")]
-        public string? StartDate { get; set; }
+        public DateTime StartDate { get; set; } = new DateTime(2000, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
         [MemoryPackOrder(12)]
         [JsonPropertyOrder(12)]
         [JsonPropertyName("end_date")]
-        public string? EndDate { get; set; }
+        public DateTime EndDate { get; set; } = new DateTime(2099, 12, 31, 0, 0, 0, DateTimeKind.Utc);
 
         [MemoryPackOrder(13)]
         [JsonPropertyOrder(13)]
@@ -687,7 +715,8 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(14)]
         [JsonPropertyOrder(14)]
         [JsonPropertyName("shop_type")]
-        public string ShopType { get; set; } = string.Empty;
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public ShopType ShopType { get; set; } = ShopType.InAppShop;
 
         [MemoryPackOrder(15)]
         [JsonPropertyOrder(15)]
