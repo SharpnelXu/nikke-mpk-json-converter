@@ -7,7 +7,13 @@ namespace NikkeMpkConverter.model
     {
         Unknown = -1,
         Equip = 1,
-        HarmonyCube = 11,
+        Material = 3,
+        HarmonyCube = 5,
+    }
+
+    public enum ItemConsumeType
+    {
+        Unknown = -1,
         Consume = 2,
         Box = 4,
         BundleBox = 5,
@@ -42,12 +48,29 @@ namespace NikkeMpkConverter.model
         Module_D = 4,
         Box = 5,
         TimeReward = 15,
+        HarmonyCube = 18,
         BundleBox = 20,
         ItemRandomBoxList = 21,
         ItemRandomBoxNormal = 22,
         ProfileRandomBox = 33,
         EquipCombination = 35,
-        ArcadeItem = 37
+        ArcadeItem = 37,
+        Equip_Material = 38,
+        HarmonyCube_Material = 39,
+        OutpostBuild_Material = 40,
+        RecycleRoom_Material = 41,
+        AttractiveMaterial = 42,
+        EventCurrencyMaterial = 43,
+        EventTicketMaterial = 44,
+        EquipmentOptionMaterial = 45,
+        EquipmentOptionDisposableFixMaterial = 46,
+        CharacterSkillMaterial = 47,
+        SetNickNameMaterial = 48,
+        SynchroSlotOpenMaterial = 49,
+        FavoriteMaterial = 50,
+        FavoriteTranscendMaterial = 51,
+        ProfileCardTicketMaterial = 52
+        
     }
 
     public enum StatType
@@ -91,6 +114,16 @@ namespace NikkeMpkConverter.model
         None = 0,
         Percent = 1,
         Unknown = -1
+    }
+
+    public enum MaterialType
+    {
+        Unknown = -1,
+        None = 0,
+        All = 1,
+        Corporation = 2,
+        Squad = 4,
+        FavoriteItem = 5
     }
 
     /// <summary>
@@ -277,13 +310,14 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(10)]
         [JsonPropertyOrder(10)]
         [JsonPropertyName("item_sub_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public ItemSubType ItemSubType { get; set; } = ItemSubType.Unknown;
 
         [MemoryPackOrder(11)]
         [JsonPropertyOrder(11)]
         [JsonPropertyName("item_rare")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public ItemRarity ItemRare { get; set; } = ItemRarity.Unknown;
+        public Rarity ItemRare { get; set; } = Rarity.Unknown;
 
         [MemoryPackOrder(12)]
         [JsonPropertyOrder(12)]
@@ -1111,7 +1145,7 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(6)]
         [JsonPropertyName("item_type")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public ItemType ItemType { get; set; } = ItemType.Unknown;
+        public ItemConsumeType ItemType { get; set; } = ItemConsumeType.Unknown;
 
         [MemoryPackOrder(7)]
         [JsonPropertyOrder(7)]
@@ -1164,6 +1198,72 @@ namespace NikkeMpkConverter.model
 
         [MemoryPackOrder(16)]
         [JsonPropertyOrder(16)]
+        [JsonPropertyName("stack_max")]
+        public int StackMax { get; set; }
+    }
+
+    /// <summary>
+    /// Material item data from ItemMaterialTable
+    /// </summary>
+    [MemoryPackable]
+    public partial class MaterialItemData
+    {
+        [MemoryPackOrder(0)]
+        [JsonPropertyOrder(0)]
+        [JsonPropertyName("id")]
+        public int Id { get; set; }
+
+        [MemoryPackOrder(1)]
+        [JsonPropertyOrder(1)]
+        [JsonPropertyName("name_localkey")]
+        public string NameKey { get; set; } = string.Empty;
+
+        [MemoryPackOrder(2)]
+        [JsonPropertyOrder(2)]
+        [JsonPropertyName("description_localkey")]
+        public string DescriptionKey { get; set; } = string.Empty;
+
+        [MemoryPackOrder(3)]
+        [JsonPropertyOrder(3)]
+        [JsonPropertyName("resource_id")]
+        public string ResourceId { get; set; } = string.Empty;
+
+        [MemoryPackOrder(4)]
+        [JsonPropertyOrder(4)]
+        [JsonPropertyName("item_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public ItemType ItemType { get; set; } = ItemType.Unknown;
+
+        [MemoryPackOrder(5)]
+        [JsonPropertyOrder(5)]
+        [JsonPropertyName("item_sub_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public ItemSubType ItemSubType { get; set; } = ItemSubType.Unknown;
+
+        [MemoryPackOrder(6)]
+        [JsonPropertyOrder(6)]
+        [JsonPropertyName("item_rare")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public Rarity ItemRarity { get; set; } = Rarity.Unknown;
+
+        [MemoryPackOrder(7)]
+        [JsonPropertyOrder(7)]
+        [JsonPropertyName("item_value")]
+        public int ItemValue { get; set; }
+
+        [MemoryPackOrder(8)]
+        [JsonPropertyOrder(8)]
+        [JsonPropertyName("material_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public MaterialType MaterialType { get; set; } = MaterialType.Unknown;
+
+        [MemoryPackOrder(9)]
+        [JsonPropertyOrder(9)]
+        [JsonPropertyName("material_value")]
+        public int MaterialValue { get; set; }
+
+        [MemoryPackOrder(10)]
+        [JsonPropertyOrder(10)]
         [JsonPropertyName("stack_max")]
         public int StackMax { get; set; }
     }

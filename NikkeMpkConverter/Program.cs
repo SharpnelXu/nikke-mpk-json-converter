@@ -65,47 +65,55 @@ namespace NikkeMpkConverter
                 // Convert the file (auto-detects format based on extension)
                 // await SerializationAsync(inputPath, outputPath!, inputExtension, outputExtension);
 
-                await MpkConverter.ConvertTableAsync<HarmonyCubeLevelData>(
-                    inputPath + "ItemHarmonyCubeLevelTable" + inputExtension,
-                    outputPath + "ItemHarmonyCubeLevelTable" + outputExtension,
-                    // (details, jsonItem, mpkItem) =>
-                    // {
-                    //     if (jsonItem.Id != mpkItem.Id)
-                    //     {
-                    //         details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
-                    //     }
-                    //     else
-                    //     {
-                    //         details.Add($"ID: {jsonItem.Id}");
-                    //         if (jsonItem.ItemType != mpkItem.ItemType)
-                    //         {
-                    //             details.Add($"  ItemType Mismatch: Json ({jsonItem.ItemType}) vs MPK ({(int)mpkItem.ItemType})");
-                    //         }
-                    //         if (jsonItem.ItemSubType != mpkItem.ItemSubType)
-                    //         {
-                    //             details.Add($"  ItemSubType Mismatch: Json ({jsonItem.ItemSubType}) vs MPK ({(int)mpkItem.ItemSubType})");
-                    //         }
-                    //         if (jsonItem.ItemRarity != mpkItem.ItemRarity)
-                    //         {
-                    //             details.Add($"  Rarity Mismatch: Json ({jsonItem.ItemRarity}) vs MPK ({(int)mpkItem.ItemRarity})");
-                    //         }
-                    //     }
-                    // },
-                    // checkMpkItemDetails: (details, mpkItem) =>
-                    // {
-                    //     if (Enum.IsDefined(typeof(ItemType), (int)mpkItem.ItemType) == false)
-                    //     {
-                    //         details.Add($"  Unknown ItemType in MPK: {(int)mpkItem.ItemType}");
-                    //     }
-                    //     if (Enum.IsDefined(typeof(ItemSubType), (int)mpkItem.ItemSubType) == false)
-                    //     {
-                    //         details.Add($"  Unknown ItemSubType in MPK: {(int)mpkItem.ItemSubType}");
-                    //     }
-                    //     if (Enum.IsDefined(typeof(ItemRarity), (int)mpkItem.ItemRarity) == false)
-                    //     {
-                    //         details.Add($"  Unknown ItemRarity in MPK: {(int)mpkItem.ItemRarity}");
-                    //     }
-                    // },
+                await MpkConverter.ConvertTableAsync<MaterialItemData>(
+                    inputPath + "ItemMaterialTable" + inputExtension,
+                    outputPath + "ItemMaterialTable" + outputExtension,
+                    (details, jsonItem, mpkItem) =>
+                    {
+                        if (jsonItem.Id != mpkItem.Id)
+                        {
+                            details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                        }
+                        else
+                        {
+                            details.Add($"ID: {jsonItem.Id}");
+                            if (jsonItem.ItemType != mpkItem.ItemType)
+                            {
+                                details.Add($"  ItemType Mismatch: Json ({jsonItem.ItemType}) vs MPK ({(int)mpkItem.ItemType})");
+                            }
+                            if (jsonItem.ItemSubType != mpkItem.ItemSubType)
+                            {
+                                details.Add($"  ItemSubType Mismatch: Json ({jsonItem.ItemSubType}) vs MPK ({(int)mpkItem.ItemSubType})");
+                            }
+                            if (jsonItem.ItemRarity != mpkItem.ItemRarity)
+                            {
+                                details.Add($"  Rarity Mismatch: Json ({jsonItem.ItemRarity}) vs MPK ({(int)mpkItem.ItemRarity})");
+                            }
+                            if (jsonItem.MaterialType != mpkItem.MaterialType)
+                            {
+                                details.Add($"  MaterialType Mismatch: Json ({jsonItem.MaterialType}) vs MPK ({(int)mpkItem.MaterialType})");
+                            }
+                        }
+                    },
+                    checkMpkItemDetails: (details, mpkItem) =>
+                    {
+                        if (Enum.IsDefined(typeof(ItemType), (int)mpkItem.ItemType) == false)
+                        {
+                            details.Add($"  Unknown ItemType in MPK: {(int)mpkItem.ItemType}");
+                        }
+                        if (Enum.IsDefined(typeof(ItemSubType), (int)mpkItem.ItemSubType) == false)
+                        {
+                            details.Add($"  Unknown ItemSubType in MPK: {(int)mpkItem.ItemSubType}");
+                        }
+                        if (Enum.IsDefined(typeof(Rarity), (int)mpkItem.ItemRarity) == false)
+                        {
+                            details.Add($"  Unknown Rarity in MPK: {(int)mpkItem.ItemRarity}");
+                        }
+                        if (Enum.IsDefined(typeof(MaterialType), (int)mpkItem.MaterialType) == false)
+                        {
+                            details.Add($"  Unknown MaterialType in MPK: {(int)mpkItem.MaterialType}");
+                        }
+                    },
                     stopOnFirstMismatch: false
                 );
                 
@@ -683,9 +691,9 @@ namespace NikkeMpkConverter
                     {
                         details.Add($"  Unknown UseType in MPK: {(int)mpkItem.UseType}");
                     }
-                    if (Enum.IsDefined(typeof(ItemType), (int)mpkItem.ItemType) == false)
+                    if (Enum.IsDefined(typeof(ItemConsumeType), (int)mpkItem.ItemType) == false)
                     {
-                        details.Add($"  Unknown ItemType in MPK: {(int)mpkItem.ItemType}");
+                        details.Add($"  Unknown ItemConsumeType in MPK: {(int)mpkItem.ItemType}");
                     }
                     if (Enum.IsDefined(typeof(ItemSubType), (int)mpkItem.ItemSubType) == false)
                     {
@@ -750,6 +758,58 @@ namespace NikkeMpkConverter
             await MpkConverter.ConvertTableAsync<HarmonyCubeLevelData>(
                 inputPath + "ItemHarmonyCubeLevelTable" + inputExtension,
                 outputPath + "ItemHarmonyCubeLevelTable" + outputExtension
+            );
+
+            await MpkConverter.ConvertTableAsync<HarmonyCubeData>(
+                inputPath + "ItemHarmonyCubeTable" + inputExtension,
+                outputPath + "ItemHarmonyCubeTable" + outputExtension,
+                (details, jsonItem, mpkItem) =>
+                {
+                    if (jsonItem.Id != mpkItem.Id)
+                    {
+                        details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                    }
+                    else
+                    {
+                        details.Add($"ID: {jsonItem.Id}");
+                        if (jsonItem.ItemType != mpkItem.ItemType)
+                        {
+                            details.Add($"  ItemType Mismatch: Json ({jsonItem.ItemType}) vs MPK ({(int)mpkItem.ItemType})");
+                        }
+                        if (jsonItem.ItemSubType != mpkItem.ItemSubType)
+                        {
+                            details.Add($"  ItemSubType Mismatch: Json ({jsonItem.ItemSubType}) vs MPK ({(int)mpkItem.ItemSubType})");
+                        }
+                        if (jsonItem.ItemRare != mpkItem.ItemRare)
+                        {
+                            details.Add($"  Rarity Mismatch: Json ({jsonItem.ItemRare}) vs MPK ({(int)mpkItem.ItemRare})");
+                        }
+                        if (jsonItem.CharacterClass != mpkItem.CharacterClass)
+                        {
+                            details.Add($"  CharacterClass Mismatch: Json ({jsonItem.CharacterClass}) vs MPK ({(int)mpkItem.CharacterClass})");
+                        }
+                    }
+                },
+                checkMpkItemDetails: (details, mpkItem) =>
+                {
+                    if (Enum.IsDefined(typeof(ItemType), (int)mpkItem.ItemType) == false)
+                    {
+                        details.Add($"  Unknown ItemType in MPK: {(int)mpkItem.ItemType}");
+                    }
+                    if (Enum.IsDefined(typeof(ItemSubType), (int)mpkItem.ItemSubType) == false)
+                    {
+                        details.Add($"  Unknown ItemSubType in MPK: {(int)mpkItem.ItemSubType}");
+                    }
+                    if (Enum.IsDefined(typeof(Rarity), (int)mpkItem.ItemRare) == false)
+                    {
+                        details.Add($"  Unknown Rarity in MPK: {(int)mpkItem.ItemRare}");
+                    }
+                    if (Enum.IsDefined(typeof(NikkeClass), (int)mpkItem.CharacterClass) == false)
+                    {
+                        details.Add($"  Unknown NikkeClass in MPK: {(int)mpkItem.CharacterClass}");
+                    }
+                },
+                stopOnFirstMismatch: false
             );
         }
     }
