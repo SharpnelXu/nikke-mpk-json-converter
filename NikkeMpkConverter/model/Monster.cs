@@ -326,7 +326,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(3)]
         [JsonPropertyOrder(3)]
         [JsonPropertyName("level_hp")]
-        public int LevelHp { get; set; }
+        public long LevelHp { get; set; }
 
         [MemoryPackOrder(4)]
         [JsonPropertyOrder(4)]
@@ -366,7 +366,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(11)]
         [JsonPropertyOrder(11)]
         [JsonPropertyName("level_broken_hp")]
-        public int LevelBrokenHp { get; set; }
+        public long LevelBrokenHp { get; set; }
     }
 
     /// <summary>
@@ -494,6 +494,13 @@ namespace NikkeMpkConverter.model
         public bool IsPartsDamageAble { get; set; }
     }
 
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum MonsterStageLevelChangeCondition
+    {
+        None = 0,
+        DamageDoneToTargetMonster = 1,
+    }
+
     /// <summary>
     /// Monster stage level change data from MonsterStageLvChangeTable
     /// </summary>
@@ -518,17 +525,17 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(3)]
         [JsonPropertyOrder(3)]
         [JsonPropertyName("condition_type")]
-        public string ConditionType { get; set; } = string.Empty;
+        public MonsterStageLevelChangeCondition ConditionType { get; set; } = MonsterStageLevelChangeCondition.None;
 
         [MemoryPackOrder(4)]
         [JsonPropertyOrder(4)]
         [JsonPropertyName("condition_value_min")]
-        public int ConditionValueMin { get; set; }
+        public long ConditionValueMin { get; set; }
 
         [MemoryPackOrder(5)]
         [JsonPropertyOrder(5)]
         [JsonPropertyName("condition_value_max")]
-        public int ConditionValueMax { get; set; }
+        public long ConditionValueMax { get; set; }
 
         [MemoryPackOrder(6)]
         [JsonPropertyOrder(6)]
