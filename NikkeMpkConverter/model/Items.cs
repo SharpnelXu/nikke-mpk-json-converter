@@ -36,16 +36,12 @@ namespace NikkeMpkConverter.model
     public enum ItemSubType
     {
         Unknown = -1,
-        [JsonPropertyName("Module_A")]
-        Head = 1,
-        [JsonPropertyName("Module_B")]
-        Body = 2,
-        [JsonPropertyName("Module_C")]
-        Arm = 3,
-        [JsonPropertyName("Module_D")]
-        Leg = 4,
-        TimeReward = 15,
+        Module_A = 1,
+        Module_B = 2,
+        Module_C = 3,
+        Module_D = 4,
         Box = 5,
+        TimeReward = 15,
         BundleBox = 20,
         ItemRandomBoxList = 21,
         ItemRandomBoxNormal = 22,
@@ -75,19 +71,6 @@ namespace NikkeMpkConverter.model
         StageClear = 2,
         None = 0
     }
-
-    // public enum ConsumeItemType
-    // {
-    //     Unknown = -1,
-    //     Consume = 1
-    // }
-
-    // public enum ConsumeSubType
-    // {
-    //     Unknown = -1,
-    //     TimeReward = 1,
-
-    // }
 
     public enum UseType
     {
