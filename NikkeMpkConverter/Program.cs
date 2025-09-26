@@ -66,9 +66,9 @@ namespace NikkeMpkConverter
                 // Convert the file (auto-detects format based on extension)
                 // await SerializationAsync(inputPath, outputPath!, inputExtension, outputExtension);
 
-                await MpkConverter.ConvertTableAsync<MidasProductData>(
-                    inputPath + "MidasProductTable" + inputExtension,
-                    outputPath + "MidasProductTable" + outputExtension,
+                await MpkConverter.ConvertTableAsync<MonsterPartData>(
+                    inputPath + "MonsterPartsTable" + inputExtension,
+                    outputPath + "MonsterPartsTable" + outputExtension,
                     (details, jsonItem, mpkItem) =>
                     {
                         if (jsonItem.Id != mpkItem.Id)
@@ -78,25 +78,25 @@ namespace NikkeMpkConverter
                         else
                         {
                             details.Add($"ID: {jsonItem.Id}");
-                            if (jsonItem.ItemType != mpkItem.ItemType)
+                            if (jsonItem.PartsType != mpkItem.PartsType)
                             {
-                                details.Add($"  ItemType Mismatch: Json ({jsonItem.ItemType}) vs MPK ({(int)mpkItem.ItemType})");
+                                details.Add($"  PartsType Mismatch: Json ({jsonItem.PartsType}) vs MPK ({(int)mpkItem.PartsType})");
                             }
-                            if (jsonItem.ProductType != mpkItem.ProductType)
+                            if (jsonItem.DestroyAnimTrigger != mpkItem.DestroyAnimTrigger)
                             {
-                                details.Add($"  ProductType Mismatch: Json ({jsonItem.ProductType}) vs MPK ({(int)mpkItem.ProductType})");
+                                details.Add($"  DestroyAnimTrigger Mismatch: Json ({jsonItem.DestroyAnimTrigger}) vs MPK ({(int)mpkItem.DestroyAnimTrigger})");
                             }
                         }
                     },
                     checkMpkItemDetails: (details, mpkItem) =>
                     {
-                        if (Enum.IsDefined(typeof(ProductItemType), (int)mpkItem.ItemType) == false)
+                        if (Enum.IsDefined(typeof(PartsType), (int)mpkItem.PartsType) == false)
                         {
-                            details.Add($"  Unknown ProductItemType in MPK: {(int)mpkItem.ItemType}");
+                            details.Add($"  Unknown PartsType in MPK: {(int)mpkItem.PartsType}");
                         }
-                        if (Enum.IsDefined(typeof(MidasProductType), (int)mpkItem.ProductType) == false)
+                        if (Enum.IsDefined(typeof(MonsterDestroyAnimTrigger), (int)mpkItem.DestroyAnimTrigger) == false)
                         {
-                            details.Add($"  Unknown MidasProductType in MPK: {(int)mpkItem.ProductType}");
+                            details.Add($"  Unknown MonsterDestroyAnimTrigger in MPK: {(int)mpkItem.DestroyAnimTrigger}");
                         }
                     },
                     stopOnFirstMismatch: false

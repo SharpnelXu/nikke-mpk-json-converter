@@ -379,7 +379,7 @@ namespace NikkeMpkConverter.converter
                 // Process each item individually to compare with MPK content
                 for (int i = 0; i < items.Length; i++)
                 {
-                    if (i > 0 && i % 100 == 0)
+                    if (i > 0 && i % 1000 == 0)
                     {
                         Console.WriteLine($"Processed {i} of {items.Length} records...");
                     }
@@ -522,7 +522,7 @@ namespace NikkeMpkConverter.converter
 
                 for (int i = 0; i < items.Length; i++)
                 {
-                    if (i > 0 && i % 100 == 0)
+                    if (i > 0 && i % 1000 == 0)
                     {
                         Console.WriteLine($"Processed {i} of {items.Length} records...");
                     }
@@ -624,7 +624,7 @@ namespace NikkeMpkConverter.converter
                     var details = new HashSet<string>();
                     for (int i = 0; i < mpkItems.Length; i++)
                     {
-                        if (i > 0 && i % 100 == 0)
+                        if (i > 0 && i % 1000 == 0)
                         {
                             Console.WriteLine($"Processed {i} of {mpkItems.Length} MPK records for detail check...");
                         }
