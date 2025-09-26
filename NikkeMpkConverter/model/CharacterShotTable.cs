@@ -12,7 +12,7 @@ namespace NikkeMpkConverter.model
         SR = 3,
         MG = 4,
         SG = 5,
-        GL = 6,
+        GL = 7,
         SMG = 9,
         UNKNOWN = -1
     }
@@ -51,7 +51,7 @@ namespace NikkeMpkConverter.model
 
         Random = 31,
         HaveDebuff = 51,
-        NotStun = 32,
+        NotStun = 46,
         Front = 7,
         Back = 8,
         LongInitChargeTime = 54,
@@ -114,20 +114,20 @@ namespace NikkeMpkConverter.model
         ProjectileDirect = 3, // 5 RL occurrences (Laplace, Ynui Alt, Summer Neon burst, A2, SBS)
         HomingProjectile = 4, // should be all other RLs
         MultiTarget = 5, // Modernia burst
+        Suicide = 7,
+        Calling = 8,
+        InstantAll = 9,
+        InstantNumber = 10,
+        ObjectCreate = 11,
+        Barrier = 13,
 
-        Range,
-        InstantAll,
-        Suicide,
-        Calling,
-        Barrier,
-        NormalCalling,
-        InstantAll_FrontRay,
-        ObjectCreate,
-        ObjectCreateToDecoy,
-        InstantNumber,
+        Range = 14,
+        NormalCalling = 15,
+        InstantAll_FrontRay = 16,
         StickyProjectileDirect = 17, // Rapi: Red Hood alt attack
-        ProjectileCurveV2,
-        MechaShiftyShot,
+        ObjectCreateToDecoy = 18,
+        MechaShiftyShot = 19,
+        ProjectileCurveV2 = 20,
         Unknown = -1
     }
 

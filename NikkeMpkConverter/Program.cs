@@ -64,99 +64,104 @@ namespace NikkeMpkConverter
                 Console.WriteLine($"Output file: {outputPath}");
 
                 // Convert the file (auto-detects format based on extension)
-                // await SerializationAsync(inputPath, outputPath!, inputExtension, outputExtension);
+                await SerializationAsync(inputPath, outputPath!, inputExtension, outputExtension);
 
-                await MpkConverter.ConvertTableAsync<MonsterSkillData>(
-                    inputPath + "MonsterSkillTable" + inputExtension,
-                    outputPath + "MonsterSkillTable" + outputExtension,
-                    (details, jsonItem, mpkItem) =>
-                    {
-                        if (jsonItem.Id != mpkItem.Id)
-                        {
-                            details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
-                        }
-                        else
-                        {
-                            details.Add($"ID: {jsonItem.Id}");
-                            if (jsonItem.WeaponType != mpkItem.WeaponType)
-                            {
-                                details.Add($"  WeaponType Mismatch: Json ({jsonItem.WeaponType}) vs MPK ({(int)mpkItem.WeaponType})");
-                            }
-                            if (jsonItem.AttackType != mpkItem.AttackType)
-                            {
-                                details.Add($"  AttackType Mismatch: Json ({jsonItem.AttackType}) vs MPK ({(int)mpkItem.AttackType})");
-                            }
-                            if (jsonItem.FireType != mpkItem.FireType)
-                            {
-                                details.Add($"  FireType Mismatch: Json ({jsonItem.FireType}) vs MPK ({(int)mpkItem.FireType})");
-                            }
-                            if (jsonItem.ShotTiming != mpkItem.ShotTiming)
-                            {
-                                details.Add($"  ShotTiming Mismatch: Json ({jsonItem.ShotTiming}) vs MPK ({(int)mpkItem.ShotTiming})");
-                            }
-                            if (jsonItem.WeaponObjectEnum != mpkItem.WeaponObjectEnum)
-                            {
-                                details.Add($"  WeaponObjectEnum Mismatch: Json ({jsonItem.WeaponObjectEnum}) vs MPK ({(int)mpkItem.WeaponObjectEnum})");
-                            }
-                            if (jsonItem.PreferTarget != mpkItem.PreferTarget)
-                            {
-                                details.Add($"  PreferTarget Mismatch: Json ({jsonItem.PreferTarget}) vs MPK ({(int)mpkItem.PreferTarget})");
-                            }
-                            if (jsonItem.ObjectPositionType != mpkItem.ObjectPositionType)
-                            {
-                                details.Add($"  ObjectPositionType Mismatch: Json ({jsonItem.ObjectPositionType}) vs MPK ({(int)mpkItem.ObjectPositionType})");
-                            }
-                            if (jsonItem.LinkedParts != mpkItem.LinkedParts)
-                            {
-                                details.Add($"  LinkedParts Mismatch: Json ({jsonItem.LinkedParts}) vs MPK ({(int)mpkItem.LinkedParts})");
-                            }
-                            if (jsonItem.CancelType != mpkItem.CancelType)
-                            {
-                                details.Add($"  CancelType Mismatch: Json ({jsonItem.CancelType}) vs MPK ({(int)mpkItem.CancelType})");
-                            }
-                        }
-                    },
-                    checkMpkItemDetails: (details, mpkItem) =>
-                    {
-                        if (Enum.IsDefined(typeof(WeaponType), (int)mpkItem.WeaponType) == false)
-                        {
-                            details.Add($"  Unknown WeaponType in MPK: {(int)mpkItem.WeaponType}");
-                        }
-                        if (Enum.IsDefined(typeof(AttackType), (int)mpkItem.AttackType) == false)
-                        {
-                            details.Add($"  Unknown AttackType in MPK: {(int)mpkItem.AttackType}");
-                        }
-                        if (Enum.IsDefined(typeof(FireType), (int)mpkItem.FireType) == false)
-                        {
-                            details.Add($"  Unknown FireType in MPK: {(int)mpkItem.FireType}");
-                        }
-                        if (Enum.IsDefined(typeof(ShotTiming), (int)mpkItem.ShotTiming) == false)
-                        {
-                            details.Add($"  Unknown ShotTiming in MPK: {(int)mpkItem.ShotTiming}");
-                        }
-                        if (Enum.IsDefined(typeof(WeaponObject), (int)mpkItem.WeaponObjectEnum) == false)
-                        {
-                            details.Add($"  Unknown WeaponObject in MPK: {(int)mpkItem.WeaponObjectEnum}");
-                        }
-                        if (Enum.IsDefined(typeof(PreferTarget), (int)mpkItem.PreferTarget) == false)
-                        {
-                            details.Add($"  Unknown PreferTarget in MPK: {(int)mpkItem.PreferTarget}");
-                        }
-                        if (Enum.IsDefined(typeof(ObjectPositionType), (int)mpkItem.ObjectPositionType) == false)
-                        {
-                            details.Add($"  Unknown ObjectPositionType in MPK: {(int)mpkItem.ObjectPositionType}");
-                        }
-                        if (Enum.IsDefined(typeof(SkillAnimationNumber), (int)mpkItem.AnimationNumber) == false)
-                        {
-                            details.Add($"  Unknown SkillAnimationNumber in MPK: {(int)mpkItem.AnimationNumber}");
-                        }
-                        if (Enum.IsDefined(typeof(CancelType), (int)mpkItem.CancelType) == false)
-                        {
-                            details.Add($"  Unknown CancelType in MPK: {(int)mpkItem.CancelType}");
-                        }
-                    },
-                    stopOnFirstMismatch: true
-                );
+                // await MpkConverter.ConvertTableAsync<MonsterSkillData>(
+                //     inputPath + "MonsterSkillTable" + inputExtension,
+                //     outputPath + "MonsterSkillTable" + outputExtension,
+                //     (details, jsonItem, mpkItem) =>
+                //     {
+                //         if (jsonItem.Id != mpkItem.Id)
+                //         {
+                //             details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                //         }
+                //         else
+                //         {
+                //             details.Add($"ID: {jsonItem.Id}");
+                //             if (jsonItem.WeaponType != mpkItem.WeaponType)
+                //             {
+                //                 details.Add($"  WeaponType Mismatch: Json ({jsonItem.WeaponType}) vs MPK ({(int)mpkItem.WeaponType})");
+                //             }
+                //             if (jsonItem.AttackType != mpkItem.AttackType)
+                //             {
+                //                 details.Add($"  AttackType Mismatch: Json ({jsonItem.AttackType}) vs MPK ({(int)mpkItem.AttackType})");
+                //             }
+                //             if (jsonItem.FireType != mpkItem.FireType)
+                //             {
+                //                 details.Add($"  FireType Mismatch: Json ({jsonItem.FireType}) vs MPK ({(int)mpkItem.FireType})");
+                //             }
+                //             if (jsonItem.ShotTiming != mpkItem.ShotTiming)
+                //             {
+                //                 details.Add($"  ShotTiming Mismatch: Json ({jsonItem.ShotTiming}) vs MPK ({(int)mpkItem.ShotTiming})");
+                //             }
+                //             if (jsonItem.WeaponObjectEnum != mpkItem.WeaponObjectEnum)
+                //             {
+                //                 details.Add($"  WeaponObjectEnum Mismatch: Json ({jsonItem.WeaponObjectEnum}) vs MPK ({(int)mpkItem.WeaponObjectEnum})");
+                //             }
+                //             if (jsonItem.PreferTarget != mpkItem.PreferTarget)
+                //             {
+                //                 details.Add($"  PreferTarget Mismatch: Json ({jsonItem.PreferTarget}) vs MPK ({(int)mpkItem.PreferTarget})");
+                //             }
+                //             if (jsonItem.ObjectPositionType != mpkItem.ObjectPositionType)
+                //             {
+                //                 details.Add($"  ObjectPositionType Mismatch: Json ({jsonItem.ObjectPositionType}) vs MPK ({(int)mpkItem.ObjectPositionType})");
+                //             }
+                //             if (jsonItem.LinkedParts != mpkItem.LinkedParts)
+                //             {
+                //                 details.Add($"  LinkedParts Mismatch: Json ({jsonItem.LinkedParts}) vs MPK ({(int)mpkItem.LinkedParts})");
+                //             }
+                //             if (jsonItem.CancelType != mpkItem.CancelType)
+                //             {
+                //                 details.Add($"  CancelType Mismatch: Json ({jsonItem.CancelType}) vs MPK ({(int)mpkItem.CancelType})");
+                //             }
+                //         }
+                //     },
+                //     shouldSkipFailure: (jsonItem, mpkToJsonItem) =>
+                //     {
+                //         jsonItem.ProjectileDefRatio = mpkToJsonItem?.ProjectileDefRatio ?? jsonItem.ProjectileDefRatio;
+                //         return mpkToJsonItem != null && JsonSerializer.Serialize(jsonItem).Equals(JsonSerializer.Serialize(mpkToJsonItem));
+                //     },
+                //     checkMpkItemDetails: (details, mpkItem) =>
+                //     {
+                //         if (Enum.IsDefined(typeof(WeaponType), (int)mpkItem.WeaponType) == false)
+                //         {
+                //             details.Add($"  Unknown WeaponType in MPK: {(int)mpkItem.WeaponType}");
+                //         }
+                //         if (Enum.IsDefined(typeof(AttackType), (int)mpkItem.AttackType) == false)
+                //         {
+                //             details.Add($"  Unknown AttackType in MPK: {(int)mpkItem.AttackType}");
+                //         }
+                //         if (Enum.IsDefined(typeof(FireType), (int)mpkItem.FireType) == false)
+                //         {
+                //             details.Add($"  Unknown FireType in MPK: {(int)mpkItem.FireType}");
+                //         }
+                //         if (Enum.IsDefined(typeof(ShotTiming), (int)mpkItem.ShotTiming) == false)
+                //         {
+                //             details.Add($"  Unknown ShotTiming in MPK: {(int)mpkItem.ShotTiming}");
+                //         }
+                //         if (Enum.IsDefined(typeof(WeaponObject), (int)mpkItem.WeaponObjectEnum) == false)
+                //         {
+                //             details.Add($"  Unknown WeaponObject in MPK: {(int)mpkItem.WeaponObjectEnum}");
+                //         }
+                //         if (Enum.IsDefined(typeof(PreferTarget), (int)mpkItem.PreferTarget) == false)
+                //         {
+                //             details.Add($"  Unknown PreferTarget in MPK: {(int)mpkItem.PreferTarget}");
+                //         }
+                //         if (Enum.IsDefined(typeof(ObjectPositionType), (int)mpkItem.ObjectPositionType) == false)
+                //         {
+                //             details.Add($"  Unknown ObjectPositionType in MPK: {(int)mpkItem.ObjectPositionType}");
+                //         }
+                //         if (Enum.IsDefined(typeof(SkillAnimationNumber), (int)mpkItem.AnimationNumber) == false)
+                //         {
+                //             details.Add($"  Unknown SkillAnimationNumber in MPK: {(int)mpkItem.AnimationNumber}");
+                //         }
+                //         if (Enum.IsDefined(typeof(CancelType), (int)mpkItem.CancelType) == false)
+                //         {
+                //             details.Add($"  Unknown CancelType in MPK: {(int)mpkItem.CancelType}");
+                //         }
+                //     },
+                //     stopOnFirstMismatch: false
+                // );
 
                 
                 Console.WriteLine("Conversion completed successfully!");
@@ -1048,7 +1053,7 @@ namespace NikkeMpkConverter
                 },
                 stopOnFirstMismatch: false
             );
-            
+
             await MpkConverter.ConvertTableAsync<MonsterPartData>(
                 inputPath + "MonsterPartsTable" + inputExtension,
                 outputPath + "MonsterPartsTable" + outputExtension,
@@ -1080,6 +1085,103 @@ namespace NikkeMpkConverter
                     if (Enum.IsDefined(typeof(MonsterDestroyAnimTrigger), (int)mpkItem.DestroyAnimTrigger) == false)
                     {
                         details.Add($"  Unknown MonsterDestroyAnimTrigger in MPK: {(int)mpkItem.DestroyAnimTrigger}");
+                    }
+                },
+                stopOnFirstMismatch: false
+            );
+
+            await MpkConverter.ConvertTableAsync<MonsterSkillData>(
+                inputPath + "MonsterSkillTable" + inputExtension,
+                outputPath + "MonsterSkillTable" + outputExtension,
+                (details, jsonItem, mpkItem) =>
+                {
+                    if (jsonItem.Id != mpkItem.Id)
+                    {
+                        details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                    }
+                    else
+                    {
+                        details.Add($"ID: {jsonItem.Id}");
+                        if (jsonItem.WeaponType != mpkItem.WeaponType)
+                        {
+                            details.Add($"  WeaponType Mismatch: Json ({jsonItem.WeaponType}) vs MPK ({(int)mpkItem.WeaponType})");
+                        }
+                        if (jsonItem.AttackType != mpkItem.AttackType)
+                        {
+                            details.Add($"  AttackType Mismatch: Json ({jsonItem.AttackType}) vs MPK ({(int)mpkItem.AttackType})");
+                        }
+                        if (jsonItem.FireType != mpkItem.FireType)
+                        {
+                            details.Add($"  FireType Mismatch: Json ({jsonItem.FireType}) vs MPK ({(int)mpkItem.FireType})");
+                        }
+                        if (jsonItem.ShotTiming != mpkItem.ShotTiming)
+                        {
+                            details.Add($"  ShotTiming Mismatch: Json ({jsonItem.ShotTiming}) vs MPK ({(int)mpkItem.ShotTiming})");
+                        }
+                        if (jsonItem.WeaponObjectEnum != mpkItem.WeaponObjectEnum)
+                        {
+                            details.Add($"  WeaponObjectEnum Mismatch: Json ({jsonItem.WeaponObjectEnum}) vs MPK ({(int)mpkItem.WeaponObjectEnum})");
+                        }
+                        if (jsonItem.PreferTarget != mpkItem.PreferTarget)
+                        {
+                            details.Add($"  PreferTarget Mismatch: Json ({jsonItem.PreferTarget}) vs MPK ({(int)mpkItem.PreferTarget})");
+                        }
+                        if (jsonItem.ObjectPositionType != mpkItem.ObjectPositionType)
+                        {
+                            details.Add($"  ObjectPositionType Mismatch: Json ({jsonItem.ObjectPositionType}) vs MPK ({(int)mpkItem.ObjectPositionType})");
+                        }
+                        if (jsonItem.LinkedParts != mpkItem.LinkedParts)
+                        {
+                            details.Add($"  LinkedParts Mismatch: Json ({jsonItem.LinkedParts}) vs MPK ({(int)mpkItem.LinkedParts})");
+                        }
+                        if (jsonItem.CancelType != mpkItem.CancelType)
+                        {
+                            details.Add($"  CancelType Mismatch: Json ({jsonItem.CancelType}) vs MPK ({(int)mpkItem.CancelType})");
+                        }
+                    }
+                },
+                shouldSkipFailure: (jsonItem, mpkToJsonItem) =>
+                {
+                    jsonItem.ProjectileDefRatio = mpkToJsonItem?.ProjectileDefRatio ?? jsonItem.ProjectileDefRatio;
+                    return mpkToJsonItem != null && JsonSerializer.Serialize(jsonItem).Equals(JsonSerializer.Serialize(mpkToJsonItem));
+                },
+                checkMpkItemDetails: (details, mpkItem) =>
+                {
+                    if (Enum.IsDefined(typeof(WeaponType), (int)mpkItem.WeaponType) == false)
+                    {
+                        details.Add($"  Unknown WeaponType in MPK: {(int)mpkItem.WeaponType}");
+                    }
+                    if (Enum.IsDefined(typeof(AttackType), (int)mpkItem.AttackType) == false)
+                    {
+                        details.Add($"  Unknown AttackType in MPK: {(int)mpkItem.AttackType}");
+                    }
+                    if (Enum.IsDefined(typeof(FireType), (int)mpkItem.FireType) == false)
+                    {
+                        details.Add($"  Unknown FireType in MPK: {(int)mpkItem.FireType}");
+                    }
+                    if (Enum.IsDefined(typeof(ShotTiming), (int)mpkItem.ShotTiming) == false)
+                    {
+                        details.Add($"  Unknown ShotTiming in MPK: {(int)mpkItem.ShotTiming}");
+                    }
+                    if (Enum.IsDefined(typeof(WeaponObject), (int)mpkItem.WeaponObjectEnum) == false)
+                    {
+                        details.Add($"  Unknown WeaponObject in MPK: {(int)mpkItem.WeaponObjectEnum}");
+                    }
+                    if (Enum.IsDefined(typeof(PreferTarget), (int)mpkItem.PreferTarget) == false)
+                    {
+                        details.Add($"  Unknown PreferTarget in MPK: {(int)mpkItem.PreferTarget}");
+                    }
+                    if (Enum.IsDefined(typeof(ObjectPositionType), (int)mpkItem.ObjectPositionType) == false)
+                    {
+                        details.Add($"  Unknown ObjectPositionType in MPK: {(int)mpkItem.ObjectPositionType}");
+                    }
+                    if (Enum.IsDefined(typeof(SkillAnimationNumber), (int)mpkItem.AnimationNumber) == false)
+                    {
+                        details.Add($"  Unknown SkillAnimationNumber in MPK: {(int)mpkItem.AnimationNumber}");
+                    }
+                    if (Enum.IsDefined(typeof(CancelType), (int)mpkItem.CancelType) == false)
+                    {
+                        details.Add($"  Unknown CancelType in MPK: {(int)mpkItem.CancelType}");
                     }
                 },
                 stopOnFirstMismatch: false

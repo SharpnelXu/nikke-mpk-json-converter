@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace NikkeMpkConverter.model
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum PartsType
     {
         Unknown = -1,
@@ -44,49 +45,71 @@ namespace NikkeMpkConverter.model
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum WeaponObject
     {
-        [JsonStringEnumMemberName("unknown")]
+        // [JsonStringEnumMemberName("unknown")]
+        // Unknown = -1,
+        // [JsonStringEnumMemberName("none")]
+        // None = 0,
+        // [JsonStringEnumMemberName("weapon_object_01")]
+        // Weapon_object_01,
+        // [JsonStringEnumMemberName("weapon_object_02")]
+        // Weapon_object_02,
+        // [JsonStringEnumMemberName("weapon_object_03")]
+        // Weapon_object_03,
+        // [JsonStringEnumMemberName("weapon_object_04")]
+        // Weapon_object_04,
+        // [JsonStringEnumMemberName("weapon_object_05")]
+        // Weapon_object_05,
+        // [JsonStringEnumMemberName("weapon_object_06")]
+        // Weapon_object_06,
+        // [JsonStringEnumMemberName("weapon_object_07")]
+        // Weapon_object_07,
+        // [JsonStringEnumMemberName("weapon_object_08")]
+        // Weapon_object_08,
+        // [JsonStringEnumMemberName("weapon_object_09")]
+        // Weapon_object_09,
+        // [JsonStringEnumMemberName("weapon_object_10")]
+        // Weapon_object_10,
+        // [JsonStringEnumMemberName("weapon_object_11")]
+        // Weapon_object_11,
+        // [JsonStringEnumMemberName("weapon_object_12")]
+        // Weapon_object_12,
+        // [JsonStringEnumMemberName("weapon_object_13")]
+        // Weapon_object_13,
+        // [JsonStringEnumMemberName("weapon_object_14")]
+        // Weapon_object_14,
+        // [JsonStringEnumMemberName("weapon_object_15")]
+        // Weapon_object_15,
+        // [JsonStringEnumMemberName("weapon_object_16")]
+        // Weapon_object_16,
+        // [JsonStringEnumMemberName("weapon_object_17")]
+        // Weapon_object_17,
+        // [JsonStringEnumMemberName("weapon_object_18")]
+        // Weapon_object_18,
+        // [JsonStringEnumMemberName("weapon_object_19")]
+        // Weapon_object_19,
+        // [JsonStringEnumMemberName("weapon_object_20")]
+        // Weapon_object_20,
         Unknown = -1,
-        [JsonStringEnumMemberName("none")]
         None = 0,
-        [JsonStringEnumMemberName("weapon_object_01")]
         Weapon_object_01,
-        [JsonStringEnumMemberName("weapon_object_02")]
         Weapon_object_02,
-        [JsonStringEnumMemberName("weapon_object_03")]
         Weapon_object_03,
-        [JsonStringEnumMemberName("weapon_object_04")]
         Weapon_object_04,
-        [JsonStringEnumMemberName("weapon_object_05")]
         Weapon_object_05,
-        [JsonStringEnumMemberName("weapon_object_06")]
         Weapon_object_06,
-        [JsonStringEnumMemberName("weapon_object_07")]
         Weapon_object_07,
-        [JsonStringEnumMemberName("weapon_object_08")]
         Weapon_object_08,
-        [JsonStringEnumMemberName("weapon_object_09")]
         Weapon_object_09,
-        [JsonStringEnumMemberName("weapon_object_10")]
         Weapon_object_10,
-        [JsonStringEnumMemberName("weapon_object_11")]
         Weapon_object_11,
-        [JsonStringEnumMemberName("weapon_object_12")]
         Weapon_object_12,
-        [JsonStringEnumMemberName("weapon_object_13")]
         Weapon_object_13,
-        [JsonStringEnumMemberName("weapon_object_14")]
         Weapon_object_14,
-        [JsonStringEnumMemberName("weapon_object_15")]
         Weapon_object_15,
-        [JsonStringEnumMemberName("weapon_object_16")]
         Weapon_object_16,
-        [JsonStringEnumMemberName("weapon_object_17")]
         Weapon_object_17,
-        [JsonStringEnumMemberName("weapon_object_18")]
         Weapon_object_18,
-        [JsonStringEnumMemberName("weapon_object_19")]
         Weapon_object_19,
-        [JsonStringEnumMemberName("weapon_object_20")]
         Weapon_object_20,
     }
 
@@ -531,7 +554,7 @@ namespace NikkeMpkConverter.model
     public enum ObjectPositionType
     {
         None = 0,
-        World = 1,
+        World = 2,
     }
 
     public enum CancelType
@@ -539,9 +562,9 @@ namespace NikkeMpkConverter.model
         None = 0,
         BreakCol,
         BrokenParts,
-        BrokenParts_HurtCount,
-        BrokenParts_UntilEnd,
-        BrokenParts_OnlyCasting
+        BrokenParts_HurtCount = 4,
+        BrokenParts_UntilEnd = 5,
+        BrokenParts_OnlyCasting = 3
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
@@ -581,7 +604,21 @@ namespace NikkeMpkConverter.model
         Shot_31,
         Shot_32,
         Shot_33,
-        Shot_34
+        Shot_34,
+        Shot_35,
+        Shot_36,
+        Shot_37,
+        Shot_38,
+        Shot_39,
+        Shot_40
+    }
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum MonsterSkillvalueType
+    {
+        None = 0,
+        Integer = 2,
+        Percent = 1
     }
 
     /// <summary>
@@ -668,23 +705,23 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(13)]
         [JsonPropertyName("skill_value_type_01")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public ValueType SkillValueType1 { get; set; } = ValueType.None;
+        public MonsterSkillvalueType SkillValueType1 { get; set; } = MonsterSkillvalueType.None;
 
         [MemoryPackOrder(26)]
         [JsonPropertyOrder(14)]
         [JsonPropertyName("skill_value_01")]
-        public int SkillValue1 { get; set; }
+        public long SkillValue1 { get; set; }
 
         [MemoryPackOrder(27)]
         [JsonPropertyOrder(15)]
         [JsonPropertyName("skill_value_type_02")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public ValueType SkillValueType2 { get; set; } = ValueType.None;
+        public MonsterSkillvalueType SkillValueType2 { get; set; } = MonsterSkillvalueType.None;
 
         [MemoryPackOrder(28)]
         [JsonPropertyOrder(16)]
         [JsonPropertyName("skill_value_02")]
-        public int SkillValue2 { get; set; }
+        public long SkillValue2 { get; set; }
 
         [MemoryPackOrder(8)]
         [JsonPropertyOrder(17)]
@@ -771,7 +808,7 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(31)]
         [JsonPropertyName("weapon_object_enum")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public WeaponObject WeaponObjectEnum { get; set; } = WeaponObject.Unknown;
+        public WeaponObject WeaponObjectEnum { get; set; } = WeaponObject.None;
 
         [MemoryPackOrder(32)]
         [JsonPropertyOrder(32)]
@@ -812,7 +849,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(41)]
         [JsonPropertyOrder(39)]
         [JsonPropertyName("control_parts")]
-        public string[] ControlParts { get; set; } = [];
+        public PartsType[] ControlParts { get; set; } = [];
 
         [MemoryPackOrder(42)]
         [JsonPropertyOrder(42)]
