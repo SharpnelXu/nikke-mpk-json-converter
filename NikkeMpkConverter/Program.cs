@@ -1201,6 +1201,12 @@ namespace NikkeMpkConverter
                 outputPath + "PackageGroupTable" + outputExtension,
                 stopOnFirstMismatch: false
             );
+
+            await MpkConverter.ConvertTableAsync<PackageListData>(
+                inputPath + "PackageListTable" + inputExtension,
+                outputPath + "PackageListTable" + outputExtension,
+                stopOnFirstMismatch: false
+            );
         }
     }
 }
