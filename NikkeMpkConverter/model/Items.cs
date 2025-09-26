@@ -9,7 +9,7 @@ namespace NikkeMpkConverter.model
         Equip = 1,
         Material = 3,
         Piece = 4,
-        HarmonyCube = 5,
+        HarmonyCube = 5
     }
 
     public enum ItemConsumeType
@@ -676,9 +676,31 @@ namespace NikkeMpkConverter.model
     public enum ProductType
     {
         Unknown = -1,
-        Item = 5,
         Currency = 3,
-        CharacterCostume = 2
+        CharacterCostume = 2,
+        Item = 5
+    }
+
+    public enum ProductItemType
+    {
+        Currency = 0,
+        Item = 1
+    }
+    public enum MidasProductType
+    {
+        CashShop = 1,
+        PackageShop = 2,
+        PopupPackageShop = 3,
+        PassShop = 4,
+        MonthlyAmount = 5,
+        CampaignPackageShop = 6,
+        EventPassShop = 7,
+        CostumeShop = 8,
+        CharacterCostume = 9,
+        StepUpPackageShop = 10,
+        EventInAppShop = 11,
+        CustomPackageShop = 12,
+        PassCostumeShop = 13
     }
 
     public enum BuyLimitType
@@ -1076,7 +1098,8 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(1)]
         [JsonPropertyOrder(1)]
         [JsonPropertyName("product_type")]
-        public string ProductType { get; set; } = string.Empty;
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public MidasProductType ProductType { get; set; } = MidasProductType.CashShop;
 
         [MemoryPackOrder(2)]
         [JsonPropertyOrder(2)]
@@ -1086,7 +1109,8 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(3)]
         [JsonPropertyOrder(3)]
         [JsonPropertyName("item_type")]
-        public string ItemType { get; set; } = string.Empty;
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public ProductItemType ItemType { get; set; } = ProductItemType.Currency;
 
         [MemoryPackOrder(4)]
         [JsonPropertyOrder(4)]
