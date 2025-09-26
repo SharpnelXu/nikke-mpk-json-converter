@@ -135,6 +135,40 @@ namespace NikkeMpkConverter.model
         public int[] HurtFunctionIds { get; set; } = [];
     }
 
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum MonsterUiGrade
+    {
+        None = 0,
+        Selfless,
+        Servant,
+        Master,
+        Lord,
+        Tyrant,
+        Heretic
+    }
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum NoneTargetCondition
+    {
+        None = 2,
+        Normal = 0,
+        Last = 1
+    }
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum FunctionNoneTargetCondition
+    {
+        None = 2,
+        Normal = 0,
+        NoAllMonster = 1
+    }
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum SpawnType
+    {
+        None = 0,
+        Drop = 4,
+    }
+
     /// <summary>
     /// Monster data from MonsterTable
     /// </summary>
@@ -144,7 +178,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(0)]
         [JsonPropertyOrder(0)]
         [JsonPropertyName("id")]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [MemoryPackOrder(1)]
         [JsonPropertyOrder(1)]
@@ -155,6 +189,11 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(2)]
         [JsonPropertyName("monster_model_id")]
         public int MonsterModelId { get; set; }
+
+        [MemoryPackOrder(2)]
+        [JsonPropertyOrder(2)]
+        [JsonPropertyName("ui_grade")]
+        public MonsterUiGrade UiGrade { get; set; } = MonsterUiGrade.None;
 
         [MemoryPackOrder(3)]
         [JsonPropertyOrder(3)]
@@ -181,12 +220,12 @@ namespace NikkeMpkConverter.model
         [JsonPropertyName("hp_ratio")]
         public int HpRatio { get; set; }
 
-        [MemoryPackOrder(8)]
+        [MemoryPackOrder(9)]
         [JsonPropertyOrder(8)]
         [JsonPropertyName("attack_ratio")]
         public int AttackRatio { get; set; }
 
-        [MemoryPackOrder(9)]
+        [MemoryPackOrder(8)]
         [JsonPropertyOrder(9)]
         [JsonPropertyName("defence_ratio")]
         public int DefenceRatio { get; set; }
@@ -219,12 +258,12 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(15)]
         [JsonPropertyOrder(15)]
         [JsonPropertyName("nonetarget")]
-        public string Nonetarget { get; set; } = "Normal";
+        public NoneTargetCondition Nonetarget { get; set; } = NoneTargetCondition.Normal;
 
         [MemoryPackOrder(16)]
         [JsonPropertyOrder(16)]
         [JsonPropertyName("functionnonetarget")]
-        public string FunctionNonetarget { get; set; } = "Normal";
+        public FunctionNoneTargetCondition FunctionNonetarget { get; set; } = FunctionNoneTargetCondition.Normal;
 
         [MemoryPackOrder(17)]
         [JsonPropertyOrder(17)]
@@ -254,7 +293,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(22)]
         [JsonPropertyOrder(22)]
         [JsonPropertyName("fixed_spawn_type")]
-        public string FixedSpawnType { get; set; } = string.Empty;
+        public SpawnType FixedSpawnType { get; set; } = SpawnType.None;
 
         [MemoryPackOrder(23)]
         [JsonPropertyOrder(23)]
@@ -283,6 +322,11 @@ namespace NikkeMpkConverter.model
 
         [MemoryPackOrder(28)]
         [JsonPropertyOrder(28)]
+        [JsonPropertyName("passive_skill_id")]
+        public int PassiveSkillId { get; set; }
+
+        [MemoryPackOrder(28)]
+        [JsonPropertyOrder(28)]
         [JsonPropertyName("skill_data")]
         public MonsterSkillInfoData[] SkillData { get; set; } = [];
 
@@ -290,16 +334,6 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(29)]
         [JsonPropertyName("statenhance_id")]
         public int StatEnhanceId { get; set; }
-
-        [MemoryPackOrder(30)]
-        [JsonPropertyOrder(30)]
-        [JsonPropertyName("ui_grade")]
-        public string? UiGrade { get; set; }
-
-        [MemoryPackOrder(31)]
-        [JsonPropertyOrder(31)]
-        [JsonPropertyName("passive_skill_id")]
-        public int? PassiveSkillId { get; set; }
     }
 
     /// <summary>

@@ -66,9 +66,61 @@ namespace NikkeMpkConverter
                 // Convert the file (auto-detects format based on extension)
                 // await SerializationAsync(inputPath, outputPath!, inputExtension, outputExtension);
 
-                await MpkConverter.ConvertTableAsync<MonsterStatEnhanceData>(
-                    inputPath + "MonsterStatEnhanceTable" + inputExtension,
-                    outputPath + "MonsterStatEnhanceTable" + outputExtension,
+                await MpkConverter.ConvertTableAsync<MonsterData>(
+                    inputPath + "MonsterTable" + inputExtension,
+                    outputPath + "MonsterTable" + outputExtension,
+                
+                    (details, jsonItem, mpkItem) =>
+                    {
+                        if (jsonItem.Id != mpkItem.Id)
+                        {
+                            details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                        }
+                        else
+                        {
+                            details.Add($"ID: {jsonItem.Id}");
+                            if (jsonItem.UiGrade != mpkItem.UiGrade)
+                            {
+                                details.Add($"  UiGrade Mismatch: Json ({jsonItem.UiGrade}) vs MPK ({(int)mpkItem.UiGrade})");
+                            }
+                            if (jsonItem.FixedSpawnType != mpkItem.FixedSpawnType)
+                            {
+                                details.Add($"  FixedSpawnType Mismatch: Json ({jsonItem.FixedSpawnType}) vs MPK ({(int)mpkItem.FixedSpawnType})");
+                            }
+                            if (jsonItem.Nonetarget != mpkItem.Nonetarget)
+                            {
+                                details.Add($"  Nonetarget Mismatch: Json ({jsonItem.Nonetarget}) vs MPK ({(int) mpkItem.Nonetarget})");
+                            }
+                            if (jsonItem.FunctionNonetarget != mpkItem.FunctionNonetarget)
+                            {
+                                details.Add($"  FunctionNonetarget Mismatch: Json ({jsonItem.FunctionNonetarget}) vs MPK ({(int)mpkItem.FunctionNonetarget})");
+                            }
+                        }
+                    },
+                    shouldSkipFailure: (jsonItem, mpkToJsonItem) =>
+                    {
+                        jsonItem.DescriptionKey = mpkToJsonItem?.DescriptionKey ?? jsonItem.DescriptionKey;
+                        return mpkToJsonItem != null && (JsonSerializer.Serialize(jsonItem).Equals(JsonSerializer.Serialize(mpkToJsonItem)));
+                    },
+                    checkMpkItemDetails: (details, mpkItem) =>
+                    {
+                        if (Enum.IsDefined(typeof(MonsterUiGrade), (int)mpkItem.UiGrade) == false)
+                        {
+                            details.Add($"  Unknown UiGrade in MPK: {(int)mpkItem.UiGrade}");
+                        }
+                        if (Enum.IsDefined(typeof(SpawnType), (int)mpkItem.FixedSpawnType) == false)
+                        {
+                            details.Add($"  Unknown FixedSpawnType in MPK: {(int)mpkItem.FixedSpawnType}");
+                        }
+                        if (Enum.IsDefined(typeof(NoneTargetCondition), (int)mpkItem.Nonetarget) == false)
+                        {
+                            details.Add($"  Unknown Nonetarget in MPK: {(int)mpkItem.Nonetarget}");
+                        }
+                        if (Enum.IsDefined(typeof(NoneTargetCondition), (int)mpkItem.FunctionNonetarget) == false)
+                        {
+                            details.Add($"  Unknown FunctionNonetarget in MPK: {(int)mpkItem.FunctionNonetarget}");
+                        }
+                    },
                     stopOnFirstMismatch: false
                 );
 
@@ -1127,6 +1179,65 @@ namespace NikkeMpkConverter
             await MpkConverter.ConvertTableAsync<MonsterStatEnhanceData>(
                 inputPath + "MonsterStatEnhanceTable" + inputExtension,
                 outputPath + "MonsterStatEnhanceTable" + outputExtension,
+                stopOnFirstMismatch: false
+            );
+            
+
+            await MpkConverter.ConvertTableAsync<MonsterData>(
+                inputPath + "MonsterTable" + inputExtension,
+                outputPath + "MonsterTable" + outputExtension,
+            
+                (details, jsonItem, mpkItem) =>
+                {
+                    if (jsonItem.Id != mpkItem.Id)
+                    {
+                        details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                    }
+                    else
+                    {
+                        details.Add($"ID: {jsonItem.Id}");
+                        if (jsonItem.UiGrade != mpkItem.UiGrade)
+                        {
+                            details.Add($"  UiGrade Mismatch: Json ({jsonItem.UiGrade}) vs MPK ({(int)mpkItem.UiGrade})");
+                        }
+                        if (jsonItem.FixedSpawnType != mpkItem.FixedSpawnType)
+                        {
+                            details.Add($"  FixedSpawnType Mismatch: Json ({jsonItem.FixedSpawnType}) vs MPK ({(int)mpkItem.FixedSpawnType})");
+                        }
+                        if (jsonItem.Nonetarget != mpkItem.Nonetarget)
+                        {
+                            details.Add($"  Nonetarget Mismatch: Json ({jsonItem.Nonetarget}) vs MPK ({(int) mpkItem.Nonetarget})");
+                        }
+                        if (jsonItem.FunctionNonetarget != mpkItem.FunctionNonetarget)
+                        {
+                            details.Add($"  FunctionNonetarget Mismatch: Json ({jsonItem.FunctionNonetarget}) vs MPK ({(int)mpkItem.FunctionNonetarget})");
+                        }
+                    }
+                },
+                shouldSkipFailure: (jsonItem, mpkToJsonItem) =>
+                {
+                    jsonItem.DescriptionKey = mpkToJsonItem?.DescriptionKey ?? jsonItem.DescriptionKey;
+                    return mpkToJsonItem != null && (JsonSerializer.Serialize(jsonItem).Equals(JsonSerializer.Serialize(mpkToJsonItem)));
+                },
+                checkMpkItemDetails: (details, mpkItem) =>
+                {
+                    if (Enum.IsDefined(typeof(MonsterUiGrade), (int)mpkItem.UiGrade) == false)
+                    {
+                        details.Add($"  Unknown UiGrade in MPK: {(int)mpkItem.UiGrade}");
+                    }
+                    if (Enum.IsDefined(typeof(SpawnType), (int)mpkItem.FixedSpawnType) == false)
+                    {
+                        details.Add($"  Unknown FixedSpawnType in MPK: {(int)mpkItem.FixedSpawnType}");
+                    }
+                    if (Enum.IsDefined(typeof(NoneTargetCondition), (int)mpkItem.Nonetarget) == false)
+                    {
+                        details.Add($"  Unknown Nonetarget in MPK: {(int)mpkItem.Nonetarget}");
+                    }
+                    if (Enum.IsDefined(typeof(NoneTargetCondition), (int)mpkItem.FunctionNonetarget) == false)
+                    {
+                        details.Add($"  Unknown FunctionNonetarget in MPK: {(int)mpkItem.FunctionNonetarget}");
+                    }
+                },
                 stopOnFirstMismatch: false
             );
         }
