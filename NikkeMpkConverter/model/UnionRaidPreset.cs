@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace NikkeMpkConverter.model
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum DifficultyType
     {
         Normal = 1,

@@ -149,6 +149,20 @@ namespace NikkeMpkConverter.model
         public string? UiTheme { get; set; }
     }
 
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum QuickBattleType
+    {
+        None = 0,
+        StageClear = 1
+    }
+    
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum SoloRaidDifficultyType
+    {
+        Common = 1,
+        Trial = 2
+    }
+
     /// <summary>
     /// Solo raid wave data from SoloRaidPresetTable
     /// </summary>
@@ -168,12 +182,12 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(2)]
         [JsonPropertyOrder(2)]
         [JsonPropertyName("difficulty_type")]
-        public string DifficultyType { get; set; } = string.Empty;
+        public SoloRaidDifficultyType DifficultyType { get; set; } = SoloRaidDifficultyType.Common;
 
         [MemoryPackOrder(3)]
         [JsonPropertyOrder(3)]
         [JsonPropertyName("quick_battle_type")]
-        public string QuickBattleType { get; set; } = string.Empty;
+        public QuickBattleType QuickBattleType { get; set; } = QuickBattleType.None;
 
         [MemoryPackOrder(4)]
         [JsonPropertyOrder(4)]

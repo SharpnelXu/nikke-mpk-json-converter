@@ -1145,7 +1145,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(0)]
         [JsonPropertyOrder(0)]
         [JsonPropertyName("description_value")]
-        public string? Value { get; set; }
+        public string? Value { get; set; } = string.Empty;
     }
 
     /// <summary>
