@@ -7,7 +7,15 @@ namespace NikkeMpkConverter.model
     {
         Unknown = -1,
         Equip = 1,
-        HarmonyCube = 2
+        HarmonyCube = 11,
+        Consume = 2,
+        Box = 4,
+        BundleBox = 5,
+        ItemRandomBoxList = 6,
+        ItemRandomBoxNormal = 7,
+        ProfileRandomBox = 8,
+        EquipCombination = 9,
+        ArcadeItem = 10
     }
 
     public enum ItemRarity
@@ -35,7 +43,15 @@ namespace NikkeMpkConverter.model
         [JsonPropertyName("Module_C")]
         Arm = 3,
         [JsonPropertyName("Module_D")]
-        Leg = 4
+        Leg = 4,
+        TimeReward = 15,
+        Box = 5,
+        BundleBox = 20,
+        ItemRandomBoxList = 21,
+        ItemRandomBoxNormal = 22,
+        ProfileRandomBox = 33,
+        EquipCombination = 35,
+        ArcadeItem = 37
     }
 
     public enum StatType
@@ -51,6 +67,47 @@ namespace NikkeMpkConverter.model
         Unknown = -1,
         Collection = 1,
         Favorite = 2
+    }
+
+    public enum UseConditionType
+    {
+        Unknown = -1,
+        StageClear = 2,
+        None = 0
+    }
+
+    // public enum ConsumeItemType
+    // {
+    //     Unknown = -1,
+    //     Consume = 1
+    // }
+
+    // public enum ConsumeSubType
+    // {
+    //     Unknown = -1,
+    //     TimeReward = 1,
+
+    // }
+
+    public enum UseType
+    {
+        Unknown = -1,
+        CurrencyTimeReward = 7,
+        SelectBox = 3,
+        BundleBox = 8,
+        ItemRandomBox = 9,
+        SelectBoxRowCharacter = 11,
+        EquipCombination = 12,
+        MVGGold = 13,
+        MVGCore = 14,
+        MVGCollectable = 15
+    }
+
+    public enum PercentDisplayType
+    {
+        None = 0,
+        Percent = 1,
+        Unknown = -1
     }
 
     /// <summary>
@@ -1028,5 +1085,103 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(7)]
         [JsonPropertyName("cost")]
         public string Cost { get; set; } = "0";
+    }
+
+    /// <summary>
+    /// Consumable item data from ItemConsumeTable
+    /// </summary>
+    [MemoryPackable]
+    public partial class ConsumeItemData
+    {
+        [MemoryPackOrder(0)]
+        [JsonPropertyOrder(0)]
+        [JsonPropertyName("id")]
+        public int Id { get; set; }
+
+        [MemoryPackOrder(1)]
+        [JsonPropertyOrder(1)]
+        [JsonPropertyName("use_condition_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public UseConditionType UseConditionType { get; set; } = UseConditionType.Unknown;
+
+        [MemoryPackOrder(2)]
+        [JsonPropertyOrder(2)]
+        [JsonPropertyName("use_condition_value")]
+        public int UseConditionValue { get; set; }
+
+        [MemoryPackOrder(3)]
+        [JsonPropertyOrder(3)]
+        [JsonPropertyName("name_localkey")]
+        public string NameKey { get; set; } = string.Empty;
+
+        [MemoryPackOrder(4)]
+        [JsonPropertyOrder(4)]
+        [JsonPropertyName("description_localkey")]
+        public string DescriptionKey { get; set; } = string.Empty;
+
+        [MemoryPackOrder(5)]
+        [JsonPropertyOrder(5)]
+        [JsonPropertyName("resource_id")]
+        public string ResourceId { get; set; } = string.Empty;
+
+        [MemoryPackOrder(6)]
+        [JsonPropertyOrder(6)]
+        [JsonPropertyName("item_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public ItemType ItemType { get; set; } = ItemType.Unknown;
+
+        [MemoryPackOrder(7)]
+        [JsonPropertyOrder(7)]
+        [JsonPropertyName("item_sub_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public ItemSubType ItemSubType { get; set; } = ItemSubType.Unknown;
+
+        [MemoryPackOrder(8)]
+        [JsonPropertyOrder(8)]
+        [JsonPropertyName("item_rare")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public Rarity ItemRarity { get; set; } = Rarity.Unknown;
+
+        [MemoryPackOrder(9)]
+        [JsonPropertyOrder(9)]
+        [JsonPropertyName("use_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public UseType UseType { get; set; } = UseType.Unknown;
+
+        [MemoryPackOrder(10)]
+        [JsonPropertyOrder(10)]
+        [JsonPropertyName("use_id")]
+        public int UseId { get; set; }
+
+        [MemoryPackOrder(11)]
+        [JsonPropertyOrder(11)]
+        [JsonPropertyName("percent_display_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public PercentDisplayType PercentDisplayType { get; set; } = PercentDisplayType.None;
+
+        [MemoryPackOrder(12)]
+        [JsonPropertyOrder(12)]
+        [JsonPropertyName("use_value")]
+        public int UseValue { get; set; }
+
+        [MemoryPackOrder(13)]
+        [JsonPropertyOrder(13)]
+        [JsonPropertyName("use_frag_cost")]
+        public int UseFragCost { get; set; }
+
+        [MemoryPackOrder(14)]
+        [JsonPropertyOrder(14)]
+        [JsonPropertyName("use_limit_count")]
+        public bool UseLimitCount { get; set; }
+
+        [MemoryPackOrder(15)]
+        [JsonPropertyOrder(15)]
+        [JsonPropertyName("use_limit_count_value")]
+        public int UseLimitCountValue { get; set; }
+
+        [MemoryPackOrder(16)]
+        [JsonPropertyOrder(16)]
+        [JsonPropertyName("stack_max")]
+        public int StackMax { get; set; }
     }
 }

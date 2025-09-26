@@ -674,6 +674,7 @@ namespace NikkeMpkConverter.converter
                             }
                         }
                     }
+                    uniqueDetails = uniqueDetails.OrderBy(d => d).ToHashSet();
                     foreach (var detail in uniqueDetails)
                     {
                         Console.WriteLine(detail);

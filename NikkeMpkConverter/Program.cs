@@ -63,59 +63,75 @@ namespace NikkeMpkConverter
                 Console.WriteLine($"Output file: {outputPath}");
 
                 // Convert the file (auto-detects format based on extension)
-                // await SerializationAsync(inputPath, outputPath!, inputExtension, outputExtension);
+                await SerializationAsync(inputPath, outputPath!, inputExtension, outputExtension);
 
-                await MpkConverter.ConvertTableAsync<InAppShopData>(
-                    inputPath + "InAppShopManagerTable" + inputExtension,
-                    outputPath + "InAppShopManagerTable" + outputExtension,
-                    (details, jsonItem, mpkItem) =>
-                    {
-                        if (jsonItem.Id != mpkItem.Id)
-                        {
-                            details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
-                        }
-                        else
-                        {
-                            details.Add($"ID: {jsonItem.Id}");
-                            if (jsonItem.MainCategoryType != mpkItem.MainCategoryType)
-                            {
-                                details.Add($"  MainCategoryType Mismatch: Json ({jsonItem.MainCategoryType}) vs MPK ({(int)mpkItem.MainCategoryType})");
-                            }
-                            if (jsonItem.RenewType != mpkItem.RenewType)
-                            {
-                                details.Add($"  RenewType Mismatch: Json ({jsonItem.RenewType}) vs MPK ({(int)mpkItem.RenewType})");
-                            }
-                            if (jsonItem.ShopType != mpkItem.ShopType)
-                            {
-                                details.Add($"  ShopType Mismatch: Json ({jsonItem.ShopType}) vs MPK ({(int)mpkItem.ShopType})");
-                            }
-                            if (jsonItem.ShopCategory != mpkItem.ShopCategory)
-                            {
-                                details.Add($"  ShopCategory Mismatch: Json ({jsonItem.ShopCategory}) vs MPK ({(int)mpkItem.ShopCategory})");
-                            }
-                        }
-                    },
-                    checkMpkItemDetails: (details, mpkItem) =>
-                    {
-                        if (Enum.IsDefined(typeof(MainCategoryType), (int)mpkItem.MainCategoryType) == false)
-                        {
-                            details.Add($"  Unknown MainCategoryType in MPK: {(int) mpkItem.MainCategoryType}");
-                        }
-                        if (Enum.IsDefined(typeof(RenewType), (int)mpkItem.RenewType) == false)
-                        {
-                            details.Add($"  Unknown RenewType in MPK: {(int) mpkItem.RenewType}");
-                        }
-                        if (Enum.IsDefined(typeof(ShopCategory), (int)mpkItem.ShopCategory) == false)
-                        {
-                            details.Add($"  Unknown ShopCategory in MPK: {(int) mpkItem.ShopCategory}");
-                        }
-                        if (Enum.IsDefined(typeof(ShopType), (int)mpkItem.ShopType) == false)
-                        {
-                            details.Add($"  Unknown ShopType in MPK: {(int) mpkItem.ShopType}");
-                        }
-                    },
-                    stopOnFirstMismatch: false
-                );
+                // await MpkConverter.ConvertTableAsync<ConsumeItemData>(
+                //     inputPath + "ItemConsumeTable" + inputExtension,
+                //     outputPath + "ItemConsumeTable" + outputExtension,
+                //     (details, jsonItem, mpkItem) =>
+                //     {
+                //         if (jsonItem.Id != mpkItem.Id)
+                //         {
+                //             details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                //         }
+                //         else
+                //         {
+                //             details.Add($"ID: {jsonItem.Id}");
+                //             if (jsonItem.UseConditionType != mpkItem.UseConditionType)
+                //             {
+                //                 details.Add($"  UseConditionType Mismatch: Json ({jsonItem.UseConditionType}) vs MPK ({(int)mpkItem.UseConditionType})");
+                //             }
+                //             if (jsonItem.UseType != mpkItem.UseType)
+                //             {
+                //                 details.Add($"  UseType Mismatch: Json ({jsonItem.UseType}) vs MPK ({(int)mpkItem.UseType})");
+                //             }
+                //             if (jsonItem.ItemType != mpkItem.ItemType)
+                //             {
+                //                 details.Add($"  ItemType Mismatch: Json ({jsonItem.ItemType}) vs MPK ({(int)mpkItem.ItemType})");
+                //             }
+                //             if (jsonItem.ItemSubType != mpkItem.ItemSubType)
+                //             {
+                //                 details.Add($"  ItemSubType Mismatch: Json ({jsonItem.ItemSubType}) vs MPK ({(int)mpkItem.ItemSubType})");
+                //             }
+                //             if (jsonItem.ItemRarity != mpkItem.ItemRarity)
+                //             {
+                //                 details.Add($"  Rarity Mismatch: Json ({jsonItem.ItemRarity}) vs MPK ({(int)mpkItem.ItemRarity})");
+                //             }
+                //             if (jsonItem.PercentDisplayType != mpkItem.PercentDisplayType)
+                //             {
+                //                 details.Add($"  PercentDisplayType Mismatch: Json ({jsonItem.PercentDisplayType}) vs MPK ({(int)mpkItem.PercentDisplayType})");
+                //             }
+                //         }
+                //     },
+                //     checkMpkItemDetails: (details, mpkItem) =>
+                //     {
+                //         if (Enum.IsDefined(typeof(UseConditionType), (int)mpkItem.UseConditionType) == false)
+                //         {
+                //             details.Add($"  Unknown UseConditionType in MPK: {(int)mpkItem.UseConditionType}");
+                //         }
+                //         if (Enum.IsDefined(typeof(UseType), (int)mpkItem.UseType) == false)
+                //         {
+                //             details.Add($"  Unknown UseType in MPK: {(int)mpkItem.UseType}");
+                //         }
+                //         if (Enum.IsDefined(typeof(ItemType), (int)mpkItem.ItemType) == false)
+                //         {
+                //             details.Add($"  Unknown ItemType in MPK: {(int)mpkItem.ItemType}");
+                //         }
+                //         if (Enum.IsDefined(typeof(ItemSubType), (int)mpkItem.ItemSubType) == false)
+                //         {
+                //             details.Add($"  Unknown ItemSubType in MPK: {(int)mpkItem.ItemSubType}");
+                //         }
+                //         if (Enum.IsDefined(typeof(ItemRarity), (int)mpkItem.ItemRarity) == false)
+                //         {
+                //             details.Add($"  Unknown ItemRarity in MPK: {(int)mpkItem.ItemRarity}");
+                //         }
+                //         if (Enum.IsDefined(typeof(PercentDisplayType), (int)mpkItem.PercentDisplayType) == false)
+                //         {
+                //             details.Add($"  Unknown PercentDisplayType in MPK: {(int)mpkItem.PercentDisplayType}");
+                //         }
+                //     },
+                //     stopOnFirstMismatch: false
+                // );
                 
                 Console.WriteLine("Conversion completed successfully!");
             }
@@ -591,7 +607,7 @@ namespace NikkeMpkConverter
 
                 }
             );
-            
+
             await MpkConverter.ConvertTableAsync<InAppShopData>(
                 inputPath + "InAppShopManagerTable" + inputExtension,
                 outputPath + "InAppShopManagerTable" + outputExtension,
@@ -626,21 +642,89 @@ namespace NikkeMpkConverter
                 {
                     if (Enum.IsDefined(typeof(MainCategoryType), (int)mpkItem.MainCategoryType) == false)
                     {
-                        details.Add($"  Unknown MainCategoryType in MPK: {(int) mpkItem.MainCategoryType}");
+                        details.Add($"  Unknown MainCategoryType in MPK: {(int)mpkItem.MainCategoryType}");
                     }
                     if (Enum.IsDefined(typeof(RenewType), (int)mpkItem.RenewType) == false)
                     {
-                        details.Add($"  Unknown RenewType in MPK: {(int) mpkItem.RenewType}");
+                        details.Add($"  Unknown RenewType in MPK: {(int)mpkItem.RenewType}");
                     }
                     if (Enum.IsDefined(typeof(ShopCategory), (int)mpkItem.ShopCategory) == false)
                     {
-                        details.Add($"  Unknown ShopCategory in MPK: {(int) mpkItem.ShopCategory}");
+                        details.Add($"  Unknown ShopCategory in MPK: {(int)mpkItem.ShopCategory}");
                     }
                     if (Enum.IsDefined(typeof(ShopType), (int)mpkItem.ShopType) == false)
                     {
-                        details.Add($"  Unknown ShopType in MPK: {(int) mpkItem.ShopType}");
+                        details.Add($"  Unknown ShopType in MPK: {(int)mpkItem.ShopType}");
                     }
                 }
+            );
+            
+            await MpkConverter.ConvertTableAsync<ConsumeItemData>(
+                inputPath + "ItemConsumeTable" + inputExtension,
+                outputPath + "ItemConsumeTable" + outputExtension,
+                (details, jsonItem, mpkItem) =>
+                {
+                    if (jsonItem.Id != mpkItem.Id)
+                    {
+                        details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                    }
+                    else
+                    {
+                        details.Add($"ID: {jsonItem.Id}");
+                        if (jsonItem.UseConditionType != mpkItem.UseConditionType)
+                        {
+                            details.Add($"  UseConditionType Mismatch: Json ({jsonItem.UseConditionType}) vs MPK ({(int)mpkItem.UseConditionType})");
+                        }
+                        if (jsonItem.UseType != mpkItem.UseType)
+                        {
+                            details.Add($"  UseType Mismatch: Json ({jsonItem.UseType}) vs MPK ({(int)mpkItem.UseType})");
+                        }
+                        if (jsonItem.ItemType != mpkItem.ItemType)
+                        {
+                            details.Add($"  ItemType Mismatch: Json ({jsonItem.ItemType}) vs MPK ({(int)mpkItem.ItemType})");
+                        }
+                        if (jsonItem.ItemSubType != mpkItem.ItemSubType)
+                        {
+                            details.Add($"  ItemSubType Mismatch: Json ({jsonItem.ItemSubType}) vs MPK ({(int)mpkItem.ItemSubType})");
+                        }
+                        if (jsonItem.ItemRarity != mpkItem.ItemRarity)
+                        {
+                            details.Add($"  Rarity Mismatch: Json ({jsonItem.ItemRarity}) vs MPK ({(int)mpkItem.ItemRarity})");
+                        }
+                        if (jsonItem.PercentDisplayType != mpkItem.PercentDisplayType)
+                        {
+                            details.Add($"  PercentDisplayType Mismatch: Json ({jsonItem.PercentDisplayType}) vs MPK ({(int)mpkItem.PercentDisplayType})");
+                        }
+                    }
+                },
+                checkMpkItemDetails: (details, mpkItem) =>
+                {
+                    if (Enum.IsDefined(typeof(UseConditionType), (int)mpkItem.UseConditionType) == false)
+                    {
+                        details.Add($"  Unknown UseConditionType in MPK: {(int)mpkItem.UseConditionType}");
+                    }
+                    if (Enum.IsDefined(typeof(UseType), (int)mpkItem.UseType) == false)
+                    {
+                        details.Add($"  Unknown UseType in MPK: {(int)mpkItem.UseType}");
+                    }
+                    if (Enum.IsDefined(typeof(ItemType), (int)mpkItem.ItemType) == false)
+                    {
+                        details.Add($"  Unknown ItemType in MPK: {(int)mpkItem.ItemType}");
+                    }
+                    if (Enum.IsDefined(typeof(ItemSubType), (int)mpkItem.ItemSubType) == false)
+                    {
+                        details.Add($"  Unknown ItemSubType in MPK: {(int)mpkItem.ItemSubType}");
+                    }
+                    if (Enum.IsDefined(typeof(ItemRarity), (int)mpkItem.ItemRarity) == false)
+                    {
+                        details.Add($"  Unknown ItemRarity in MPK: {(int)mpkItem.ItemRarity}");
+                    }
+                    if (Enum.IsDefined(typeof(PercentDisplayType), (int)mpkItem.PercentDisplayType) == false)
+                    {
+                        details.Add($"  Unknown PercentDisplayType in MPK: {(int)mpkItem.PercentDisplayType}");
+                    }
+                },
+                stopOnFirstMismatch: false
             );
         }
     }
