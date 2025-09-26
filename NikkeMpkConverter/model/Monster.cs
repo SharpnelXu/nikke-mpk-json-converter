@@ -166,7 +166,11 @@ namespace NikkeMpkConverter.model
     public enum SpawnType
     {
         None = 0,
+        Dash = 2,
+        Jump = 3,
+        Random = 5,
         Drop = 4,
+        Normal = 1
     }
 
     /// <summary>

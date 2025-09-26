@@ -238,6 +238,7 @@ namespace NikkeMpkConverter.converter
             Action<List<string>, TItem, TItem>? logItemDetails = null,
             Func<TItem, TItem?, bool>? shouldSkipFailure = null, 
             Action<HashSet<string>, TItem>? checkMpkItemDetails = null,
+            Func<TItem, long>? getMpkItemKey = null,
             bool stopOnFirstMismatch = true)
         {
             // Determine the input and output formats based on file extension
@@ -268,6 +269,7 @@ namespace NikkeMpkConverter.converter
                     logItemDetails,
                     shouldSkipFailure,
                     checkMpkItemDetails,
+                    getMpkItemKey,
                     stopOnFirstMismatch: stopOnFirstMismatch
                 );
             }
@@ -294,6 +296,7 @@ namespace NikkeMpkConverter.converter
             Action<List<string>, TItem, TItem>? logItemDetails = null,
             Func<TItem, TItem?, bool>? shouldSkipFailure = null, 
             Action<HashSet<string>, TItem>? checkMpkItemDetails = null,
+            Func<TItem, long>? getMpkItemKey = null,
             bool stopOnFirstMismatch = true)
         {
             Console.WriteLine($"Verifying JSON to MPK conversion compatibility...");
@@ -506,16 +509,25 @@ namespace NikkeMpkConverter.converter
             {
                 // try deserializing all items at once and comparing
                 var mpkItems = MemoryPackSerializer.Deserialize<TItem[]>(mpkBytes);
-                Dictionary<int, TItem> mpkItemMap = new Dictionary<int, TItem>();
+                Dictionary<long, TItem> mpkItemMap = new Dictionary<long, TItem>();
                 if (mpkItems != null)
                 {
                     for (int i = 0; i < mpkItems.Length; i++)
                     {
-                        var idProperty = typeof(TItem).GetProperty("Id");
-                        if (idProperty != null)
+                        if (getMpkItemKey != null)
                         {
-                            int idValue = (int)idProperty.GetValue(mpkItems[i])!;
+                            long idValue = getMpkItemKey(mpkItems[i])!;
                             mpkItemMap[idValue] = mpkItems[i];
+                            continue;
+                        }
+                        else
+                        {
+                            var idProperty = typeof(TItem).GetProperty("Id");
+                            if (idProperty != null)
+                            {
+                                long idValue = (int)idProperty.GetValue(mpkItems[i])!;
+                                mpkItemMap[idValue] = mpkItems[i];
+                            }
                         }
                     }
                 }
@@ -550,9 +562,22 @@ namespace NikkeMpkConverter.converter
                     // Convert item bytes to hex for comparison
                     string itemHex = BitConverter.ToString(itemBytes).Replace("-", " ");
 
+                    long id = 0;
+                    if (getMpkItemKey != null)
+                    {
+                        id = getMpkItemKey(items[i])!;
+                    }
+                    else
+                    {
+                        var idProperty = typeof(TItem).GetProperty("Id");
+                        if (idProperty != null)
+                        {
+                            id = (int)idProperty.GetValue(items[i])!;
+                        }
+                    }
                     // Extract the corresponding portion from the MPK hex string
                     string mpkItemHex = mpkItemMap.TryGetValue(
-                        (int)typeof(TItem).GetProperty("Id")!.GetValue(items[i])!,
+                        id,
                         out var mpkItem) && mpkItem != null
                         ? BitConverter.ToString(MemoryPackSerializer.Serialize(mpkItem)).Replace("-", " ")
                         : "";

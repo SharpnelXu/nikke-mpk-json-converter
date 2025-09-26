@@ -64,26 +64,7 @@ namespace NikkeMpkConverter
                 Console.WriteLine($"Output file: {outputPath}");
 
                 // Convert the file (auto-detects format based on extension)
-                // await SerializationAsync(inputPath, outputPath!, inputExtension, outputExtension);
-
-                await MpkConverter.ConvertTableAsync<StepUpPackageData>(
-                    inputPath + "StepUpPackageListTable" + inputExtension,
-                    outputPath + "StepUpPackageListTable" + outputExtension,
-                    logItemDetails: (details, jsonItem, mpkItem) =>
-                    {
-                        if (jsonItem.Id != mpkItem.Id)
-                        {
-                            details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
-                        }
-                        else
-                        {
-                            details.Add($"ID: {jsonItem.Id}");
-
-                        }
-                    },
-                    stopOnFirstMismatch: false
-                );
-
+                await SerializationAsync(inputPath, outputPath!, inputExtension, outputExtension);
                 
                 Console.WriteLine("Conversion completed successfully!");
             }
@@ -1174,6 +1155,7 @@ namespace NikkeMpkConverter
                         }
                     }
                 },
+                getMpkItemKey: (mpkItem) => mpkItem.Id,
                 shouldSkipFailure: (jsonItem, mpkToJsonItem) =>
                 {
                     jsonItem.DescriptionKey = mpkToJsonItem?.DescriptionKey ?? jsonItem.DescriptionKey;
@@ -1279,7 +1261,7 @@ namespace NikkeMpkConverter
                 },
                 stopOnFirstMismatch: false
             );
-            
+
             await MpkConverter.ConvertTableAsync<StateEffectData>(
                 inputPath + "StateEffectTable" + inputExtension,
                 outputPath + "StateEffectTable" + outputExtension,
@@ -1315,6 +1297,204 @@ namespace NikkeMpkConverter
                 },
                 stopOnFirstMismatch: false
             );
+            
+            List<string> waveDataFiles = [
+                // "wave_campaign_hard_001",
+                // "wave_campaign_hard_002",
+                // "wave_campaign_hard_003",
+                // "wave_campaign_hard_004",
+                // "wave_campaign_hard_005",
+                // "wave_campaign_hard_006",
+                // "wave_campaign_hard_007",
+                // "wave_campaign_hard_008",
+                // "wave_campaign_hard_009",
+                // "wave_campaign_hard_010",
+                // "wave_campaign_hard_011",
+                // "wave_campaign_hard_012",
+                // "wave_campaign_hard_013",
+                // "wave_campaign_hard_014",
+                // "wave_campaign_hard_015",
+                // "wave_campaign_hard_016",
+                // "wave_campaign_normal_001",
+                // "wave_campaign_normal_002",
+                // "wave_campaign_normal_003",
+                // "wave_campaign_normal_004",
+                // "wave_campaign_normal_005",
+                // "wave_campaign_normal_006",
+                // "wave_campaign_normal_007",
+                // "wave_campaign_normal_008",
+                // "wave_campaign_normal_009",
+                // "wave_campaign_normal_010",
+                // "wave_campaign_normal_011",
+                // "wave_campaign_normal_012",
+                // "wave_campaign_normal_013",
+                // "wave_campaign_normal_014",
+                // "wave_campaign_normal_015",
+                // "wave_campaign_normal_016",
+                // "wave_campaign_normal_017"
+                "wave_etc_001",
+                // "wave_eventdungeon_001",
+                // "wave_eventdungeon_002",
+                // "wave_eventdungeon_003",
+                // "wave_eventdungeon_004",
+                // "wave_eventdungeon_005",
+                // "wave_eventdungeon_006",
+                // "wave_eventdungeon_007",
+                // "wave_eventdungeon_008",
+                // "wave_eventdungeon_009",
+                // "wave_eventdungeon_010",
+                // "wave_eventdungeon_011",
+                // "wave_eventdungeon_012",
+                // "wave_eventdungeon_013",
+                // "wave_eventdungeon_014",
+                // "wave_eventdungeon_015",
+                // "wave_eventdungeon_016",
+                // "wave_eventdungeon_017",
+                // "wave_eventdungeon_018",
+                // "wave_eventdungeon_019",
+                // "wave_eventdungeon_020",
+                // "wave_eventdungeon_021",
+                "wave_eventdungeon_022",
+                "wave_eventdungeon_023",
+                "wave_eventquest_001",
+                "wave_favoriteitem_001",
+                "wave_Intercept_001",
+                // "wave_lostsector_001",
+                // "wave_lostsector_002",
+                // "wave_lostsector_003",
+                // "wave_lostsector_004",
+                // "wave_lostsector_005",
+                // "wave_lostsector_006",
+                // "wave_lostsector_007",
+                // "wave_lostsector_008",
+                "wave_sidestory_001",
+                // "wave_simulationroom_001",
+                // "wave_simulationroom_002",
+                // "wave_simulationroom_003",
+                // "wave_simulationroom_004",
+                // "wave_simulationroom_005",
+                // "wave_test_001",
+                // "wave_test_002",
+                // "wave_test_003",
+                // "wave_test_004",
+                // "wave_test_005",
+                // "wave_test_006",
+                // "wave_tower_default_001",
+                // "wave_tower_default_002",
+                // "wave_tower_default_003",
+                // "wave_tower_default_004",
+                // "wave_tower_default_005",
+                // "wave_tower_default_006",
+                // "wave_tower_default_007",
+                // "wave_tower_default_008",
+                // "wave_tower_default_009",
+                // "wave_tower_default_010",
+                // "wave_tower_default_011",
+                // "wave_tower_default_012",
+                // "wave_tower_elysion_001",
+                // "wave_tower_elysion_002",
+                // "wave_tower_elysion_003",
+                // "wave_tower_elysion_004",
+                // "wave_tower_elysion_005",
+                // "wave_tower_elysion_006",
+                // "wave_tower_elysion_007",
+                // "wave_tower_elysion_008",
+                // "wave_tower_elysion_009",
+                // "wave_tower_elysion_010",
+                // "wave_tower_elysion_011",
+                // "wave_tower_missilis_001",
+                // "wave_tower_missilis_002",
+                // "wave_tower_missilis_003",
+                // "wave_tower_missilis_004",
+                // "wave_tower_missilis_005",
+                // "wave_tower_missilis_006",
+                // "wave_tower_missilis_007",
+                // "wave_tower_missilis_008",
+                // "wave_tower_missilis_009",
+                // "wave_tower_missilis_010",
+                // "wave_tower_missilis_011",
+                // "wave_tower_tetra_001",
+                // "wave_tower_tetra_002",
+                // "wave_tower_tetra_003",
+                // "wave_tower_tetra_004",
+                // "wave_tower_tetra_005",
+                // "wave_tower_tetra_006",
+                // "wave_tower_tetra_007",
+                // "wave_tower_tetra_008",
+                // "wave_tower_tetra_009",
+                // "wave_tower_tetra_010",
+                // "wave_tower_tetra_011",
+                // "wave_tower_pilgrim_001",
+                // "wave_tower_pilgrim_002",
+                // "wave_tower_pilgrim_003",
+                // "wave_tower_pilgrim_004",
+                // "wave_tower_pilgrim_005",
+                // "wave_tower_pilgrim_006",
+                // "wave_tower_pilgrim_007",
+                // "wave_tower_pilgrim_008",
+                // "wave_tower_pilgrim_009",
+                // "wave_tower_pilgrim_010",
+                // "wave_tower_pilgrim_011"
+            ];
+            foreach (string table in waveDataFiles) {
+                await MpkConverter.ConvertTableAsync<WaveData>(
+                    inputPath + "WaveDataTable." + table + inputExtension,
+                    outputPath + "WaveDataTable." + table + outputExtension,
+                    logItemDetails: (details, jsonItem, mpkItem) =>
+                    {
+                        if (jsonItem.StageId != mpkItem.StageId)
+                        {
+                            details.Add($"ID Mismatch: Json {jsonItem.StageId} vs MPK {mpkItem.StageId}");
+                        }
+                        else
+                        {
+                            details.Add($"ID: {jsonItem.StageId}");
+                            if (jsonItem.UiTheme != mpkItem.UiTheme)
+                            {
+                                details.Add($"  UiTheme Mismatch: Json ({jsonItem.UiTheme}) vs MPK ({(int)mpkItem.UiTheme})");
+                            }
+                            if (jsonItem.SpotMod != mpkItem.SpotMod)
+                            {
+                                details.Add($"  SpotMod Mismatch: Json ({jsonItem.SpotMod}) vs MPK ({(int)mpkItem.SpotMod})");
+                            }
+                            if (jsonItem.Theme != mpkItem.Theme)
+                            {
+                                details.Add($"  Theme Mismatch: Json ({jsonItem.Theme}) vs MPK ({(int)mpkItem.Theme})");
+                            }
+                            if (jsonItem.ThemeTime != mpkItem.ThemeTime)
+                            {
+                                details.Add($"  ThemeTime Mismatch: Json ({jsonItem.ThemeTime}) vs MPK ({(int)mpkItem.ThemeTime})");
+                            }
+
+                        }
+                    },
+                    getMpkItemKey: (mpkItem) => mpkItem.StageId,
+                    checkMpkItemDetails: (details, mpkItem) =>
+                    {
+                        if (Enum.IsDefined(typeof(UiTheme), (int)mpkItem.UiTheme) == false)
+                        {
+                            details.Add($"  Unknown UiTheme in MPK: {(int)mpkItem.UiTheme}");
+                        }
+                        if (Enum.IsDefined(typeof(SpotMod), (int)mpkItem.SpotMod) == false)
+                        {
+                            details.Add($"  Unknown SpotMod in MPK: {(int)mpkItem.SpotMod}");
+                        }
+                        if (Enum.IsDefined(typeof(Theme), (int)mpkItem.Theme) == false)
+                        {
+                            details.Add($"  Unknown Theme in MPK: {(int)mpkItem.Theme}");
+                        }
+                        if (Enum.IsDefined(typeof(ThemeTime), (int)mpkItem.ThemeTime) == false)
+                        {
+                            details.Add($"  Unknown ThemeTime in MPK: {(int)mpkItem.ThemeTime}");
+                        }
+                    },
+                    shouldSkipFailure: (jsonItem, mpkToJsonItem) =>
+                    {
+                        return mpkToJsonItem != null && JsonSerializer.Serialize(jsonItem).Equals(JsonSerializer.Serialize(mpkToJsonItem));
+                    },
+                    stopOnFirstMismatch: false
+                );
+            }
         }
     }
 }

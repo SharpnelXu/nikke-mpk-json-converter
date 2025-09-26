@@ -12,12 +12,12 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(0)]
         [JsonPropertyOrder(0)]
         [JsonPropertyName("wave_monster_id")]
-        public int? MonsterId { get; set; }
+        public long MonsterId { get; set; }
 
         [MemoryPackOrder(1)]
         [JsonPropertyOrder(1)]
         [JsonPropertyName("spawn_type")]
-        public string? SpawnType { get; set; }
+        public SpawnType SpawnType { get; set; }
     }
 
     /// <summary>
@@ -29,17 +29,89 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(0)]
         [JsonPropertyOrder(0)]
         [JsonPropertyName("wave_path")]
-        public string? Path { get; set; }
+        public string? Path { get; set; } = string.Empty;
 
         [MemoryPackOrder(1)]
         [JsonPropertyOrder(1)]
-        [JsonPropertyName("wave_monster_list")]
-        public WaveMonster[] MonsterList { get; set; } = [];
+        [JsonPropertyName("private_monster_count")]
+        public int PrivateMonsterCount { get; set; } = -1;
 
         [MemoryPackOrder(2)]
         [JsonPropertyOrder(2)]
-        [JsonPropertyName("private_monster_count")]
-        public int? PrivateMonsterCount { get; set; }
+        [JsonPropertyName("wave_monster_list")]
+        public WaveMonster[] MonsterList { get; set; } = [];
+    }
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum SpotMod
+    {
+        None = 0,
+        Campaign = 1, 
+        Defense = 4,
+        Intercept = 7,
+        UnionRaid = 8,
+        ShootingRange = 9,
+        BaseDefense = 10,
+        Cooperation = 11,
+        SoloRaid_Common = 16,
+        SoloRaid_Trial = 17,
+        UnionRaid_Trial = 20,
+        Cabal_MecaShifty = 21,
+        Cabal_Shifty = 22,
+        Cabal_Syuen = 23,
+        SoloRaid_Museum = 24,
+        SoloRaid_Museum_Nolimit = 25,
+    }
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum UiTheme
+    {
+        None = 0,
+        CE002,
+        CE004,
+        CE006,
+        CE007
+    }
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum Theme
+    {
+        None = 0,
+        CityForest = 1,
+        CityForestUnder = 2,
+        Desert = 4,
+        Desertmbg001 = 5,
+        GreatHole = 6,
+        IceLand = 7,
+        Wasteland = 8,
+        ArcCity = 9,
+        ArcOut = 10,
+        Tower = 12,
+        gravedigger = 19,
+        lostsector = 21,
+        Volcano = 25,
+        ArkCityDay = 26,
+        Ocean = 27,
+        Oceanbbg004 = 28,
+        Simulation = 29,
+        RedOcean = 30,
+        RedOceanFarSea = 31,
+        SwamplandJungle = 32,
+        Surface = 33,
+        MotherwhaleField = 34,
+    }
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum ThemeTime
+    {
+        Day = 1,
+        Twilight = 2,
+        Night = 3,
+        Smog,
+        Elysion,
+        Missilis,
+        Tetra,
+        Pilgrim
     }
 
     /// <summary>
@@ -61,12 +133,22 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(2)]
         [JsonPropertyOrder(2)]
         [JsonPropertyName("spot_mod")]
-        public string SpotMod { get; set; } = string.Empty;
+        public SpotMod SpotMod { get; set; } = SpotMod.None;
+
+        [MemoryPackOrder(2)]
+        [JsonPropertyOrder(2)]
+        [JsonPropertyName("ui_theme")]
+        public UiTheme UiTheme { get; set; } = UiTheme.None;
 
         [MemoryPackOrder(3)]
         [JsonPropertyOrder(3)]
         [JsonPropertyName("battle_time")]
         public int BattleTime { get; set; }
+
+        [MemoryPackOrder(3)]
+        [JsonPropertyOrder(3)]
+        [JsonPropertyName("mod_value")]
+        public string ModValue { get; set; } = "0";
 
         [MemoryPackOrder(4)]
         [JsonPropertyOrder(4)]
@@ -101,12 +183,12 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(10)]
         [JsonPropertyOrder(10)]
         [JsonPropertyName("theme")]
-        public string Theme { get; set; } = string.Empty;
+        public Theme Theme { get; set; } = Theme.None;
 
         [MemoryPackOrder(11)]
         [JsonPropertyOrder(11)]
         [JsonPropertyName("theme_time")]
-        public string ThemeTime { get; set; } = string.Empty;
+        public ThemeTime ThemeTime { get; set; } = ThemeTime.Day;
 
         [MemoryPackOrder(12)]
         [JsonPropertyOrder(12)]
@@ -116,7 +198,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(13)]
         [JsonPropertyOrder(13)]
         [JsonPropertyName("target_list")]
-        public int[] TargetList { get; set; } = [];
+        public long[] TargetList { get; set; } = [];
 
         [MemoryPackOrder(14)]
         [JsonPropertyOrder(14)]
@@ -137,16 +219,6 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(17)]
         [JsonPropertyName("far_monster_count")]
         public int FarMonsterCount { get; set; }
-
-        [MemoryPackOrder(18)]
-        [JsonPropertyOrder(18)]
-        [JsonPropertyName("mod_value")]
-        public int? ModValue { get; set; }
-
-        [MemoryPackOrder(19)]
-        [JsonPropertyOrder(19)]
-        [JsonPropertyName("ui_theme")]
-        public string? UiTheme { get; set; }
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
