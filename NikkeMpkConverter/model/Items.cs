@@ -640,7 +640,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(7)]
         [JsonPropertyOrder(7)]
         [JsonPropertyName("buy_limit_type")]
-        public string BuyLimitType { get; set; } = "Account";
+        public BuyLimitType BuyLimitType { get; set; } = BuyLimitType.Account;
 
         [MemoryPackOrder(8)]
         [JsonPropertyOrder(8)]
@@ -677,7 +677,7 @@ namespace NikkeMpkConverter.model
     {
         Unknown = -1,
         Currency = 3,
-        CharacterCostume = 2,
+        CharacterCostume = 12,
         Item = 5
     }
 
@@ -703,10 +703,14 @@ namespace NikkeMpkConverter.model
         PassCostumeShop = 13
     }
 
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum BuyLimitType
     {
         None = 0,
-        Account = 1
+        Account = 1,
+        Daily,
+        Weekly,
+        Monthly
     }
 
     public enum MainCategoryType
@@ -848,7 +852,7 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(2)]
         [JsonPropertyName("product_type")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public ProductType ProductType { get; set; } = ProductType.Unknown;
+        public ProductType ProductType { get; set; } = ProductType.Item;
 
         [MemoryPackOrder(3)]
         [JsonPropertyOrder(3)]

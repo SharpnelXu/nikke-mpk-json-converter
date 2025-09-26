@@ -312,28 +312,28 @@ namespace NikkeMpkConverter.model
         [JsonPropertyName("spot_id")]
         public int SpotId { get; set; }
 
-        [MemoryPackOrder(14)]
-        [JsonPropertyOrder(14)]
+        [MemoryPackOrder(11)]
+        [JsonPropertyOrder(11)]
         [JsonPropertyName("monster_stage_lv_change_group_easy")]
         public int MonsterStageLvChangeGroupEasy { get; set; }
 
-        [MemoryPackOrder(15)]
-        [JsonPropertyOrder(15)]
+        [MemoryPackOrder(12)]
+        [JsonPropertyOrder(12)]
         [JsonPropertyName("spot_id_easy")]
         public int SpotIdEasy { get; set; }
 
-        [MemoryPackOrder(11)]
-        [JsonPropertyOrder(11)]
+        [MemoryPackOrder(13)]
+        [JsonPropertyOrder(13)]
         [JsonPropertyName("condition_reward_group")]
         public int ConditionRewardGroup { get; set; }
 
-        [MemoryPackOrder(12)]
-        [JsonPropertyOrder(12)]
+        [MemoryPackOrder(14)]
+        [JsonPropertyOrder(14)]
         [JsonPropertyName("reward_limit_count")]
         public int RewardLimitCount { get; set; }
 
-        [MemoryPackOrder(13)]
-        [JsonPropertyOrder(13)]
+        [MemoryPackOrder(15)]
+        [JsonPropertyOrder(15)]
         [JsonPropertyName("rank_condition_reward_group")]
         public int RankConditionRewardGroup { get; set; }
     }
