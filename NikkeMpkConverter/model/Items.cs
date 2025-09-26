@@ -938,12 +938,12 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(6)]
         [JsonPropertyOrder(6)]
         [JsonPropertyName("product_effieciency")]
-        public double ProductEfficiency { get; set; }
+        public int ProductEfficiency { get; set; }
 
         [MemoryPackOrder(7)]
         [JsonPropertyOrder(7)]
         [JsonPropertyName("buy_limit_type")]
-        public string BuyLimitType { get; set; } = "Account";
+        public BuyLimitType BuyLimitType { get; set; } = BuyLimitType.Account;
 
         [MemoryPackOrder(8)]
         [JsonPropertyOrder(8)]

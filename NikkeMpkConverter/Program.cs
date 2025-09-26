@@ -66,9 +66,9 @@ namespace NikkeMpkConverter
                 // Convert the file (auto-detects format based on extension)
                 // await SerializationAsync(inputPath, outputPath!, inputExtension, outputExtension);
 
-                await MpkConverter.ConvertTableAsync<SoloRaidWaveData>(
-                    inputPath + "SoloRaidPresetTable" + inputExtension,
-                    outputPath + "SoloRaidPresetTable" + outputExtension,
+                await MpkConverter.ConvertTableAsync<StepUpPackageData>(
+                    inputPath + "StepUpPackageListTable" + inputExtension,
+                    outputPath + "StepUpPackageListTable" + outputExtension,
                     logItemDetails: (details, jsonItem, mpkItem) =>
                     {
                         if (jsonItem.Id != mpkItem.Id)
@@ -78,26 +78,7 @@ namespace NikkeMpkConverter
                         else
                         {
                             details.Add($"ID: {jsonItem.Id}");
-                            if (jsonItem.DifficultyType != mpkItem.DifficultyType)
-                            {
-                                details.Add($"  DifficultyType Mismatch: Json ({jsonItem.DifficultyType}) vs MPK ({(int)mpkItem.DifficultyType})");
-                            }
-                            if (jsonItem.QuickBattleType != mpkItem.QuickBattleType)
-                            {
-                                details.Add($"  QuickBattleType Mismatch: Json ({jsonItem.QuickBattleType}) vs MPK ({(int)mpkItem.QuickBattleType})");
-                            }
 
-                        }
-                    },
-                    checkMpkItemDetails: (details, mpkItem) =>
-                    {
-                        if (Enum.IsDefined(typeof(SoloRaidDifficultyType), (int)mpkItem.DifficultyType) == false)
-                        {
-                            details.Add($"  Unknown SoloRaidDifficultyType in MPK: {(int)mpkItem.DifficultyType}");
-                        }
-                        if (Enum.IsDefined(typeof(QuickBattleType), (int)mpkItem.QuickBattleType) == false)
-                        {
-                            details.Add($"  Unknown QuickBattleType in MPK: {(int)mpkItem.QuickBattleType}");
                         }
                     },
                     stopOnFirstMismatch: false
@@ -1238,7 +1219,7 @@ namespace NikkeMpkConverter
                 outputPath + "PackageListTable" + outputExtension,
                 stopOnFirstMismatch: false
             );
-            
+
             await MpkConverter.ConvertTableAsync<SkillInfoData>(
                 inputPath + "SkillInfoTable" + inputExtension,
                 outputPath + "SkillInfoTable" + outputExtension,
@@ -1258,6 +1239,79 @@ namespace NikkeMpkConverter
                 {
                     jsonItem.DescriptionLocalkey = mpkToJsonItem?.DescriptionLocalkey ?? jsonItem.DescriptionLocalkey;
                     return mpkToJsonItem != null && JsonSerializer.Serialize(jsonItem).Equals(JsonSerializer.Serialize(mpkToJsonItem));
+                },
+                stopOnFirstMismatch: false
+            );
+
+            await MpkConverter.ConvertTableAsync<SoloRaidWaveData>(
+                inputPath + "SoloRaidPresetTable" + inputExtension,
+                outputPath + "SoloRaidPresetTable" + outputExtension,
+                logItemDetails: (details, jsonItem, mpkItem) =>
+                {
+                    if (jsonItem.Id != mpkItem.Id)
+                    {
+                        details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                    }
+                    else
+                    {
+                        details.Add($"ID: {jsonItem.Id}");
+                        if (jsonItem.DifficultyType != mpkItem.DifficultyType)
+                        {
+                            details.Add($"  DifficultyType Mismatch: Json ({jsonItem.DifficultyType}) vs MPK ({(int)mpkItem.DifficultyType})");
+                        }
+                        if (jsonItem.QuickBattleType != mpkItem.QuickBattleType)
+                        {
+                            details.Add($"  QuickBattleType Mismatch: Json ({jsonItem.QuickBattleType}) vs MPK ({(int)mpkItem.QuickBattleType})");
+                        }
+
+                    }
+                },
+                checkMpkItemDetails: (details, mpkItem) =>
+                {
+                    if (Enum.IsDefined(typeof(SoloRaidDifficultyType), (int)mpkItem.DifficultyType) == false)
+                    {
+                        details.Add($"  Unknown SoloRaidDifficultyType in MPK: {(int)mpkItem.DifficultyType}");
+                    }
+                    if (Enum.IsDefined(typeof(QuickBattleType), (int)mpkItem.QuickBattleType) == false)
+                    {
+                        details.Add($"  Unknown QuickBattleType in MPK: {(int)mpkItem.QuickBattleType}");
+                    }
+                },
+                stopOnFirstMismatch: false
+            );
+            
+            await MpkConverter.ConvertTableAsync<StateEffectData>(
+                inputPath + "StateEffectTable" + inputExtension,
+                outputPath + "StateEffectTable" + outputExtension,
+                logItemDetails: (details, jsonItem, mpkItem) =>
+                {
+                    if (jsonItem.Id != mpkItem.Id)
+                    {
+                        details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                    }
+                    else
+                    {
+                        details.Add($"ID: {jsonItem.Id}");
+
+                    }
+                },
+                stopOnFirstMismatch: false
+            );
+
+            await MpkConverter.ConvertTableAsync<StepUpPackageData>(
+                inputPath + "StepUpPackageListTable" + inputExtension,
+                outputPath + "StepUpPackageListTable" + outputExtension,
+                logItemDetails: (details, jsonItem, mpkItem) =>
+                {
+                    if (jsonItem.Id != mpkItem.Id)
+                    {
+                        details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                    }
+                    else
+                    {
+                        details.Add($"ID: {jsonItem.Id}");
+
+                    }
                 },
                 stopOnFirstMismatch: false
             );
