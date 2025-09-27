@@ -173,7 +173,7 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(6)]
         [JsonPropertyName("class")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public NikkeClass CharacterClass { get; set; } = NikkeClass.Unknown;
+        public NikkeClass CharacterClass { get; set; } = NikkeClass.None;
 
         [MemoryPackOrder(7)]
         [JsonPropertyOrder(7)]
@@ -322,13 +322,13 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(11)]
         [JsonPropertyName("item_rare")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public Rarity ItemRare { get; set; } = Rarity.Unknown;
+        public Rarity ItemRare { get; set; } = Rarity.R;
 
         [MemoryPackOrder(12)]
         [JsonPropertyOrder(12)]
         [JsonPropertyName("class")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public NikkeClass CharacterClass { get; set; } = NikkeClass.Unknown;
+        public NikkeClass CharacterClass { get; set; } = NikkeClass.None;
 
         [MemoryPackOrder(13)]
         [JsonPropertyOrder(13)]
@@ -435,7 +435,7 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(1)]
         [JsonPropertyName("skill_table")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public SkillType SkillTable { get; set; } = SkillType.Unknown;
+        public SkillType SkillTable { get; set; } = SkillType.None;
 
         [MemoryPackOrder(2)]
         [JsonPropertyOrder(2)]
@@ -488,7 +488,7 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(7)]
         [JsonPropertyName("favorite_rare")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public Rarity FavoriteRare { get; set; } = Rarity.Unknown;
+        public Rarity FavoriteRare { get; set; } = Rarity.R;
 
         [MemoryPackOrder(8)]
         [JsonPropertyOrder(8)]
@@ -1190,7 +1190,7 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(8)]
         [JsonPropertyName("item_rare")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public Rarity ItemRarity { get; set; } = Rarity.Unknown;
+        public Rarity ItemRarity { get; set; } = Rarity.R;
 
         [MemoryPackOrder(9)]
         [JsonPropertyOrder(9)]
@@ -1277,7 +1277,7 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(6)]
         [JsonPropertyName("item_rare")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public Rarity ItemRarity { get; set; } = Rarity.Unknown;
+        public Rarity ItemRarity { get; set; } = Rarity.R;
 
         [MemoryPackOrder(7)]
         [JsonPropertyOrder(7)]
@@ -1343,13 +1343,13 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(6)]
         [JsonPropertyName("item_rare")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public Rarity ItemRarity { get; set; } = Rarity.Unknown;
+        public Rarity ItemRarity { get; set; } = Rarity.R;
 
         [MemoryPackOrder(7)]
         [JsonPropertyOrder(7)]
         [JsonPropertyName("corporation")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public Corporation Corporation { get; set; } = Corporation.Unknown;
+        public Corporation Corporation { get; set; } = Corporation.None;
 
         [MemoryPackOrder(8)]
         [JsonPropertyOrder(8)]
@@ -1361,7 +1361,7 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(9)]
         [JsonPropertyName("class")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public NikkeClass CharacterClass { get; set; } = NikkeClass.Unknown;
+        public NikkeClass CharacterClass { get; set; } = NikkeClass.None;
 
         [MemoryPackOrder(10)]
         [JsonPropertyOrder(10)]

@@ -5,7 +5,6 @@ namespace NikkeMpkConverter.model
 {
     public enum Rarity
     {
-        Unknown = -1,
         SSR = 3,
         SR = 2,
         R = 1
@@ -13,7 +12,6 @@ namespace NikkeMpkConverter.model
 
     public enum NikkeClass
     {
-        Unknown = -1,
         None = 0,
         Attacker = 1,
         Defender = 2,
@@ -23,48 +21,52 @@ namespace NikkeMpkConverter.model
 
     public enum BurstStep
     {
-        Unknown = -1,
         Step1 = 1,
         Step2 = 2,
         Step3 = 3,
         StepFull = 4,
         AllStep = 5,
         NextStep = 6,
+        KeepStep = 7,
         None = 0
     }
 
     public enum Corporation
     {
-        Unknown = -1,
         None = 0,
-        ELYSION = 1,
-        MISSILIS = 2,
-        TETRA = 3,
-        PILGRIM = 4,
-        ABNORMAL = 7
+		ELYSION = 1,
+		MISSILIS = 2,
+		TETRA = 3,
+		PILGRIM = 4,
+		ALL = 5,
+		RANDOM = 6,
+		ABNORMAL = 7
     }
 
     public enum CorporationSubType
     {
-        Unknown = -1,
         NORMAL = 0,
         OVERSPEC = 1,
-        None = 2
     }
 
     public enum SkillType
     {
-        None = 0,
-        StateEffect = 1,
-        CharacterSkill = 2,
-        Unknown = -1
+		None = 0,
+		StateEffect = 1,
+		CharacterSkill = 2
     }
 
     public enum EffCategoryType
     {
-        Unknown = -1,
         None = 0,
-        Walk = 7
+		Air_Attacker = 1,
+		Air_Defender = 2,
+		Air_Supporter = 3,
+		Attacker = 4,
+		Defender = 5,
+		Supporter = 6,
+		Walk = 7,
+		Fly = 8
     }
 
     public enum CategoryType
@@ -78,66 +80,75 @@ namespace NikkeMpkConverter.model
 
     public enum Squad
     {
-        Unknown = -1,
-        None = 0,
-        Counters = 1,
-        Absolute = 2,
-        Scouting = 3,
-        InfinityRail = 4,
-        External = 5,
-        RecallRelease = 6,
-        Matis = 7,
-        CafeSweety = 8,
-        Triangle = 9,
-        Talentum = 10,
-        LittleCannon = 11,
-        Protocol = 12,
-        Unlimited = 13,
-        ACPU = 14,
-        MightyTools = 15,
-        MasterHand = 16,
-        SiegePerilous = 17,
-        Seraphim = 18,
-        Wardress = 19,
-        MaidForYou = 20,
-        Exotic = 21,
-        LifeTonic = 22,
-        Pioneer = 23,
-        Inherit = 24,
+		None = 0,
+		Counters = 1,
+		Absolute = 2,
+		Scouting = 3,
+		InfinityRail = 4,
+		External = 5,
+		RecallRelease = 6,
+		Matis = 7,
+		CafeSweety = 8,
+		Triangle = 9,
+		Talentum = 10,
+		LittleCannon = 11,
+		Protocol = 12,
+		Unlimited = 13,
+		ACPU = 14,
+		MightyTools = 15,
+		MasterHand = 16,
+		SiegePerilous = 17,
+		Seraphim = 18,
+		Wardress = 19,
+		MaidForYou = 20,
+		Exotic = 21,
+		LifeTonic = 22,
+		Pioneer = 23,
+		Inherit = 24,
+		TheClown = 25,
         [JsonStringEnumMemberName("777")]
-        _777 = 26,
-        UnderworldQueen = 27,
-        MMR = 28,
-        Replace = 29,
-        Heretic = 40,
-        Aegis = 43,
-        BotanicGarden = 44,
-        PrimaDonna = 45,
-        SchoolCircle = 46,
-        ce_01 = 47,
-        ce002_01 = 49,
-        ce002_02 = 50,
-        Akademeia = 51,
-        DazzlingPearl = 52,
-        Goddess = 53,
-        ElectricShock = 54,
-        CE003 = 55,
-        Rewind = 56,
-        CE004 = 57,
-        BestSeller = 58,
-        OldTales = 59,
-        CE005 = 60,
-        CookingOil = 61,
-        Incubator = 62,
-        CE006_01 = 63,
-        CE006_02 = 64,
-        CE006_03 = 65,
-        OverTheHorizon = 66,
-        CE007 = 67,
-        Weissritter = 36,
-        HeavyGram = 37,
-        HappyZoo = 38,
-        RealKindness = 39
+		_777 = 26,
+		UnderworldQueen = 27,
+		MMR = 28,
+		Replace = 29,
+		Humanity = 30,
+		Company = 31,
+		EventHero01 = 32,
+		EventHero02 = 33,
+		EventHero03 = 34,
+		Archive = 35,
+		Weissritter = 36,
+		HeavyGram = 37,
+		HappyZoo = 38,
+		RealKindness = 39,
+		Heretic = 40,
+		A_F_F_ = 41,
+		EnikkChild = 42,
+		Aegis = 43,
+		BotanicGarden = 44,
+		PrimaDonna = 45,
+		SchoolCircle = 46,
+		Ce_01 = 47,
+		Overseer = 48,
+		Ce002_01 = 49,
+		Ce002_02 = 50,
+		Akademeia = 51,
+		DazzlingPearl = 52,
+		Goddess = 53,
+		ElectricShock = 54,
+		CE003 = 55,
+		Rewind = 56,
+		CE004 = 57,
+		BestSeller = 58,
+		OldTales = 59,
+		CE005 = 60,
+		CookingOil = 61,
+		Incubator = 62,
+		CE006_01 = 63,
+		CE006_02 = 64,
+		CE006_03 = 65,
+		OverTheHorizon = 66,
+		CE007 = 67
     }
 
     /// <summary>
@@ -209,7 +220,7 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(7)]
         [JsonPropertyName("original_rare")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public Rarity OriginalRare { get; set; } = Rarity.Unknown;
+        public Rarity OriginalRare { get; set; } = Rarity.R;
 
         /// <summary>
         /// Grade core identifier (1-11), use LimitBreak for readable format
@@ -242,7 +253,7 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(11)]
         [JsonPropertyName("class")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public NikkeClass CharacterClass { get; set; } = NikkeClass.Unknown;
+        public NikkeClass CharacterClass { get; set; } = NikkeClass.None;
 
 
         [MemoryPackOrder(14)]
@@ -355,7 +366,7 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(24)]
         [JsonPropertyName("skill1_table")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public SkillType Skill1Table { get; set; } = SkillType.Unknown;
+        public SkillType Skill1Table { get; set; } = SkillType.None;
 
         /// <summary>
         /// Skill 2 identifier
@@ -372,7 +383,7 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(26)]
         [JsonPropertyName("skill2_table")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public SkillType Skill2Table { get; set; } = SkillType.Unknown;
+        public SkillType Skill2Table { get; set; } = SkillType.None;
 
         /// <summary>
         /// Effect category type
@@ -381,7 +392,7 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(27)]
         [JsonPropertyName("eff_category_type")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public EffCategoryType EffCategoryType { get; set; } = EffCategoryType.Unknown;
+        public EffCategoryType EffCategoryType { get; set; } = EffCategoryType.None;
 
         /// <summary>
         /// Effect category value
@@ -398,7 +409,7 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(29)]
         [JsonPropertyName("category_type_1")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public CategoryType CategoryType1 { get; set; } = CategoryType.Unknown;
+        public EffCategoryType CategoryType1 { get; set; } = EffCategoryType.None;
 
         /// <summary>
         /// Category type 2
@@ -407,7 +418,7 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(30)]
         [JsonPropertyName("category_type_2")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public CategoryType CategoryType2 { get; set; } = CategoryType.Unknown;
+        public EffCategoryType CategoryType2 { get; set; } = EffCategoryType.None;
 
         /// <summary>
         /// Category type 3
@@ -416,7 +427,7 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(31)]
         [JsonPropertyName("category_type_3")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public CategoryType CategoryType3 { get; set; } = CategoryType.Unknown;
+        public EffCategoryType CategoryType3 { get; set; } = EffCategoryType.None;
 
         /// <summary>
         /// Raw corporation string
@@ -425,7 +436,7 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(32)]
         [JsonPropertyName("corporation")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public Corporation Corporation { get; set; } = Corporation.Unknown;
+        public Corporation Corporation { get; set; } = Corporation.None;
 
         /// <summary>
         /// Raw corporation sub type string
@@ -434,6 +445,7 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(33)]
         [JsonPropertyName("corporation_sub_type")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public CorporationSubType CorporationSubType { get; set; } = CorporationSubType.NORMAL;
 
         /// <summary>
@@ -451,7 +463,7 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(35)]
         [JsonPropertyName("squad")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public Squad Squad { get; set; } = Squad.Unknown;
+        public Squad Squad { get; set; } = Squad.None;
 
         /// <summary>
         /// Piece identifier for upgrade to next gradeCore (ItemPieceTable)

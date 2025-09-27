@@ -12,9 +12,10 @@ namespace NikkeMpkConverter.model
         SR = 3,
         MG = 4,
         SG = 5,
+        AS = 6,
         GL = 7,
-        SMG = 9,
-        UNKNOWN = -1
+        PS = 8,
+        SMG = 9
     }
 
     public enum AttackType
@@ -27,66 +28,78 @@ namespace NikkeMpkConverter.model
         Water = 5,
         Wind = 6,
         Iron = 7,
-        Electronic = 8,
-        Unknown = -1
+        Electronic = 8
     }
 
     public enum CounterType
     {
         None = 0,
+        Metal_Type = 1,
         Energy_Type = 2,
         Bio_Type = 3,
-        Metal_Type = 1,
-        Fire_Type = 10,
-        Water_Type = 11,
-        Wind_Type = 12,
-        Iron_Type = 13,
-        Electric_Type = 14,
-        Unknown = -1
     }
 
-    public enum PreferTarget
+	public enum PreferTarget // TypeDefIndex: 30941
+	{
+		None = 0,
+		Attacker = 1,
+		Defender = 2,
+		Supporter = 3,
+		AttackerRandom = 4,
+		DefenderRandom = 5,
+		SupporterRandom = 6,
+		Front = 7,
+		Back = 8,
+		Left = 9,
+		Right = 10,
+		LowHP = 11,
+		HighHP = 12,
+		HighMaxHP = 13,
+		LowDefence = 14,
+		HighDefence = 15,
+		LowAttack = 16,
+		HighAttack = 17,
+		LowHPLastSelf = 18,
+		HighHPLastSelf = 19,
+		LowDefenceLastSelf = 20,
+		HighDefenceLastSelf = 21,
+		LowAttackLastSelf = 22,
+		HighAttackLastSelf = 23,
+		TargetSR = 24,
+		TargetAR = 25,
+		TargetAS = 26,
+		TargetRL = 27,
+		TargetGL = 28,
+		TargetPS = 29,
+		BurstStep = 30,
+		Random = 31,
+		LowHPFirstSelf = 32,
+		HighHPFirstSelf = 33,
+		LowDefenceFirstSelf = 34,
+		HighDefenceFirstSelf = 35,
+		LowAttackFirstSelf = 36,
+		HighAttackFirstSelf = 37,
+		NearbyAllyTarget = 38,
+		NearbyEnemyTarget = 39,
+		NearbyAllyLastSelf = 40,
+		Fire = 41,
+		Water = 42,
+		Wind = 43,
+		Electronic = 44,
+		Iron = 45,
+		NotStun = 46,
+		LowHPCover = 47,
+		LowHPRatio = 48,
+		HighHPRatio = 49,
+		LowMaxHP = 50,
+		HaveDebuff = 51,
+		HaveBuff = 52,
+		NearAim = 53,
+		LongInitChargeTime = 54
+	}
+    
+	public enum PreferTargetCondition // TypeDefIndex: 30942
     {
-        None = 0,
-
-        Random = 31,
-        HaveDebuff = 51,
-        NotStun = 46,
-        Front = 7,
-        Back = 8,
-        LongInitChargeTime = 54,
-
-        HighAttack = 17,
-        HighAttackFirstSelf = 37,
-        HighAttackLastSelf = 23,
-        HighDefence = 15,
-        HighMaxHP = 13,
-        HighHP = 12,
-        LowDefence = 14,
-        LowHP = 11,
-        LowHPCover = 47,
-        LowHPLastSelf = 18,
-        LowHPRatio = 48,
-        NearAim = 53,
-
-        Attacker = 1,
-        Defender = 2,
-        Supporter = 3,
-
-        Fire = 41,
-        Water = 42,
-        Electronic = 44,
-        Iron = 43,
-        Wind = 45,
-        TargetAR = 25,
-        TargetGL = 28,
-        TargetPS = 29,
-        Unknown = -1
-    }
-
-    public enum PreferTargetCondition
-    {
-        Unknown = -1,
         None = 0,
         ExcludeSelf = 1,
         DestroyCover = 2,
@@ -94,60 +107,69 @@ namespace NikkeMpkConverter.model
         IncludeNoneTargetNone = 4,
         OnlySG = 5,
         OnlyAR = 6,
+        OnlySMG = 7,
+        OnlyMG = 8,
+        OnlySR = 9,
         OnlyRL = 10
     }
-    
+
     public enum ShotTiming
     {
         Sequence = 2,
         Concurrence = 1,
         ConcurrenceGroup = 3,
         None = 0,
-        Unknown = -1
     }
 
     public enum FireType
     {
         None = 0,
-        Instant = 1, // All AR, SG, SR, MG (except Modernia burst)
-        ProjectileCurve = 2, // Cindy
-        ProjectileDirect = 3, // 5 RL occurrences (Laplace, Ynui Alt, Summer Neon burst, A2, SBS)
-        HomingProjectile = 4, // should be all other RLs
-        MultiTarget = 5, // Modernia burst
-        Suicide = 7,
-        Calling = 8,
-        InstantAll = 9,
-        InstantNumber = 10,
-        ObjectCreate = 11,
-        Barrier = 13,
-
-        Range = 14,
-        NormalCalling = 15,
-        InstantAll_FrontRay = 16,
-        StickyProjectileDirect = 17, // Rapi: Red Hood alt attack
-        ObjectCreateToDecoy = 18,
-        MechaShiftyShot = 19,
-        ProjectileCurveV2 = 20,
-        Unknown = -1
+		Instant = 1,
+		ProjectileCurve = 2,
+		ProjectileDirect = 3,
+		HomingProjectile = 4,
+		MultiTarget = 5,
+		Blow = 6,
+		Suicide = 7,
+		Calling = 8,
+		InstantAll = 9,
+		InstantNumber = 10,
+		ObjectCreate = 11,
+		Summon = 12,
+		Barrier = 13,
+		Range = 14,
+		NormalCalling = 15,
+		InstantAll_FrontRay = 16,
+		StickyProjectileDirect = 17,
+		ObjectCreateToDecoy = 18,
+		MechaShiftyShot = 19,
+		ProjectileCurveV2 = 20
     }
 
     public enum InputType
     {
-        DOWN = 1,
-        DOWN_Charge = 3,
-        UP = 2,
-        None = 0,
+		NONE = 0,
+		DOWN = 1,
+		UP = 2,
+		DOWN_Charge = 3
     }
 
     public enum ShakeType
     {
         Fire_AR = 0,
-        Fire_MG,
-        Fire_SMG,
+        Fire_MG = 1,
+        Fire_SMG = 2,
         Fire_RL = 3,
         Fire_SG = 4,
-        Fire_SR,
-        None
+        Fire_SR = 5,
+        Hit_RL = 6,
+        CharacterSkillShake01 = 7,
+        CharacterSkillShake02 = 8,
+        CharacterSkillShake03 = 9,
+        CharacterHit = 10,
+        MonsterSkillCancel = 11,
+        MonsterPartsBroken = 12,
+        Monsterlanding = 13
     }
 
     /// <summary>
@@ -239,7 +261,7 @@ namespace NikkeMpkConverter.model
 		[JsonPropertyOrder(9)]
         [JsonPropertyName("shot_timing")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public ShotTiming ShotTiming { get; set; } = ShotTiming.Unknown;
+        public ShotTiming ShotTiming { get; set; } = ShotTiming.None;
 
         /// <summary>
         /// Fire type (Instant, HomingProjectile, etc.)
@@ -257,7 +279,7 @@ namespace NikkeMpkConverter.model
 		[JsonPropertyOrder(11)]
         [JsonPropertyName("input_type")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public InputType InputType { get; set; } = InputType.None;
+        public InputType InputType { get; set; } = InputType.NONE;
 
         /// <summary>
         /// Whether targeting is enabled
@@ -610,7 +632,7 @@ namespace NikkeMpkConverter.model
 		[JsonPropertyOrder(55)]
         [JsonPropertyName("ShakeType")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public ShakeType ShakeType { get; set; } = ShakeType.None;
+        public ShakeType ShakeType { get; set; } = ShakeType.Fire_AR;
 
         /// <summary>
         /// Shake weight/intensity
