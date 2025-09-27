@@ -143,6 +143,18 @@ namespace NikkeMpkConverter
                         }
                     }
                 },
+                processItem: (item) =>
+                {
+                    // Ensure optional fields are null if empty
+                    if (string.IsNullOrWhiteSpace(item.HomingScript))
+                    {
+                        item.HomingScript = null;
+                    }
+                    if (string.IsNullOrWhiteSpace(item.AimPrefab))
+                    {
+                        item.AimPrefab = null;
+                    }
+                },
                 stopOnFirstMismatch: false
             );
             await MpkConverter.ConvertTableAsync<SkillData>(
@@ -181,6 +193,14 @@ namespace NikkeMpkConverter
                         {
                             details.Add($"  DurationType Mismatch: Json ({jsonItem.DurationType}) vs MPK ({(int)mpkItem.DurationType})");
                         }
+                    }
+                },
+                processItem: (item) =>
+                {
+                    // Ensure optional fields are null if empty
+                    if (string.IsNullOrWhiteSpace(item.ResourceName))
+                    {
+                        item.ResourceName = null;
                     }
                 },
                 stopOnFirstMismatch: false
@@ -976,6 +996,18 @@ namespace NikkeMpkConverter
                         {
                             details.Add($"  DestroyAnimTrigger Mismatch: Json ({jsonItem.DestroyAnimTrigger}) vs MPK ({(int)mpkItem.DestroyAnimTrigger})");
                         }
+                    }
+                },
+                processItem: (mpkItem) =>
+                {
+                    // Fix for known issue in MPK data where some MonsterParts have invalid PartsType
+                    if (string.IsNullOrWhiteSpace(mpkItem.PartsNameLocalKey))
+                    {
+                        mpkItem.PartsNameLocalKey = null;
+                    }
+                    if (string.IsNullOrWhiteSpace(mpkItem.PartsSkin))
+                    {
+                        mpkItem.PartsSkin = null;
                     }
                 },
                 checkMpkItemDetails: (details, mpkItem) =>

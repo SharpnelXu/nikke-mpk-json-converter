@@ -784,7 +784,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(7)]
         [JsonPropertyOrder(7)]
         [JsonPropertyName("sub_category_name_localkey")]
-        public string SubCategoryNameKey { get; set; } = string.Empty;
+        public string? SubCategoryNameKey { get; set; } = string.Empty;
 
         [MemoryPackOrder(8)]
         [JsonPropertyOrder(8)]
@@ -1227,7 +1227,8 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(15)]
         [JsonPropertyOrder(15)]
         [JsonPropertyName("use_limit_count_value")]
-        public int UseLimitCountValue { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public int UseLimitCountValue { get; set; } = 0;
 
         [MemoryPackOrder(16)]
         [JsonPropertyOrder(16)]
@@ -1355,6 +1356,7 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(8)]
         [JsonPropertyName("corporation_sub_type")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public CorporationSubType CorporationSubType { get; set; } = CorporationSubType.NORMAL;
 
         [MemoryPackOrder(9)]
@@ -1387,7 +1389,8 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(14)]
         [JsonPropertyOrder(14)]
         [JsonPropertyName("use_limit_count_value")]
-        public int UseLimitCountValue { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public int UseLimitCountValue { get; set; } = 0;
 
         [MemoryPackOrder(15)]
         [JsonPropertyOrder(15)]

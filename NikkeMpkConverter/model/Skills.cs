@@ -667,7 +667,8 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(14)]
         [JsonPropertyOrder(14)]
         [JsonPropertyName("resource_name")]
-        public string ResourceName { get; set; } = string.Empty;
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull | JsonIgnoreCondition.WhenWritingDefault)]
+        public string? ResourceName { get; set; } = string.Empty;
 
         /// <summary>
         /// Icon identifier

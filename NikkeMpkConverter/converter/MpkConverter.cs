@@ -22,7 +22,8 @@ namespace NikkeMpkConverter.converter
         public static async Task<JsonTableContainer<TItem>> ConvertMpkToJsonAsync<TItem>(
             string inputPath,
             string? outputPath = null,
-            Func<TItem[], JsonTableContainer<TItem>>? createContainer = null)
+            Func<TItem[], JsonTableContainer<TItem>>? createContainer = null,
+            Action<TItem>? processItem = null)
         {
             Console.WriteLine($"Converting MPK to JSON: {inputPath}...");
 
@@ -55,6 +56,13 @@ namespace NikkeMpkConverter.converter
                 if (items != null)
                 {
                     Console.WriteLine($"Successfully deserialized {items.Length} items");
+                    if (processItem != null)
+                    {
+                        foreach (var item in items)
+                        {
+                            processItem(item);
+                        }
+                    }
 
                     // Create a container object from the items
                     if (createContainer != null)
@@ -239,6 +247,7 @@ namespace NikkeMpkConverter.converter
             Func<TItem, TItem?, bool>? shouldSkipFailure = null, 
             Action<HashSet<string>, TItem>? checkMpkItemDetails = null,
             Func<TItem, long>? getMpkItemKey = null,
+            Action<TItem>? processItem = null,
             bool stopOnFirstMismatch = true)
         {
             // Determine the input and output formats based on file extension
@@ -257,7 +266,8 @@ namespace NikkeMpkConverter.converter
                 await ConvertMpkToJsonAsync<TItem>(
                     inputPath,
                     outputPath,
-                    (items) => new JsonTableContainer<TItem> { Version = "0.0.1", Records = items }
+                    (items) => new JsonTableContainer<TItem> { Version = "0.0.1", Records = items },
+                    processItem
                 );
             }
             else if (extension == ".json")

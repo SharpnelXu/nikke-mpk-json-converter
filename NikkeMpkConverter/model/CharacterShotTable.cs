@@ -581,8 +581,9 @@ namespace NikkeMpkConverter.model
         /// Homing script level (optional field, appears only for certain weapon types)
         /// </summary>
         [MemoryPackOrder(50)]
-		[JsonPropertyOrder(49)]
+        [JsonPropertyOrder(49)]
         [JsonPropertyName("homing_script")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull | JsonIgnoreCondition.WhenWritingDefault)]
         public string? HomingScript { get; set; } = string.Empty;
 
         /// <summary>
@@ -648,6 +649,7 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(57)]
 		[JsonPropertyOrder(57)]
         [JsonPropertyName("aim_prefab")]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull | JsonIgnoreCondition.WhenWritingDefault)]
         public string? AimPrefab { get; set; } = string.Empty;
     }
 }

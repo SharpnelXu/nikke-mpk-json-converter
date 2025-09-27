@@ -259,7 +259,8 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(14)]
         [JsonPropertyOrder(11)]
         [JsonPropertyName("surface_category")]
-        public int SurfaceCategory { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public int SurfaceCategory { get; set; } = 400002;
 
         /// <summary>
         /// Element ID list
