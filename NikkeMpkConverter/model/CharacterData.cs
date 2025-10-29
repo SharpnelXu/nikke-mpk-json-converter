@@ -247,6 +247,25 @@ namespace NikkeMpkConverter.model
         public int StatEnhanceId { get; set; }
 
         /// <summary>
+        /// Raw corporation string
+        /// </summary>
+        [MemoryPackOrder(11)]
+        [JsonPropertyOrder(32)]
+        [JsonPropertyName("corporation")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public Corporation Corporation { get; set; } = Corporation.None;
+
+        /// <summary>
+        /// Raw corporation sub type string
+        /// </summary>
+        [MemoryPackOrder(12)]
+        [JsonPropertyOrder(33)]
+        [JsonPropertyName("corporation_sub_type")]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public CorporationSubType CorporationSubType { get; set; } = CorporationSubType.NORMAL;
+
+        /// <summary>
         /// Raw character class string
         /// </summary>
         [MemoryPackOrder(13)]
@@ -255,12 +274,12 @@ namespace NikkeMpkConverter.model
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public NikkeClass CharacterClass { get; set; } = NikkeClass.None;
 
-
-        [MemoryPackOrder(14)]
-        [JsonPropertyOrder(11)]
-        [JsonPropertyName("surface_category")]
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public int SurfaceCategory { get; set; } = 400002;
+        // removed 3rd anni update
+        // [MemoryPackOrder(14)]
+        // [JsonPropertyOrder(11)]
+        // [JsonPropertyName("surface_category")]
+        // [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        // public int SurfaceCategory { get; set; } = 400002;
 
         /// <summary>
         /// Element ID list
@@ -429,25 +448,6 @@ namespace NikkeMpkConverter.model
         [JsonPropertyName("category_type_3")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public EffCategoryType CategoryType3 { get; set; } = EffCategoryType.None;
-
-        /// <summary>
-        /// Raw corporation string
-        /// </summary>
-        [MemoryPackOrder(11)]
-        [JsonPropertyOrder(32)]
-        [JsonPropertyName("corporation")]
-        [JsonConverter(typeof(JsonStringEnumConverter))]
-        public Corporation Corporation { get; set; } = Corporation.None;
-
-        /// <summary>
-        /// Raw corporation sub type string
-        /// </summary>
-        [MemoryPackOrder(12)]
-        [JsonPropertyOrder(33)]
-        [JsonPropertyName("corporation_sub_type")]
-        [JsonConverter(typeof(JsonStringEnumConverter))]
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public CorporationSubType CorporationSubType { get; set; } = CorporationSubType.NORMAL;
 
         /// <summary>
         /// CV localization key

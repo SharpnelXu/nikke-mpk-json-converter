@@ -293,7 +293,9 @@ namespace NikkeMpkConverter.model
 		DamageShareLowestPriority = 205,
 		ForcedReload = 206,
 		StatDefNoneBreakCol = 207,
-		ChangeHealChargeValue = 208
+		ChangeHealChargeValue = 208,
+		FixStatChargeTime = 209,
+		GrayScale = 210
 	}
 
     public enum StandardType
@@ -409,7 +411,8 @@ namespace NikkeMpkConverter.model
 		OnFunctionDamageCriticalHit = 86,
 		OnFullChargeBonusRangeHitNum = 87,
 		OnKeepFullChargeShot = 88,
-		OnDeadComplete = 89
+		OnDeadComplete = 89,
+		OnFullChargeCoreHitNum = 90
     }
 
     public enum StatusTriggerType
@@ -474,7 +477,10 @@ namespace NikkeMpkConverter.model
 		IsNotHaveCover = 57,
 		IsHaveCover = 58,
 		IsSameSqaud = 59,
-		IsCheckGradeUnder = 60
+		IsCheckGradeUnder = 60,
+		IsCheckCharacter = 61,
+		IsCheckNotTarget = 62,
+		IsCheckFunctionOverlap = 63
     }
 
     public enum FunctionStatus

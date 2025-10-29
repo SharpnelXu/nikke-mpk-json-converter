@@ -99,6 +99,7 @@ namespace NikkeMpkConverter.model
         SwamplandJungle = 32,
         Surface = 33,
         MotherwhaleField = 34,
+		WhiteArkcity = 35,
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]

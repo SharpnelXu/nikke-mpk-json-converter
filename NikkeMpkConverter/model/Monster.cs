@@ -144,7 +144,8 @@ namespace NikkeMpkConverter.model
         Master,
         Lord,
         Tyrant,
-        Heretic
+        Heretic,
+		Queen
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
@@ -610,9 +611,10 @@ namespace NikkeMpkConverter.model
         None = 0,
         BreakCol,
         BrokenParts,
-        BrokenParts_HurtCount = 4,
-        BrokenParts_UntilEnd = 5,
-        BrokenParts_OnlyCasting = 3
+        BrokenParts_OnlyCasting = 3,
+		BrokenParts_HurtCount = 4,
+		BrokenParts_UntilEnd = 5,
+		BreakCol_SkipCasting = 6
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
