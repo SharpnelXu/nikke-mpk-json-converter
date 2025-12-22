@@ -106,7 +106,7 @@ namespace NikkeMpkConverter
             );
             await MpkConverter.ConvertTableAsync<UnionRaidPreset>(
                 inputPath + "UnionRaidPresetTable" + inputExtension,
-                 outputPath + "UnionRaidPresetTable" + outputExtension,
+                outputPath + "UnionRaidPresetTable" + outputExtension,
                 stopOnFirstMismatch: false
                 );
             await MpkConverter.ConvertTableAsync<AttractiveLevelTable>(
