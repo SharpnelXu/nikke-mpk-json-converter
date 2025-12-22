@@ -107,7 +107,7 @@ namespace NikkeMpkConverter
                 stopOnFirstMismatch: false,
                 processItem: (item) =>
                 {
-                    if ((int)item.ResourceType >= Enum.GetValues<ResourceType>().Length)
+                    if (!Enum.IsDefined(typeof(ResourceType), (int)item.ResourceType))
                     {
                         unknownEnums.Add($"New ResourceType enum value: {(int)item.ResourceType}");
                         item.ResourceType = ResourceType.Unknown;
@@ -120,7 +120,7 @@ namespace NikkeMpkConverter
                 stopOnFirstMismatch: false,
                 processItem: (item) =>
                 {
-                    if ((int)item.DifficultyType >= Enum.GetValues<DifficultyType>().Length)
+                    if (!Enum.IsDefined(typeof(DifficultyType), (int)item.DifficultyType))
                     {
                         unknownEnums.Add($"New DifficultyType enum value: {(int)item.DifficultyType}");
                         item.DifficultyType = DifficultyType.Unknown;
@@ -194,42 +194,42 @@ namespace NikkeMpkConverter
                     {
                         item.AimPrefab = null;
                     }
-                    if ((int) item.WeaponType >= Enum.GetValues<WeaponType>().Length)
+                    if (!Enum.IsDefined(typeof(WeaponType), (int)item.WeaponType))
                     {
                         unknownEnums.Add($"New WeaponType enum value: {(int)item.WeaponType}");
                         item.WeaponType = WeaponType.Unknown;
                     }
-                    if ((int) item.AttackType >= Enum.GetValues<AttackType>().Length)
+                    if (!Enum.IsDefined(typeof(AttackType), (int)item.AttackType))
                     {
                         unknownEnums.Add($"New AttackType enum value: {(int)item.AttackType}");
                         item.AttackType = AttackType.Unknown;
                     }
-                    if ((int) item.CounterEnermy >= Enum.GetValues<CounterType>().Length)
+                    if (!Enum.IsDefined(typeof(CounterType), (int)item.CounterEnermy))
                     {
                         unknownEnums.Add($"New CounterType enum value: {(int)item.CounterEnermy}");
                         item.CounterEnermy = CounterType.Unknown;
                     }
-                    if ((int) item.PreferTarget >= Enum.GetValues<PreferTarget>().Length)
+                    if (!Enum.IsDefined(typeof(PreferTarget), (int)item.PreferTarget))
                     {
                         unknownEnums.Add($"New PreferTarget enum value: {(int)item.PreferTarget}");
                         item.PreferTarget = PreferTarget.Unknown;
                     }
-                    if ((int) item.PreferTargetCondition >= Enum.GetValues<PreferTargetCondition>().Length)
+                    if (!Enum.IsDefined(typeof(PreferTargetCondition), (int)item.PreferTargetCondition))
                     {
                         unknownEnums.Add($"New PreferTargetCondition enum value: {(int)item.PreferTargetCondition}");
                         item.PreferTargetCondition = PreferTargetCondition.Unknown;
                     }
-                    if ((int) item.FireType >= Enum.GetValues<FireType>().Length)
+                    if (!Enum.IsDefined(typeof(FireType), (int)item.FireType))
                     {
                         unknownEnums.Add($"New FireType enum value: {(int)item.FireType}");
                         item.FireType = FireType.Unknown;
                     }
-                    if ((int) item.InputType >= Enum.GetValues<InputType>().Length)
+                    if (!Enum.IsDefined(typeof(InputType), (int)item.InputType))
                     {
                         unknownEnums.Add($"New InputType enum value: {(int)item.InputType}");
                         item.InputType = InputType.Unknown;
                     }
-                    if ((int) item.ShakeType >= Enum.GetValues<ShakeType>().Length)
+                    if (!Enum.IsDefined(typeof(ShakeType), (int)item.ShakeType))
                     {
                         unknownEnums.Add($"New ShakeType enum value: {(int)item.ShakeType}");
                         item.ShakeType = ShakeType.Unknown;
@@ -282,32 +282,32 @@ namespace NikkeMpkConverter
                     {
                         item.ResourceName = null;
                     }
-                    if ((int) item.AttackType >= Enum.GetValues<AttackType>().Length)
+                    if (!Enum.IsDefined(typeof(AttackType), (int)item.AttackType))
                     {
                         unknownEnums.Add($"New AttackType enum value: {(int)item.AttackType}");
                         item.AttackType = AttackType.Unknown;
                     }
-                    if ((int) item.CounterType >= Enum.GetValues<CounterType>().Length)
+                    if (!Enum.IsDefined(typeof(CounterType), (int)item.CounterType))
                     {
                         unknownEnums.Add($"New CounterType enum value: {(int)item.CounterType}");
                         item.CounterType = CounterType.Unknown;
                     }
-                    if ((int) item.PreferTarget >= Enum.GetValues<PreferTarget>().Length)
+                    if (!Enum.IsDefined(typeof(PreferTarget), (int)item.PreferTarget))
                     {
                         unknownEnums.Add($"New PreferTarget enum value: {(int)item.PreferTarget}");
                         item.PreferTarget = PreferTarget.Unknown;
                     }
-                    if ((int) item.PreferTargetCondition >= Enum.GetValues<PreferTargetCondition>().Length)
+                    if (!Enum.IsDefined(typeof(PreferTargetCondition), (int)item.PreferTargetCondition))
                     {
                         unknownEnums.Add($"New PreferTargetCondition enum value: {(int)item.PreferTargetCondition}");
                         item.PreferTargetCondition = PreferTargetCondition.Unknown;
                     }
-                    if ((int) item.SkillType >= Enum.GetValues<CharacterSkillType>().Length)
+                    if (!Enum.IsDefined(typeof(CharacterSkillType), (int)item.SkillType))
                     {
                         unknownEnums.Add($"New SkillType enum value: {(int)item.SkillType}");
                         item.SkillType = CharacterSkillType.Unknown;
                     }
-                    if ((int) item.DurationType >= Enum.GetValues<DurationType>().Length)
+                    if (!Enum.IsDefined(typeof(DurationType), (int)item.DurationType))
                     {
                         unknownEnums.Add($"New DurationType enum value: {(int)item.DurationType}");
                         item.DurationType = DurationType.Unknown;
@@ -390,57 +390,57 @@ namespace NikkeMpkConverter
                 },
                 processItem: (item) =>
                 {
-                    if ((int)item.OriginalRare >= Enum.GetValues<Rarity>().Length)
+                    if (!Enum.IsDefined(typeof(Rarity), (int)item.OriginalRare))
                     {
                         unknownEnums.Add($"New Rarity enum value: {(int)item.OriginalRare}");
                         item.OriginalRare = Rarity.Unknown;
                     }
-                    if ((int)item.CharacterClass >= Enum.GetValues<NikkeClass>().Length)
+                    if (!Enum.IsDefined(typeof(NikkeClass), (int)item.CharacterClass))
                     {
                         unknownEnums.Add($"New NikkeClass enum value: {(int)item.CharacterClass}");
                         item.CharacterClass = NikkeClass.Unknown;
                     }
-                    if ((int)item.UseBurstSkill >= Enum.GetValues<BurstStep>().Length)
+                    if (!Enum.IsDefined(typeof(BurstStep), (int)item.UseBurstSkill))
                     {
                         unknownEnums.Add($"New BurstStep enum value: {(int)item.UseBurstSkill}");
                         item.UseBurstSkill = BurstStep.Unknown;
                     }
-                    if ((int)item.ChangeBurstStep >= Enum.GetValues<BurstStep>().Length)
+                    if (!Enum.IsDefined(typeof(BurstStep), (int)item.ChangeBurstStep))
                     {
                         unknownEnums.Add($"New BurstStep enum value: {(int)item.ChangeBurstStep}");
                         item.ChangeBurstStep = BurstStep.Unknown;
                     }
-                    if ((int)item.EffCategoryType >= Enum.GetValues<EffCategoryType>().Length)
+                    if (!Enum.IsDefined(typeof(EffCategoryType), (int)item.EffCategoryType))
                     {
                         unknownEnums.Add($"New EffCategoryType enum value: {(int)item.EffCategoryType}");
                         item.EffCategoryType = EffCategoryType.Unknown;
                     }
-                    if ((int)item.CategoryType1 >= Enum.GetValues<CategoryType>().Length)
+                    if (!Enum.IsDefined(typeof(CategoryType), (int)item.CategoryType1))
                     {
                         unknownEnums.Add($"New EffCategoryType enum value: {(int)item.CategoryType1}");
                         item.CategoryType1 = EffCategoryType.Unknown;
                     }
-                    if ((int)item.CategoryType2 >= Enum.GetValues<CategoryType>().Length)
+                    if (!Enum.IsDefined(typeof(CategoryType), (int)item.CategoryType2))
                     {
                         unknownEnums.Add($"New EffCategoryType enum value: {(int)item.CategoryType2}");
                         item.CategoryType2 = EffCategoryType.Unknown;
                     }
-                    if ((int)item.CategoryType3 >= Enum.GetValues<CategoryType>().Length)
+                    if (!Enum.IsDefined(typeof(CategoryType), (int)item.CategoryType3))
                     {
                         unknownEnums.Add($"New EffCategoryType enum value: {(int)item.CategoryType3}");
                         item.CategoryType3 = EffCategoryType.Unknown;
                     }
-                    if ((int)item.Corporation >= Enum.GetValues<Corporation>().Length)
+                    if (!Enum.IsDefined(typeof(Corporation), (int)item.Corporation))
                     {
                         unknownEnums.Add($"New Corporation enum value: {(int)item.Corporation}");
                         item.Corporation = Corporation.Unknown;
                     }
-                    if ((int)item.CorporationSubType >= Enum.GetValues<CorporationSubType>().Length)
+                    if (!Enum.IsDefined(typeof(CorporationSubType), (int)item.CorporationSubType))
                     {
                         unknownEnums.Add($"New CorporationSubType enum value: {(int)item.CorporationSubType}");
                         item.CorporationSubType = CorporationSubType.Unknown;
                     }
-                    if ((int)item.Squad >= Enum.GetValues<Squad>().Length)
+                    if (!Enum.IsDefined(typeof(Squad), (int)item.Squad))
                     {
                         unknownEnums.Add($"New Squad enum value: {(int)item.Squad}");
                         item.Squad = Squad.Unknown;
@@ -473,7 +473,7 @@ namespace NikkeMpkConverter
                 stopOnFirstMismatch: false,
                 processItem: (item) =>
                 {
-                    if ((int)item.ProductType >= Enum.GetValues<ProductType>().Length)
+                    if (!Enum.IsDefined(typeof(ProductType), (int)item.ProductType))
                     {
                         unknownEnums.Add($"New ProductType enum value: {(int)item.ProductType}");
                         item.ProductType = ProductType.Unknown;
@@ -487,7 +487,7 @@ namespace NikkeMpkConverter
                 stopOnFirstMismatch: false,
                 processItem: (item) =>
                 {
-                    if ((int)item.BuyLimitType >= Enum.GetValues<BuyLimitType>().Length)
+                    if (!Enum.IsDefined(typeof(BuyLimitType), (int)item.BuyLimitType))
                     {
                         unknownEnums.Add($"New ProductType enum value: {(int)item.BuyLimitType}");
                         item.BuyLimitType = BuyLimitType.Unknown;
@@ -507,12 +507,12 @@ namespace NikkeMpkConverter
                 stopOnFirstMismatch: false,
                 processItem: (item) =>
                 {
-                    if ((int)item.FavoriteType >= Enum.GetValues<FavoriteItemType>().Length)
+                    if (!Enum.IsDefined(typeof(FavoriteItemType), (int)item.FavoriteType))
                     {
                         unknownEnums.Add($"New FavoriteItemType enum value: {(int)item.FavoriteType}");
                         item.FavoriteType = FavoriteItemType.Unknown;
                     }
-                    if ((int)item.FavoriteRare >= Enum.GetValues<Rarity>().Length)
+                    if (!Enum.IsDefined(typeof(Rarity), (int)item.FavoriteRare))
                     {
                         unknownEnums.Add($"New FavoriteItemType enum value: {(int)item.FavoriteRare}");
                         item.FavoriteRare = Rarity.Unknown;
@@ -525,152 +525,152 @@ namespace NikkeMpkConverter
                 outputPath + "FunctionTable" + outputExtension,
                 processItem: (item) =>
                 {
-                    if ((int)item.BuffType >= Enum.GetValues<BuffType>().Length)
+                    if (!Enum.IsDefined(typeof(BuffType), (int)item.BuffType))
                     {
                         unknownEnums.Add($"New BuffType enum value: {(int)item.BuffType}");
                         item.BuffType = BuffType.Unknown;
                     }
-                    if ((int)item.BuffRemoveType >= Enum.GetValues<BuffRemoveType>().Length)
+                    if (!Enum.IsDefined(typeof(BuffRemoveType), (int)item.BuffRemoveType))
                     {
                         unknownEnums.Add($"New BuffRemoveType enum value: {(int)item.BuffRemoveType}");
                         item.BuffRemoveType = BuffRemoveType.Unknown;
                     }
-                    if ((int)item.FunctionType >= Enum.GetValues<FunctionType>().Length)
+                    if (!Enum.IsDefined(typeof(FunctionType), (int)item.FunctionType))
                     {
                         unknownEnums.Add($"New FunctionType enum value: {(int)item.FunctionType}");
                         item.FunctionType = FunctionType.Unknown;
                     }
-                    if ((int)item.FunctionValueType >= Enum.GetValues<NikkeMpkConverter.model.ValueType>().Length)
+                    if (!Enum.IsDefined(typeof(NikkeMpkConverter.model.ValueType), (int)item.FunctionValueType))
                     {
                         unknownEnums.Add($"New ValueType enum value: {(int)item.FunctionValueType}");
                         item.FunctionValueType = NikkeMpkConverter.model.ValueType.Unknown;
                     }
-                    if ((int)item.FunctionStandard >= Enum.GetValues<StandardType>().Length)
+                    if (!Enum.IsDefined(typeof(StandardType), (int)item.FunctionStandard))
                     {
                         unknownEnums.Add($"New StandardType enum value: {(int)item.FunctionStandard}");
                         item.FunctionStandard = StandardType.Unknown;
                     }
-                    if ((int)item.DelayType >= Enum.GetValues<DurationType>().Length)
+                    if (!Enum.IsDefined(typeof(DurationType), (int)item.DelayType))
                     {
                         unknownEnums.Add($"New DurationType (DelayType) enum value: {(int)item.DelayType}");
                         item.DelayType = DurationType.Unknown;
                     }
-                    if ((int)item.DurationType >= Enum.GetValues<DurationType>().Length)
+                    if (!Enum.IsDefined(typeof(DurationType), (int)item.DurationType))
                     {
                         unknownEnums.Add($"New DurationType enum value: {(int)item.DurationType}");
                         item.DurationType = DurationType.Unknown;
                     }
-                    if ((int)item.FunctionTarget >= Enum.GetValues<FunctionTargetType>().Length)
+                    if (!Enum.IsDefined(typeof(FunctionTargetType), (int)item.FunctionTarget))
                     {
                         unknownEnums.Add($"New FunctionTargetType enum value: {(int)item.FunctionTarget}");
                         item.FunctionTarget = FunctionTargetType.Unknown;
                     }
-                    if ((int)item.TimingTriggerType >= Enum.GetValues<TimingTriggerType>().Length)
+                    if (!Enum.IsDefined(typeof(TimingTriggerType), (int)item.TimingTriggerType))
                     {
                         unknownEnums.Add($"New TimingTriggerType enum value: {(int)item.TimingTriggerType}");
                         item.TimingTriggerType = TimingTriggerType.Unknown;
                     }
-                    if ((int)item.TimingTriggerStandard >= Enum.GetValues<StandardType>().Length)
+                    if (!Enum.IsDefined(typeof(StandardType), (int)item.TimingTriggerStandard))
                     {
                         unknownEnums.Add($"New StandardType (TimingTriggerStandard) enum value: {(int)item.TimingTriggerStandard}");
                         item.TimingTriggerStandard = StandardType.Unknown;
                     }
-                    if ((int)item.StatusTriggerType >= Enum.GetValues<StatusTriggerType>().Length)
+                    if (!Enum.IsDefined(typeof(StatusTriggerType), (int)item.StatusTriggerType))
                     {
                         unknownEnums.Add($"New StatusTriggerType enum value: {(int)item.StatusTriggerType}");
                         item.StatusTriggerType = StatusTriggerType.Unknown;
                     }
-                    if ((int)item.StatusTriggerStandard >= Enum.GetValues<StandardType>().Length)
+                    if (!Enum.IsDefined(typeof(StandardType), (int)item.StatusTriggerStandard))
                     {
                         unknownEnums.Add($"New StandardType (StatusTriggerStandard) enum value: {(int)item.StatusTriggerStandard}");
                         item.StatusTriggerStandard = StandardType.Unknown;
                     }
-                    if ((int)item.StatusTrigger2Type >= Enum.GetValues<StatusTriggerType>().Length)
+                    if (!Enum.IsDefined(typeof(StatusTriggerType), (int)item.StatusTrigger2Type))
                     {
                         unknownEnums.Add($"New StatusTriggerType (StatusTrigger2Type) enum value: {(int)item.StatusTrigger2Type}");
                         item.StatusTrigger2Type = StatusTriggerType.Unknown;
                     }
-                    if ((int)item.StatusTrigger2Standard >= Enum.GetValues<StandardType>().Length)
+                    if (!Enum.IsDefined(typeof(StandardType), (int)item.StatusTrigger2Standard))
                     {
                         unknownEnums.Add($"New StandardType (StatusTrigger2Standard) enum value: {(int)item.StatusTrigger2Standard}");
                         item.StatusTrigger2Standard = StandardType.Unknown;
                     }
-                    if ((int)item.KeepingType >= Enum.GetValues<FunctionStatus>().Length)
+                    if (!Enum.IsDefined(typeof(FunctionStatus), (int)item.KeepingType))
                     {
                         unknownEnums.Add($"New FunctionStatus enum value: {(int)item.KeepingType}");
                         item.KeepingType = FunctionStatus.Unknown;
                     }
-                    if ((int)item.ShotFxListType >= Enum.GetValues<ShotFx>().Length)
+                    if (!Enum.IsDefined(typeof(ShotFx), (int)item.ShotFxListType))
                     {
                         unknownEnums.Add($"New ShotFx enum value: {(int)item.ShotFxListType}");
                         item.ShotFxListType = ShotFx.Unknown;
                     }
-                    if ((int)item.FxTarget01 >= Enum.GetValues<FxTarget>().Length)
+                    if (!Enum.IsDefined(typeof(FxTarget), (int)item.FxTarget01))
                     {
                         unknownEnums.Add($"New FxTarget enum value: {(int)item.FxTarget01}");
                         item.FxTarget01 = FxTarget.Unknown;
                     }
-                    if ((int)item.FxSocketPoint01 >= Enum.GetValues<SocketPoint>().Length)
+                    if (!Enum.IsDefined(typeof(SocketPoint), (int)item.FxSocketPoint01))
                     {
                         unknownEnums.Add($"New SocketPoint enum value: {(int)item.FxSocketPoint01}");
                         item.FxSocketPoint01 = SocketPoint.Unknown;
                     }
-                    if ((int)item.FxTarget02 >= Enum.GetValues<FxTarget>().Length)
+                    if (!Enum.IsDefined(typeof(FxTarget), (int)item.FxTarget02))
                     {
                         unknownEnums.Add($"New FxTarget enum value: {(int)item.FxTarget02}");
                         item.FxTarget02 = FxTarget.Unknown;
                     }
-                    if ((int)item.FxSocketPoint02 >= Enum.GetValues<SocketPoint>().Length)
+                    if (!Enum.IsDefined(typeof(SocketPoint), (int)item.FxSocketPoint02))
                     {
                         unknownEnums.Add($"New SocketPoint enum value: {(int)item.FxSocketPoint02}");
                         item.FxSocketPoint02 = SocketPoint.Unknown;
                     }
-                    if ((int)item.FxTarget03 >= Enum.GetValues<FxTarget>().Length)
+                    if (!Enum.IsDefined(typeof(FxTarget), (int)item.FxTarget03))
                     {
                         unknownEnums.Add($"New FxTarget enum value: {(int)item.FxTarget03}");
                         item.FxTarget03 = FxTarget.Unknown;
                     }
-                    if ((int)item.FxSocketPoint03 >= Enum.GetValues<SocketPoint>().Length)
+                    if (!Enum.IsDefined(typeof(SocketPoint), (int)item.FxSocketPoint03))
                     {
                         unknownEnums.Add($"New SocketPoint enum value: {(int)item.FxSocketPoint03}");
                         item.FxSocketPoint03 = SocketPoint.Unknown;
                     }
-                    if ((int)item.FxTargetFull >= Enum.GetValues<FxTarget>().Length)
+                    if (!Enum.IsDefined(typeof(FxTarget), (int)item.FxTargetFull))
                     {
                         unknownEnums.Add($"New FxTarget enum value: {(int)item.FxTargetFull}");
                         item.FxTargetFull = FxTarget.Unknown;
                     }
-                    if ((int)item.FxSocketPointFull >= Enum.GetValues<SocketPoint>().Length)
+                    if (!Enum.IsDefined(typeof(SocketPoint), (int)item.FxSocketPointFull))
                     {
                         unknownEnums.Add($"New SocketPoint enum value: {(int)item.FxSocketPointFull}");
                         item.FxSocketPointFull = SocketPoint.Unknown;
                     }
-                    if ((int)item.FxTarget01Arena >= Enum.GetValues<FxTarget>().Length)
+                    if (!Enum.IsDefined(typeof(FxTarget), (int)item.FxTarget01Arena))
                     {
                         unknownEnums.Add($"New FxTarget enum value: {(int)item.FxTarget01Arena}");
                         item.FxTarget01Arena = FxTarget.Unknown;
                     }
-                    if ((int)item.FxSocketPoint01Arena >= Enum.GetValues<SocketPoint>().Length)
+                    if (!Enum.IsDefined(typeof(SocketPoint), (int)item.FxSocketPoint01Arena))
                     {
                         unknownEnums.Add($"New SocketPoint enum value: {(int)item.FxSocketPoint01Arena}");
                         item.FxSocketPoint01Arena = SocketPoint.Unknown;
                     }
-                    if ((int)item.FxTarget02Arena >= Enum.GetValues<FxTarget>().Length)
+                    if (!Enum.IsDefined(typeof(FxTarget), (int)item.FxTarget02Arena))
                     {
                         unknownEnums.Add($"New FxTarget enum value: {(int)item.FxTarget02Arena}");
                         item.FxTarget02Arena = FxTarget.Unknown;
                     }
-                    if ((int)item.FxSocketPoint02Arena >= Enum.GetValues<SocketPoint>().Length)
+                    if (!Enum.IsDefined(typeof(SocketPoint), (int)item.FxSocketPoint02Arena))
                     {
                         unknownEnums.Add($"New SocketPoint enum value: {(int)item.FxSocketPoint02Arena}");
                         item.FxSocketPoint02Arena = SocketPoint.Unknown;
                     }
-                    if ((int)item.FxTarget03Arena >= Enum.GetValues<FxTarget>().Length)
+                    if (!Enum.IsDefined(typeof(FxTarget), (int)item.FxTarget03Arena))
                     {
                         unknownEnums.Add($"New FxTarget enum value: {(int)item.FxTarget03Arena}");
                         item.FxTarget03Arena = FxTarget.Unknown;
                     }
-                    if ((int)item.FxSocketPoint03Arena >= Enum.GetValues<SocketPoint>().Length)
+                    if (!Enum.IsDefined(typeof(SocketPoint), (int)item.FxSocketPoint03Arena))
                     {
                         unknownEnums.Add($"New SocketPoint enum value: {(int)item.FxSocketPoint03Arena}");
                         item.FxSocketPoint03Arena = SocketPoint.Unknown;
@@ -976,22 +976,22 @@ namespace NikkeMpkConverter
                 },
                 processItem: (item) =>
                 {
-                    if ((int)item.MainCategoryType >= Enum.GetValues<MainCategoryType>().Length)
+                    if (!Enum.IsDefined(typeof(MainCategoryType), (int)item.MainCategoryType))
                     {
                         unknownEnums.Add($"New MainCategoryType enum value: {(int)item.MainCategoryType}");
                         item.MainCategoryType = MainCategoryType.Unknown;
                     }
-                    if ((int)item.RenewType >= Enum.GetValues<RenewType>().Length)
+                    if (!Enum.IsDefined(typeof(RenewType), (int)item.RenewType))
                     {
                         unknownEnums.Add($"New RenewType enum value: {(int)item.RenewType}");
                         item.RenewType = RenewType.Unknown;
                     }
-                    if ((int)item.ShopType >= Enum.GetValues<ShopType>().Length)
+                    if (!Enum.IsDefined(typeof(ShopType), (int)item.ShopType))
                     {
                         unknownEnums.Add($"New ShopType enum value: {(int)item.ShopType}");
                         item.ShopType = ShopType.Unknown;
                     }
-                    if ((int)item.ShopCategory >= Enum.GetValues<ShopCategory>().Length)
+                    if (!Enum.IsDefined(typeof(ShopCategory), (int)item.ShopCategory))
                     {
                         unknownEnums.Add($"New ShopCategory enum value: {(int)item.ShopCategory}");
                         item.ShopCategory = ShopCategory.Unknown;
@@ -1059,32 +1059,32 @@ namespace NikkeMpkConverter
                 },
                 processItem: (item) =>
                 {
-                    if ((int)item.UseConditionType >= Enum.GetValues<UseConditionType>().Length)
+                    if (!Enum.IsDefined(typeof(UseConditionType), (int)item.UseConditionType))
                     {
                         unknownEnums.Add($"New UseConditionType enum value: {(int)item.UseConditionType}");
                         item.UseConditionType = UseConditionType.Unknown;
                     }
-                    if ((int)item.UseType >= Enum.GetValues<UseType>().Length)
+                    if (!Enum.IsDefined(typeof(UseType), (int)item.UseType))
                     {
                         unknownEnums.Add($"New UseType enum value: {(int)item.UseType}");
                         item.UseType = UseType.Unknown;
                     }
-                    if ((int)item.ItemType >= Enum.GetValues<ItemType>().Length)
+                    if (!Enum.IsDefined(typeof(ItemType), (int)item.ItemType))
                     {
                         unknownEnums.Add($"New ItemType enum value: {(int)item.ItemType}");
                         item.ItemType = ItemType.Unknown;
                     }
-                    if ((int)item.ItemSubType >= Enum.GetValues<ItemSubType>().Length)
+                    if (!Enum.IsDefined(typeof(ItemSubType), (int)item.ItemSubType))
                     {
                         unknownEnums.Add($"New ItemSubType enum value: {(int)item.ItemSubType}");
                         item.ItemSubType = ItemSubType.Unknown;
                     }
-                    if ((int)item.ItemRarity >= Enum.GetValues<Rarity>().Length)
+                    if (!Enum.IsDefined(typeof(Rarity), (int)item.ItemRarity))
                     {
                         unknownEnums.Add($"New ItemRarity enum value: {(int)item.ItemRarity}");
                         item.ItemRarity = Rarity.Unknown;
                     }
-                    if ((int)item.PercentDisplayType >= Enum.GetValues<PercentDisplayType>().Length)
+                    if (!Enum.IsDefined(typeof(PercentDisplayType), (int)item.PercentDisplayType))
                     {
                         unknownEnums.Add($"New PercentDisplayType enum value: {(int)item.PercentDisplayType}");
                         item.PercentDisplayType = PercentDisplayType.Unknown;
@@ -1148,17 +1148,17 @@ namespace NikkeMpkConverter
                 },
                 processItem: (item) =>
                 {
-                    if ((int)item.ItemType >= Enum.GetValues<ItemType>().Length)
+                    if (!Enum.IsDefined(typeof(ItemType), (int)item.ItemType))
                     {
                         unknownEnums.Add($"New ItemType enum value: {(int)item.ItemType}");
                         item.ItemType = ItemType.Unknown;
                     }
-                    if ((int)item.ItemSubType >= Enum.GetValues<ItemSubType>().Length)
+                    if (!Enum.IsDefined(typeof(ItemSubType), (int)item.ItemSubType))
                     {
                         unknownEnums.Add($"New ItemSubType enum value: {(int)item.ItemSubType}");
                         item.ItemSubType = ItemSubType.Unknown;
                     }
-                    if ((int)item.EquipItemRarity >= Enum.GetValues<EquipItemRarity>().Length)
+                    if (!Enum.IsDefined(typeof(EquipItemRarity), (int)item.EquipItemRarity))
                     {
                         unknownEnums.Add($"New EquipItemRarity enum value: {(int)item.EquipItemRarity}");
                         item.EquipItemRarity = EquipItemRarity.Unknown;
@@ -1220,22 +1220,22 @@ namespace NikkeMpkConverter
                 },
                 processItem: (item) =>
                 {
-                    if ((int)item.ItemType >= Enum.GetValues<ItemType>().Length)
+                    if (!Enum.IsDefined(typeof(ItemType), (int)item.ItemType))
                     {
                         unknownEnums.Add($"New ItemType enum value: {(int)item.ItemType}");
                         item.ItemType = ItemType.Unknown;
                     }
-                    if ((int)item.ItemSubType >= Enum.GetValues<ItemSubType>().Length)
+                    if (!Enum.IsDefined(typeof(ItemSubType), (int)item.ItemSubType))
                     {
                         unknownEnums.Add($"New ItemSubType enum value: {(int)item.ItemSubType}");
                         item.ItemSubType = ItemSubType.Unknown;
                     }
-                    if ((int)item.ItemRare >= Enum.GetValues<Rarity>().Length)
+                    if (!Enum.IsDefined(typeof(Rarity), (int)item.ItemRare))
                     {
                         unknownEnums.Add($"New Rarity enum value: {(int)item.ItemRare}");
                         item.ItemRare = Rarity.Unknown;
                     }
-                    if ((int)item.CharacterClass >= Enum.GetValues<NikkeClass>().Length)
+                    if (!Enum.IsDefined(typeof(NikkeClass), (int)item.CharacterClass))
                     {
                         unknownEnums.Add($"New NikkeClass enum value: {(int)item.CharacterClass}");
                         item.CharacterClass = NikkeClass.Unknown;
@@ -1295,22 +1295,22 @@ namespace NikkeMpkConverter
                 },
                 processItem: (item) =>
                 {
-                    if ((int)item.ItemType >= Enum.GetValues<ItemType>().Length)
+                    if (!Enum.IsDefined(typeof(ItemType), (int)item.ItemType))
                     {
                         unknownEnums.Add($"New ItemType enum value: {(int)item.ItemType}");
                         item.ItemType = ItemType.Unknown;
                     }
-                    if ((int)item.ItemSubType >= Enum.GetValues<ItemSubType>().Length)
+                    if (!Enum.IsDefined(typeof(ItemSubType), (int)item.ItemSubType))
                     {
                         unknownEnums.Add($"New ItemSubType enum value: {(int)item.ItemSubType}");
                         item.ItemSubType = ItemSubType.Unknown;
                     }
-                    if ((int)item.ItemRarity >= Enum.GetValues<Rarity>().Length)
+                    if (!Enum.IsDefined(typeof(Rarity), (int)item.ItemRarity))
                     {
                         unknownEnums.Add($"New Rarity enum value: {(int)item.ItemRarity}");
                         item.ItemRarity = Rarity.Unknown;
                     }
-                    if ((int)item.MaterialType >= Enum.GetValues<MaterialType>().Length)
+                    if (!Enum.IsDefined(typeof(MaterialType), (int)item.MaterialType))
                     {
                         unknownEnums.Add($"New MaterialType enum value: {(int)item.MaterialType}");
                         item.MaterialType = MaterialType.Unknown;
@@ -1390,22 +1390,22 @@ namespace NikkeMpkConverter
                 },
                 processItem: (item) =>
                 {
-                    if ((int)item.ItemType >= Enum.GetValues<ItemType>().Length)
+                    if (!Enum.IsDefined(typeof(ItemType), (int)item.ItemType))
                     {
                         unknownEnums.Add($"New ItemType enum value: {(int)item.ItemType}");
                         item.ItemType = ItemType.Unknown;
                     }
-                    if ((int)item.ItemSubType >= Enum.GetValues<ItemSubType>().Length)
+                    if (!Enum.IsDefined(typeof(ItemSubType), (int)item.ItemSubType))
                     {
                         unknownEnums.Add($"New ItemSubType enum value: {(int)item.ItemSubType}");
                         item.ItemSubType = ItemSubType.Unknown;
                     }
-                    if ((int)item.ItemRarity >= Enum.GetValues<Rarity>().Length)
+                    if (!Enum.IsDefined(typeof(Rarity), (int)item.ItemRarity))
                     {
                         unknownEnums.Add($"New Rarity enum value: {(int)item.ItemRarity}");
                         item.ItemRarity = Rarity.Unknown;
                     }
-                    if ((int)item.UseType >= Enum.GetValues<UseType>().Length)
+                    if (!Enum.IsDefined(typeof(UseType), (int)item.UseType))
                     {
                         unknownEnums.Add($"New UseType enum value: {(int)item.UseType}");
                         item.UseType = UseType.Unknown;
@@ -1457,12 +1457,12 @@ namespace NikkeMpkConverter
                 },
                 processItem: (item) =>
                 {
-                    if ((int)item.ItemType >= Enum.GetValues<ProductItemType>().Length)
+                    if (!Enum.IsDefined(typeof(ProductItemType), (int)item.ItemType))
                     {
                         unknownEnums.Add($"New ProductItemType enum value: {(int)item.ItemType}");
                         item.ItemType = ProductItemType.Currency;
                     }
-                    if ((int)item.ProductType >= Enum.GetValues<MidasProductType>().Length)
+                    if (!Enum.IsDefined(typeof(MidasProductType), (int)item.ProductType))
                     {
                         unknownEnums.Add($"New MidasProductType enum value: {(int)item.ProductType}");
                         item.ProductType = MidasProductType.Unknown;
@@ -1545,47 +1545,47 @@ namespace NikkeMpkConverter
                 outputPath + "MonsterSkillTable" + outputExtension,
                 processItem: (item) =>
                 {
-                    if ((int)item.WeaponType >= Enum.GetValues<WeaponType>().Length)
+                    if (!Enum.IsDefined(typeof(WeaponType), (int)item.WeaponType))
                     {
                         unknownEnums.Add($"New WeaponType enum value: {(int)item.WeaponType}");
                         item.WeaponType = WeaponType.Unknown;
                     }
-                    if ((int)item.AttackType >= Enum.GetValues<AttackType>().Length)
+                    if (!Enum.IsDefined(typeof(AttackType), (int)item.AttackType))
                     {
                         unknownEnums.Add($"New AttackType enum value: {(int)item.AttackType}");
                         item.AttackType = AttackType.Unknown;
                     }
-                    if ((int)item.FireType >= Enum.GetValues<FireType>().Length)
+                    if (!Enum.IsDefined(typeof(FireType), (int)item.FireType))
                     {
                         unknownEnums.Add($"New FireType enum value: {(int)item.FireType}");
                         item.FireType = FireType.Unknown;
                     }
-                    if ((int)item.ShotTiming >= Enum.GetValues<ShotTiming>().Length)
+                    if (!Enum.IsDefined(typeof(ShotTiming), (int)item.ShotTiming))
                     {
                         unknownEnums.Add($"New ShotTiming enum value: {(int)item.ShotTiming}");
                         item.ShotTiming = ShotTiming.Unknown;
                     }
-                    if ((int)item.WeaponObjectEnum >= Enum.GetValues<WeaponObject>().Length)
+                    if (!Enum.IsDefined(typeof(WeaponObject), (int)item.WeaponObjectEnum))
                     {
                         unknownEnums.Add($"New WeaponObject enum value: {(int)item.WeaponObjectEnum}");
                         item.WeaponObjectEnum = WeaponObject.Unknown;
                     }
-                    if ((int)item.PreferTarget >= Enum.GetValues<PreferTarget>().Length)
+                    if (!Enum.IsDefined(typeof(PreferTarget), (int)item.PreferTarget))
                     {
                         unknownEnums.Add($"New PreferTarget enum value: {(int)item.PreferTarget}");
                         item.PreferTarget = PreferTarget.Unknown;
                     }
-                    if ((int)item.ObjectPositionType >= Enum.GetValues<ObjectPositionType>().Length)
+                    if (!Enum.IsDefined(typeof(ObjectPositionType), (int)item.ObjectPositionType))
                     {
                         unknownEnums.Add($"New ObjectPositionType enum value: {(int)item.ObjectPositionType}");
                         item.ObjectPositionType = ObjectPositionType.Unknown;
                     }
-                    if ((int)item.AnimationNumber >= Enum.GetValues<SkillAnimationNumber>().Length)
+                    if (!Enum.IsDefined(typeof(SkillAnimationNumber), (int)item.AnimationNumber))
                     {
                         unknownEnums.Add($"New SkillAnimationNumber enum value: {(int)item.AnimationNumber}");
                         item.AnimationNumber = SkillAnimationNumber.Unknown;
                     }
-                    if ((int)item.CancelType >= Enum.GetValues<CancelType>().Length)
+                    if (!Enum.IsDefined(typeof(CancelType), (int)item.CancelType))
                     {
                         unknownEnums.Add($"New CancelType enum value: {(int)item.CancelType}");
                         item.CancelType = CancelType.Unknown;
@@ -1705,7 +1705,7 @@ namespace NikkeMpkConverter
                 },
                 processItem: (item) =>
                 {
-                    if ((int)item.ConditionType >= Enum.GetValues<MonsterStageLevelChangeCondition>().Length)
+                    if (!Enum.IsDefined(typeof(MonsterStageLevelChangeCondition), (int)item.ConditionType))
                     {
                         unknownEnums.Add($"New MonsterStageLevelChangeCondition enum value: {(int)item.ConditionType}");
                         item.ConditionType = MonsterStageLevelChangeCondition.Unknown;
@@ -1761,12 +1761,12 @@ namespace NikkeMpkConverter
                 },
                 processItem: (item) =>
                 {
-                    if ((int)item.UiGrade >= Enum.GetValues<MonsterUiGrade>().Length)
+                    if (!Enum.IsDefined(typeof(MonsterUiGrade), (int)item.UiGrade))
                     {
                         unknownEnums.Add($"New MonsterUiGrade enum value: {(int)item.UiGrade}");
                         item.UiGrade = MonsterUiGrade.Unknown;
                     }
-                    if ((int)item.FixedSpawnType >= Enum.GetValues<SpawnType>().Length)
+                    if (!Enum.IsDefined(typeof(SpawnType), (int)item.FixedSpawnType))
                     {
                         unknownEnums.Add($"New SpawnType enum value: {(int)item.FixedSpawnType}");
                         item.FixedSpawnType = SpawnType.Unknown;
@@ -1813,7 +1813,7 @@ namespace NikkeMpkConverter
                 stopOnFirstMismatch: false,
                 processItem: (item) =>
                 {
-                    if ((int)item.ProductType >= Enum.GetValues<ProductType>().Length)
+                    if (!Enum.IsDefined(typeof(ProductType), (int)item.ProductType))
                     {
                         unknownEnums.Add($"New ProductType enum value: {(int)item.ProductType}");
                         item.ProductType = ProductType.Unknown;
@@ -1827,7 +1827,7 @@ namespace NikkeMpkConverter
                 stopOnFirstMismatch: false,
                 processItem: (item) =>
                 {
-                    if ((int)item.BuyLimitType >= Enum.GetValues<BuyLimitType>().Length)
+                    if (!Enum.IsDefined(typeof(BuyLimitType), (int)item.BuyLimitType))
                     {
                         unknownEnums.Add($"New BuyLimitType enum value: {(int)item.BuyLimitType}");
                         item.BuyLimitType = BuyLimitType.Unknown;
@@ -1863,12 +1863,12 @@ namespace NikkeMpkConverter
                 outputPath + "SoloRaidPresetTable" + outputExtension,
                 processItem: (item) =>
                 {
-                    if ((int)item.DifficultyType >= Enum.GetValues<SoloRaidDifficultyType>().Length)
+                    if (!Enum.IsDefined(typeof(SoloRaidDifficultyType), (int)item.DifficultyType))
                     {
                         unknownEnums.Add($"New SoloRaidDifficultyType enum value: {(int)item.DifficultyType}");
                         item.DifficultyType = SoloRaidDifficultyType.Unknown;
                     }
-                    if ((int)item.QuickBattleType >= Enum.GetValues<QuickBattleType>().Length)
+                    if (!Enum.IsDefined(typeof(QuickBattleType), (int)item.QuickBattleType))
                     {
                         unknownEnums.Add($"New QuickBattleType enum value: {(int)item.QuickBattleType}");
                         item.QuickBattleType = QuickBattleType.Unknown;
@@ -1944,7 +1944,7 @@ namespace NikkeMpkConverter
                 stopOnFirstMismatch: false,
                 processItem: (item) =>
                 {
-                    if ((int)item.BuyLimitType >= Enum.GetValues<BuyLimitType>().Length)
+                    if (!Enum.IsDefined(typeof(BuyLimitType), (int)item.BuyLimitType))
                     {
                         unknownEnums.Add($"New BuyLimitType enum value: {(int)item.BuyLimitType}");
                         item.BuyLimitType = BuyLimitType.Unknown;
@@ -2101,22 +2101,22 @@ namespace NikkeMpkConverter
                     outputPath + "WaveDataTable." + table + outputExtension,
                     processItem: (item) =>
                     {
-                        if ((int)item.UiTheme >= Enum.GetValues<UiTheme>().Length)
+                        if (!Enum.IsDefined(typeof(UiTheme), (int)item.UiTheme))
                         {
                             unknownEnums.Add($"New UiTheme enum value: {(int)item.UiTheme}");
                             item.UiTheme = UiTheme.Unknown;
                         }
-                        if ((int)item.SpotMod >= Enum.GetValues<SpotMod>().Length)
+                        if (!Enum.IsDefined(typeof(SpotMod), (int)item.SpotMod))
                         {
                             unknownEnums.Add($"New SpotMod enum value: {(int)item.SpotMod}");
                             item.SpotMod = SpotMod.Unknown;
                         }
-                        if ((int)item.Theme >= Enum.GetValues<Theme>().Length)
+                        if (!Enum.IsDefined(typeof(Theme), (int)item.Theme))
                         {
                             unknownEnums.Add($"New Theme enum value: {(int)item.Theme}");
                             item.Theme = Theme.Unknown;
                         }
-                        if ((int)item.ThemeTime >= Enum.GetValues<ThemeTime>().Length)
+                        if (!Enum.IsDefined(typeof(ThemeTime), (int)item.ThemeTime))
                         {
                             unknownEnums.Add($"New ThemeTime enum value: {(int)item.ThemeTime}");
                             item.ThemeTime = ThemeTime.Unknown;
@@ -2202,11 +2202,10 @@ namespace NikkeMpkConverter
                         for (var i = 0; i < item.OutpostRewardList.Length; i++)
                         {
                             var rewardItem = item.OutpostRewardList[i];
-                            if ((int)rewardItem.ItemType >= Enum.GetValues<PrepareRewardType>().Length)
+                            if (!Enum.IsDefined(typeof(PrepareRewardType), (int)rewardItem.ItemType))
                             {
                                 unknownEnums.Add($"New PrepareRewardType enum value: {(int)rewardItem.ItemType} in OutpostBattleStaticInfo ID {item.Id}");
                                 rewardItem.ItemType = PrepareRewardType.Unknown;
-                                item.OutpostRewardList[i] = rewardItem;
                             }
                         }
                     }
