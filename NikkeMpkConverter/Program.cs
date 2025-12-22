@@ -99,27 +99,28 @@ namespace NikkeMpkConverter
 
         static async Task SerializationAsync(string inputPath, string outputPath, string inputExtension, string outputExtension)
         {
-            await MpkConverter.ConvertTableAsync<Word>(
+            bool result = true;
+            result &= await MpkConverter.ConvertTableAsync<Word>(
                 inputPath + "WordTable" + inputExtension,
                 outputPath + "WordTable" + outputExtension,
                 stopOnFirstMismatch: false
             );
-            await MpkConverter.ConvertTableAsync<UnionRaidPreset>(
+            result &= await MpkConverter.ConvertTableAsync<UnionRaidPreset>(
                 inputPath + "UnionRaidPresetTable" + inputExtension,
                 outputPath + "UnionRaidPresetTable" + outputExtension,
                 stopOnFirstMismatch: false
                 );
-            await MpkConverter.ConvertTableAsync<AttractiveLevelTable>(
+            result &= await MpkConverter.ConvertTableAsync<AttractiveLevelTable>(
                 inputPath + "AttractiveLevelTable" + inputExtension,
                 outputPath + "AttractiveLevelTable" + outputExtension,
                 stopOnFirstMismatch: false
             );
-            await MpkConverter.ConvertTableAsync<CharacterStatEnhance>(
+            result &= await MpkConverter.ConvertTableAsync<CharacterStatEnhance>(
                 inputPath + "CharacterStatEnhanceTable" + inputExtension,
                 outputPath + "CharacterStatEnhanceTable" + outputExtension,
                 stopOnFirstMismatch: false
             );
-            await MpkConverter.ConvertTableAsync<CharacterShotTable>(
+            result &= await MpkConverter.ConvertTableAsync<CharacterShotTable>(
                 inputPath + "CharacterShotTable" + inputExtension,
                 outputPath + "CharacterShotTable" + outputExtension,
                 (details, jsonItem, mpkItem) =>
@@ -179,7 +180,7 @@ namespace NikkeMpkConverter
                 },
                 stopOnFirstMismatch: false
             );
-            await MpkConverter.ConvertTableAsync<SkillData>(
+            result &= await MpkConverter.ConvertTableAsync<SkillData>(
                 inputPath + "CharacterSkillTable" + inputExtension,
                 outputPath + "CharacterSkillTable" + outputExtension,
                 (details, jsonItem, mpkItem) =>
@@ -228,13 +229,13 @@ namespace NikkeMpkConverter
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<CharacterStat>(
+            result &= await MpkConverter.ConvertTableAsync<CharacterStat>(
                 inputPath + "CharacterStatTable" + inputExtension,
                 outputPath + "CharacterStatTable" + outputExtension,
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<NikkeCharacterData>(
+            result &= await MpkConverter.ConvertTableAsync<NikkeCharacterData>(
                 inputPath + "CharacterTable" + inputExtension,
                 outputPath + "CharacterTable" + outputExtension,
                 (details, jsonItem, mpkItem) =>
@@ -309,43 +310,43 @@ namespace NikkeMpkConverter
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<CoverStatEnhance>(
+            result &= await MpkConverter.ConvertTableAsync<CoverStatEnhance>(
                 inputPath + "CoverStatEnhanceTable" + inputExtension,
                 outputPath + "CoverStatEnhanceTable" + outputExtension,
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<CurrencyData>(
+            result &= await MpkConverter.ConvertTableAsync<CurrencyData>(
                 inputPath + "CurrencyTable" + inputExtension,
                 outputPath + "CurrencyTable" + outputExtension,
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<CustomPackageSlotData>(
+            result &= await MpkConverter.ConvertTableAsync<CustomPackageSlotData>(
                 inputPath + "CustomPackageGroupTable" + inputExtension,
                 outputPath + "CustomPackageGroupTable" + outputExtension,
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<CustomPackageShopData>(
+            result &= await MpkConverter.ConvertTableAsync<CustomPackageShopData>(
                 inputPath + "CustomPackageShopTable" + inputExtension,
                 outputPath + "CustomPackageShopTable" + outputExtension,
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<FavoriteItemLevelData>(
+            result &= await MpkConverter.ConvertTableAsync<FavoriteItemLevelData>(
                 inputPath + "FavoriteItemLevelTable" + inputExtension,
                 outputPath + "FavoriteItemLevelTable" + outputExtension,
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<FavoriteItemData>(
+            result &= await MpkConverter.ConvertTableAsync<FavoriteItemData>(
                 inputPath + "FavoriteItemTable" + inputExtension,
                 outputPath + "FavoriteItemTable" + outputExtension,
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<FunctionData>(
+            result &= await MpkConverter.ConvertTableAsync<FunctionData>(
                 inputPath + "FunctionTable" + inputExtension,
                 outputPath + "FunctionTable" + outputExtension,
                 (details, jsonItem, mpkItem) =>
@@ -616,7 +617,7 @@ namespace NikkeMpkConverter
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<InAppShopData>(
+            result &= await MpkConverter.ConvertTableAsync<InAppShopData>(
                 inputPath + "InAppShopManagerTable" + inputExtension,
                 outputPath + "InAppShopManagerTable" + outputExtension,
                 (details, jsonItem, mpkItem) =>
@@ -668,7 +669,7 @@ namespace NikkeMpkConverter
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<ConsumeItemData>(
+            result &= await MpkConverter.ConvertTableAsync<ConsumeItemData>(
                 inputPath + "ItemConsumeTable" + inputExtension,
                 outputPath + "ItemConsumeTable" + outputExtension,
                 (details, jsonItem, mpkItem) =>
@@ -736,7 +737,7 @@ namespace NikkeMpkConverter
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<EquipmentData>(
+            result &= await MpkConverter.ConvertTableAsync<EquipmentData>(
                 inputPath + "ItemEquipTable" + inputExtension,
                 outputPath + "ItemEquipTable" + outputExtension,
                 (details, jsonItem, mpkItem) =>
@@ -780,13 +781,13 @@ namespace NikkeMpkConverter
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<HarmonyCubeLevelData>(
+            result &= await MpkConverter.ConvertTableAsync<HarmonyCubeLevelData>(
                 inputPath + "ItemHarmonyCubeLevelTable" + inputExtension,
                 outputPath + "ItemHarmonyCubeLevelTable" + outputExtension,
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<HarmonyCubeData>(
+            result &= await MpkConverter.ConvertTableAsync<HarmonyCubeData>(
                 inputPath + "ItemHarmonyCubeTable" + inputExtension,
                 outputPath + "ItemHarmonyCubeTable" + outputExtension,
                 (details, jsonItem, mpkItem) =>
@@ -838,7 +839,7 @@ namespace NikkeMpkConverter
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<MaterialItemData>(
+            result &= await MpkConverter.ConvertTableAsync<MaterialItemData>(
                 inputPath + "ItemMaterialTable" + inputExtension,
                 outputPath + "ItemMaterialTable" + outputExtension,
                 (details, jsonItem, mpkItem) =>
@@ -890,7 +891,7 @@ namespace NikkeMpkConverter
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<PieceItemData>(
+            result &= await MpkConverter.ConvertTableAsync<PieceItemData>(
                 inputPath + "ItemPieceTable" + inputExtension,
                 outputPath + "ItemPieceTable" + outputExtension,
                 (details, jsonItem, mpkItem) =>
@@ -962,7 +963,7 @@ namespace NikkeMpkConverter
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<MidasProductData>(
+            result &= await MpkConverter.ConvertTableAsync<MidasProductData>(
                 inputPath + "MidasProductTable" + inputExtension,
                 outputPath + "MidasProductTable" + outputExtension,
                 (details, jsonItem, mpkItem) =>
@@ -998,7 +999,7 @@ namespace NikkeMpkConverter
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<MonsterPartData>(
+            result &= await MpkConverter.ConvertTableAsync<MonsterPartData>(
                 inputPath + "MonsterPartsTable" + inputExtension,
                 outputPath + "MonsterPartsTable" + outputExtension,
                 (details, jsonItem, mpkItem) =>
@@ -1046,7 +1047,7 @@ namespace NikkeMpkConverter
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<MonsterSkillData>(
+            result &= await MpkConverter.ConvertTableAsync<MonsterSkillData>(
                 inputPath + "MonsterSkillTable" + inputExtension,
                 outputPath + "MonsterSkillTable" + outputExtension,
                 (details, jsonItem, mpkItem) =>
@@ -1143,7 +1144,7 @@ namespace NikkeMpkConverter
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<MonsterStageLevelChangeData>(
+            result &= await MpkConverter.ConvertTableAsync<MonsterStageLevelChangeData>(
                 inputPath + "MonsterStageLvChangeTable" + inputExtension,
                 outputPath + "MonsterStageLvChangeTable" + outputExtension,
                 (details, jsonItem, mpkItem) =>
@@ -1171,14 +1172,14 @@ namespace NikkeMpkConverter
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<MonsterStatEnhanceData>(
+            result &= await MpkConverter.ConvertTableAsync<MonsterStatEnhanceData>(
                 inputPath + "MonsterStatEnhanceTable" + inputExtension,
                 outputPath + "MonsterStatEnhanceTable" + outputExtension,
                 stopOnFirstMismatch: false
             );
 
 
-            await MpkConverter.ConvertTableAsync<MonsterData>(
+            result &= await MpkConverter.ConvertTableAsync<MonsterData>(
                 inputPath + "MonsterTable" + inputExtension,
                 outputPath + "MonsterTable" + outputExtension,
 
@@ -1237,26 +1238,26 @@ namespace NikkeMpkConverter
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<MultiplayerRaidData>(
+            result &= await MpkConverter.ConvertTableAsync<MultiplayerRaidData>(
                 inputPath + "MultiRaidTable" + inputExtension,
                 outputPath + "MultiRaidTable" + outputExtension,
                 stopOnFirstMismatch: false
             );
 
 
-            await MpkConverter.ConvertTableAsync<PackageProductData>(
+            result &= await MpkConverter.ConvertTableAsync<PackageProductData>(
                 inputPath + "PackageGroupTable" + inputExtension,
                 outputPath + "PackageGroupTable" + outputExtension,
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<PackageListData>(
+            result &= await MpkConverter.ConvertTableAsync<PackageListData>(
                 inputPath + "PackageListTable" + inputExtension,
                 outputPath + "PackageListTable" + outputExtension,
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<SkillInfoData>(
+            result &= await MpkConverter.ConvertTableAsync<SkillInfoData>(
                 inputPath + "SkillInfoTable" + inputExtension,
                 outputPath + "SkillInfoTable" + outputExtension,
                 logItemDetails: (details, jsonItem, mpkItem) =>
@@ -1279,7 +1280,7 @@ namespace NikkeMpkConverter
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<SoloRaidWaveData>(
+            result &= await MpkConverter.ConvertTableAsync<SoloRaidWaveData>(
                 inputPath + "SoloRaidPresetTable" + inputExtension,
                 outputPath + "SoloRaidPresetTable" + outputExtension,
                 logItemDetails: (details, jsonItem, mpkItem) =>
@@ -1316,7 +1317,7 @@ namespace NikkeMpkConverter
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<StateEffectData>(
+            result &= await MpkConverter.ConvertTableAsync<StateEffectData>(
                 inputPath + "StateEffectTable" + inputExtension,
                 outputPath + "StateEffectTable" + outputExtension,
                 logItemDetails: (details, jsonItem, mpkItem) =>
@@ -1334,7 +1335,7 @@ namespace NikkeMpkConverter
                 stopOnFirstMismatch: false
             );
 
-            await MpkConverter.ConvertTableAsync<StepUpPackageData>(
+            result &= await MpkConverter.ConvertTableAsync<StepUpPackageData>(
                 inputPath + "StepUpPackageListTable" + inputExtension,
                 outputPath + "StepUpPackageListTable" + outputExtension,
                 logItemDetails: (details, jsonItem, mpkItem) =>
@@ -1496,7 +1497,7 @@ namespace NikkeMpkConverter
                 "wave_tower_pilgrim_012"
             ];
             foreach (string table in waveDataFiles) {
-                await MpkConverter.ConvertTableAsync<WaveData>(
+                result &= await MpkConverter.ConvertTableAsync<WaveData>(
                     inputPath + "WaveDataTable." + table + inputExtension,
                     outputPath + "WaveDataTable." + table + outputExtension,
                     logItemDetails: (details, jsonItem, mpkItem) =>
@@ -1554,7 +1555,7 @@ namespace NikkeMpkConverter
                     stopOnFirstMismatch: false
                 );
 
-                await MpkConverter.ConvertTableAsync<OutpostBattleStaticInfo>(
+                result &= await MpkConverter.ConvertTableAsync<OutpostBattleStaticInfo>(
                     inputPath + "OutpostBattleTable" + inputExtension,
                     outputPath + "OutpostBattleTable" + outputExtension,
                     (details, jsonItem, mpkItem) =>
@@ -1576,6 +1577,19 @@ namespace NikkeMpkConverter
                     stopOnFirstMismatch: true
                 );
             }
+            
+            // Print summary
+            Console.WriteLine();
+            Console.WriteLine("===========================================");
+            if (result)
+            {
+                Console.WriteLine("✓ All tables converted successfully!");
+            }
+            else
+            {
+                Console.WriteLine("✗ Some tables failed conversion. Check the output above for details.");
+            }
+            Console.WriteLine("===========================================");
         }
     }
 }

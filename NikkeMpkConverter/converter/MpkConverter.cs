@@ -233,7 +233,7 @@ namespace NikkeMpkConverter.converter
             return mpkBytes;
         }
 
-        public static async Task ConvertTableAsync<TItem>(
+        public static async Task<bool> ConvertTableAsync<TItem>(
             string inputPath,
             string? outputPath = null,
             Action<List<string>, TItem, TItem>? logItemDetails = null,
@@ -267,14 +267,19 @@ namespace NikkeMpkConverter.converter
                     );
                     if (result.Records != null && result.Records.Length > 0) {
                         Console.WriteLine($"Converted {result.Records.Length} records from MPK to JSON for {Path.GetFileName(inputPath)}.");
+                        return true;
+                    } else {
+                        Console.WriteLine($"No records found in MPK file {Path.GetFileName(inputPath)}.");
+                        return false;
                     }
                 } catch (Exception ex) {
                     Console.WriteLine($"Error converting MPK to JSON for {Path.GetFileName(inputPath)}: {ex.Message}");
+                    return false;
                 }
             }
             else if (extension == ".json")
             {
-                await VerifyJsonToMpkConversion<TItem>(
+                var verificationResult = await VerifyJsonToMpkConversion<TItem>(
                     outputPath,
                     inputPath,
                     (container) => container.Records,
@@ -285,6 +290,7 @@ namespace NikkeMpkConverter.converter
                     stopOnFirstMismatch: stopOnFirstMismatch,
                     verbose: verbose
                 );
+                return verificationResult.Success;
             }
             else
             {
