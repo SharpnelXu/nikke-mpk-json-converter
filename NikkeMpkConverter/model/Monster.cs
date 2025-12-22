@@ -36,10 +36,10 @@ namespace NikkeMpkConverter.model
     {
         Unknown = -1,
         None = 0,
-        Destruction_01,
-        Destruction_02,
-        Destruction_03,
-        Destruction_04,
+        Destruction_01 = 1,
+        Destruction_02 = 2,
+        Destruction_03 = 3,
+        Destruction_04 = 4
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
@@ -138,40 +138,46 @@ namespace NikkeMpkConverter.model
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum MonsterUiGrade
     {
+        Unknown = -1,
         None = 0,
-        Selfless,
-        Servant,
-        Master,
-        Lord,
-        Tyrant,
-        Heretic,
-		Queen
+        Selfless = 1,
+        Servant = 2,
+        Master = 3,
+        Lord = 4,
+        Tyrant = 5,
+        Heretic = 6,
+        Queen = 7
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum NoneTargetCondition
     {
-        None = 2,
+        Unknown = -1,
         Normal = 0,
-        Last = 1
+        Last = 1,
+        None = 2
     }
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum FunctionNoneTargetCondition
     {
-        None = 2,
+        Unknown = -1,
         Normal = 0,
-        NoAllMonster = 1
+        NoAllMonster = 1,
+        ExcludeSpawnAndCountCheck = 2
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum SpawnType
     {
+        Unknown = -1,
         None = 0,
+        Normal = 1,
         Dash = 2,
         Jump = 3,
-        Random = 5,
         Drop = 4,
-        Normal = 1
+        Random = 5,
+        Teleport = 6,
+        Animation = 7
     }
 
     /// <summary>
@@ -539,6 +545,7 @@ namespace NikkeMpkConverter.model
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum MonsterStageLevelChangeCondition
     {
+        Unknown = -1,
         None = 0,
         DamageDoneToTargetMonster = 1,
     }
@@ -602,73 +609,137 @@ namespace NikkeMpkConverter.model
 
     public enum ObjectPositionType
     {
+        Unknown = -1,
         None = 0,
+        Local = 1,
         World = 2,
     }
 
     public enum CancelType
     {
+        Unknown = -1,
         None = 0,
-        BreakCol,
-        BrokenParts,
+        BreakCol = 1,
+        BrokenParts = 2,
         BrokenParts_OnlyCasting = 3,
-		BrokenParts_HurtCount = 4,
-		BrokenParts_UntilEnd = 5,
-		BreakCol_SkipCasting = 6
+        BrokenParts_HurtCount = 4,
+        BrokenParts_UntilEnd = 5,
+        BreakCol_SkipCasting = 6
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum SkillAnimationNumber
     {
+        Unknown = -1,
         None = 0,
-        Shot_01,
-        Shot_02,
-        Shot_03,
-        Shot_04,
-        Shot_05,
-        Shot_06,
-        Shot_07,
-        Shot_08,
-        Shot_09,
-        Shot_10,
-        Shot_11,
-        Shot_12,
-        Shot_13,
-        Shot_14,
-        Shot_15,
-        Shot_16,
-        Shot_17,
-        Shot_18,
-        Shot_19,
-        Shot_20,
-        Shot_21,
-        Shot_22,
-        Shot_23,
-        Shot_24,
-        Shot_25,
-        Shot_26,
-        Shot_27,
-        Shot_28,
-        Shot_29,
-        Shot_30,
-        Shot_31,
-        Shot_32,
-        Shot_33,
-        Shot_34,
-        Shot_35,
-        Shot_36,
-        Shot_37,
-        Shot_38,
-        Shot_39,
-        Shot_40
+        Shot_01 = 1,
+        Shot_02 = 2,
+        Shot_03 = 3,
+        Shot_04 = 4,
+        Shot_05 = 5,
+        Shot_06 = 6,
+        Shot_07 = 7,
+        Shot_08 = 8,
+        Shot_09 = 9,
+        Shot_10 = 10,
+        Shot_11 = 11,
+        Shot_12 = 12,
+        Shot_13 = 13,
+        Shot_14 = 14,
+        Shot_15 = 15,
+        Shot_16 = 16,
+        Shot_17 = 17,
+        Shot_18 = 18,
+        Shot_19 = 19,
+        Shot_20 = 20,
+        Shot_21 = 21,
+        Shot_22 = 22,
+        Shot_23 = 23,
+        Shot_24 = 24,
+        Shot_25 = 25,
+        Shot_26 = 26,
+        Shot_27 = 27,
+        Shot_28 = 28,
+        Shot_29 = 29,
+        Shot_30 = 30,
+        Shot_31 = 31,
+        Shot_32 = 32,
+        Shot_33 = 33,
+        Shot_34 = 34,
+        Shot_35 = 35,
+        Shot_36 = 36,
+        Shot_37 = 37,
+        Shot_38 = 38,
+        Shot_39 = 39,
+        Shot_40 = 40,
+        Shot_41 = 41,
+        Shot_42 = 42,
+        Shot_43 = 43,
+        Shot_44 = 44,
+        Shot_45 = 45,
+        Shot_46 = 46,
+        Shot_47 = 47,
+        Shot_48 = 48,
+        Shot_49 = 49,
+        Shot_50 = 50,
+        Shot_51 = 51,
+        Shot_52 = 52,
+        Shot_53 = 53,
+        Shot_54 = 54,
+        Shot_55 = 55,
+        Shot_56 = 56,
+        Shot_57 = 57,
+        Shot_58 = 58,
+        Shot_59 = 59,
+        Shot_60 = 60,
+        Shot_61 = 61,
+        Shot_62 = 62,
+        Shot_63 = 63,
+        Shot_64 = 64,
+        Shot_65 = 65,
+        Shot_66 = 66,
+        Shot_67 = 67,
+        Shot_68 = 68,
+        Shot_69 = 69,
+        Shot_70 = 70,
+        Shot_71 = 71,
+        Shot_72 = 72,
+        Shot_73 = 73,
+        Shot_74 = 74,
+        Shot_75 = 75,
+        Shot_76 = 76,
+        Shot_77 = 77,
+        Shot_78 = 78,
+        Shot_79 = 79,
+        Shot_80 = 80,
+        Shot_81 = 81,
+        Shot_82 = 82,
+        Shot_83 = 83,
+        Shot_84 = 84,
+        Shot_85 = 85,
+        Shot_86 = 86,
+        Shot_87 = 87,
+        Shot_88 = 88,
+        Shot_89 = 89,
+        Shot_90 = 90,
+        Shot_91 = 91,
+        Shot_92 = 92,
+        Shot_93 = 93,
+        Shot_94 = 94,
+        Shot_95 = 95,
+        Shot_96 = 96,
+        Shot_97 = 97,
+        Shot_98 = 98,
+        Shot_99 = 99
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum MonsterSkillvalueType
     {
+        Unknown = -1,
         None = 0,
-        Integer = 2,
-        Percent = 1
+        Percent = 1,
+        Integer = 2
     }
 
     /// <summary>

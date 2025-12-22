@@ -6,6 +6,7 @@ namespace NikkeMpkConverter.model
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum DifficultyType
     {
+        Unknown = -1,
         Normal = 1,
         Hard = 2
     }
@@ -74,10 +75,10 @@ namespace NikkeMpkConverter.model
         [MemoryPackOrder(14)]
         public string MonsterImage { get; set; } = string.Empty;
 
-        [JsonPropertyName("unknown_int")]
+        [JsonPropertyName("monster_spine")]
         [MemoryPackOrder(15)]
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public int DummyInt { get; set; } = 0;
+        public int MonsterSpine { get; set; } = 0;
 
         [JsonPropertyName("monster_spine_scale")]
         [MemoryPackOrder(16)]

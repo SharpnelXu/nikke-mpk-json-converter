@@ -6,28 +6,18 @@ namespace NikkeMpkConverter.model
     public enum ItemType
     {
         Unknown = -1,
+        None = 0,
         Equip = 1,
+        Consume = 2,
         Material = 3,
         Piece = 4,
         HarmonyCube = 5
     }
 
-    public enum ItemConsumeType
+    public enum EquipItemRarity
     {
         Unknown = -1,
-        Consume = 2,
-        Box = 4,
-        BundleBox = 5,
-        ItemRandomBoxList = 6,
-        ItemRandomBoxNormal = 7,
-        ProfileRandomBox = 8,
-        EquipCombination = 9,
-        ArcadeItem = 10
-    }
-
-    public enum ItemRarity
-    {
-        Unknown = -1,
+        None = 0,
         T1 = 1,
         T2 = 2,
         T3 = 3,
@@ -43,12 +33,17 @@ namespace NikkeMpkConverter.model
     public enum ItemSubType
     {
         Unknown = -1,
+        None = 0,
         Module_A = 1,
         Module_B = 2,
         Module_C = 3,
         Module_D = 4,
         Box = 5,
+        Char_Material = 6,
         Equip_Material = 7,
+        Attack_Equip_Material = 8,
+        Defence_Equip_Material = 9,
+        Support_Equip_Material = 10,
         AttractiveMaterial = 11,
         CharacterPiece = 12,
         SummonPiece = 13,
@@ -66,6 +61,7 @@ namespace NikkeMpkConverter.model
         EquipmentOptionMaterial = 25,
         CharacterSkillMaterial = 26,
         SetNickNameMaterial = 27,
+        CharacterSkillResetMaterial = 28,
         SynchroSlotOpenMaterial = 29,
         FavoriteMaterial = 30,
         FavoriteTranscendMaterial = 31,
@@ -73,20 +69,26 @@ namespace NikkeMpkConverter.model
         ProfileRandomBox = 33,
         EquipmentOptionDisposableFixMaterial = 34,
         EquipCombination = 35,
+        EventItem = 36,
         ArcadeItem = 37
     }
 
     public enum StatType
     {
+        Unknown = -1,
         Atk = 1,
         Defence = 3,
         Hp = 2,
-        None = 0
+        None = 0,
+        EnergyResist = 4,
+        MetalResist = 5,
+        BioResist = 6
     }
 
     public enum FavoriteItemType
     {
         Unknown = -1,
+        None = 0,
         Collection = 1,
         Favorite = 2
     }
@@ -94,19 +96,26 @@ namespace NikkeMpkConverter.model
     public enum UseConditionType
     {
         Unknown = -1,
+        None = 0,
+        MissionClear = 1,
         StageClear = 2,
-        None = 0
+        Time = 3
     }
 
     public enum UseType
     {
         Unknown = -1,
         None = 0,
+        Char_Exp = 1,
+        Currency = 2,
         SelectBox = 3,
+        Item = 4,
+        SummonCharacter = 5,
         SummonRandomCharacter = 6,
         CurrencyTimeReward = 7,
         BundleBox = 8,
         ItemRandomBox = 9,
+        SelectBoxRow = 10,
         SelectBoxRowCharacter = 11,
         EquipCombination = 12,
         MVGGold = 13,
@@ -118,6 +127,7 @@ namespace NikkeMpkConverter.model
     {
         None = 0,
         Percent = 1,
+        Random = 2,
         Unknown = -1
     }
 
@@ -127,6 +137,7 @@ namespace NikkeMpkConverter.model
         None = 0,
         All = 1,
         Corporation = 2,
+        Character = 3,
         Squad = 4,
         FavoriteItem = 5
     }
@@ -179,7 +190,7 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(7)]
         [JsonPropertyName("item_rare")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public ItemRarity ItemRarity { get; set; } = ItemRarity.Unknown;
+        public EquipItemRarity EquipItemRarity { get; set; } = EquipItemRarity.Unknown;
 
         [MemoryPackOrder(8)]
         [JsonPropertyOrder(8)]
@@ -662,6 +673,7 @@ namespace NikkeMpkConverter.model
     {
         Unknown = -1,
         JewelShop = 0,
+        PackageShop = 1,
         TimeLimitPackageShop = 2,
         RenewPackageShop = 3,
         PopupPackageShop = 4,
@@ -673,21 +685,58 @@ namespace NikkeMpkConverter.model
         PassCostumeShop = 11
     }
 
-    public enum ProductType
+    public enum ProductType // RewardType
     {
         Unknown = -1,
+        None = 0,
+        User_exp = 1,
+        Char_exp = 2,
         Currency = 3,
+        Character = 4,
+        Item = 5,
+        Frame = 6,
+        AttractivePoint = 7,
+        Bgm = 8,
+        Point = 9,
+        LiveWallpaper = 10,
+        Memorial = 11,
         CharacterCostume = 12,
-        Item = 5
+        ItemRandom = 13,
+        InfraCoreExp = 14,
+        ItemRandomBox = 15,
+        Equipment_None = 16,
+        Equipment_MISSILIS = 17,
+        Equipment_ELYSION = 18,
+        Equipment_TETRA = 19,
+        Equipment_PILGRIM = 20,
+        Equipment_Random_01 = 21,
+        Equipment_Random_02 = 22,
+        Equipment_Random_03 = 23,
+        PassPoint = 41,
+        Equipment_ABNORMAL = 42,
+        FavoriteItem = 43,
+        ProfileCardObject = 44,
+        ProfileRandomBox = 45,
+        UserTitle = 46,
+        LobbyDecoBackground = 47,
+        SurfaceCurrency = 48,
+        SurfaceItem = 49,
+        HexaBios = 50,
+        HexaBiosUndefined = 51,
+        HexaBlock = 52,
+        HexaBlockUndefined = 53
     }
 
     public enum ProductItemType
     {
+        Unknown = -1,
         Currency = 0,
         Item = 1
     }
     public enum MidasProductType
     {
+        Unknown = -1,
+        None = 0,
         CashShop = 1,
         PackageShop = 2,
         PopupPackageShop = 3,
@@ -706,11 +755,13 @@ namespace NikkeMpkConverter.model
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum BuyLimitType
     {
+        Unknown = -1,
         None = 0,
         Account = 1,
-        Daily,
-        Weekly,
-        Monthly
+        Daily = 2,
+        Weekly = 3,
+        Monthly = 4,
+        Renew = 5
     }
 
     public enum MainCategoryType
@@ -728,14 +779,19 @@ namespace NikkeMpkConverter.model
 
     public enum RenewType
     {
-        NoRenew = 6,
+        Unknown = -1,
+        None = 0,
         AutoDay = 1,
         AutoWeek = 2,
-        AutoMonth = 3
+        AutoMonth = 3,
+        EachUser = 4,
+        ManualRenew = 5,
+        NoRenew = 6
     }
 
     public enum ShopType
     {
+        Unknown = -1,
         InAppShop = 0,
     }
 
@@ -1178,7 +1234,7 @@ namespace NikkeMpkConverter.model
         [JsonPropertyOrder(6)]
         [JsonPropertyName("item_type")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public ItemConsumeType ItemType { get; set; } = ItemConsumeType.Unknown;
+        public ItemType ItemType { get; set; } = ItemType.Unknown;
 
         [MemoryPackOrder(7)]
         [JsonPropertyOrder(7)]

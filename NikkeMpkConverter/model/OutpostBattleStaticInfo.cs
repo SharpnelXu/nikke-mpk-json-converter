@@ -6,9 +6,10 @@ namespace NikkeMpkConverter.model
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum PrepareRewardType
     {
+        Unknown = -1,
         None = 0,
-		Currency = 1,
-        ItemRandom,
+        Currency = 1,
+        ItemRandom = 2,
         // Add other item types as needed
     }
 

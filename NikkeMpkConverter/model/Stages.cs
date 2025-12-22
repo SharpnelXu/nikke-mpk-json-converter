@@ -45,40 +45,54 @@ namespace NikkeMpkConverter.model
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum SpotMod
     {
+        Unknown = -1,
         None = 0,
-        Campaign = 1, 
+        Campaign = 1,
+        Arena = 2,
+        Survive = 3,
         Defense = 4,
+        Destroy = 5,
+        Escape = 6,
         Intercept = 7,
         UnionRaid = 8,
         ShootingRange = 9,
         BaseDefense = 10,
         Cooperation = 11,
+        Campaign_SD = 12,
+        Defense_SD = 13,
+        BaseDefense_SD = 14,
+        ShootingRange_SD = 15,
         SoloRaid_Common = 16,
         SoloRaid_Trial = 17,
+        Campaign_CE002 = 18,
+        Cooperation_CE002 = 19,
         UnionRaid_Trial = 20,
         Cabal_MecaShifty = 21,
         Cabal_Shifty = 22,
         Cabal_Syuen = 23,
         SoloRaid_Museum = 24,
-        SoloRaid_Museum_Nolimit = 25,
+        SoloRaid_Museum_Nolimit = 25
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum UiTheme
     {
+        Unknown = -1,
         None = 0,
-        CE002,
-        CE004,
-        CE006,
-        CE007
+        CE002 = 1,
+        CE004 = 2,
+        CE006 = 3,
+        CE007 = 4
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum Theme
     {
+        Unknown = -1,
         None = 0,
         CityForest = 1,
         CityForestUnder = 2,
+        CityForestmbg002 = 3,
         Desert = 4,
         Desertmbg001 = 5,
         GreatHole = 6,
@@ -86,9 +100,20 @@ namespace NikkeMpkConverter.model
         Wasteland = 8,
         ArcCity = 9,
         ArcOut = 10,
+        ArcLAB = 11,
         Tower = 12,
-        gravedigger = 19,
-        lostsector = 21,
+        MissilesTower = 13,
+        ElysionTower = 14,
+        TetraTower = 15,
+        PilgrimTower = 16,
+        VillageCity = 17,
+        VillageOut = 18,
+        Gravedigger = 19,
+        Stormbringer = 20,
+        Lostsector = 21,
+        NormalArena = 22,
+        SpecialArena = 23,
+        ChampionArena = 24,
         Volcano = 25,
         ArkCityDay = 26,
         Ocean = 27,
@@ -99,20 +124,21 @@ namespace NikkeMpkConverter.model
         SwamplandJungle = 32,
         Surface = 33,
         MotherwhaleField = 34,
-		WhiteArkcity = 35,
+        WhiteArkcity = 35
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum ThemeTime
     {
+        Unknown = -1,
         Day = 1,
         Twilight = 2,
         Night = 3,
-        Smog,
-        Elysion,
-        Missilis,
-        Tetra,
-        Pilgrim
+        Smog = 4,
+        Elysion = 5,
+        Missilis = 6,
+        Tetra = 7,
+        Pilgrim = 8
     }
 
     /// <summary>
@@ -225,13 +251,17 @@ namespace NikkeMpkConverter.model
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum QuickBattleType
     {
+        Unknown = -1,
         None = 0,
-        StageClear = 1
+        StageClear = 1,
+        StandardBattlePower = 2
     }
     
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum SoloRaidDifficultyType
     {
+        Unknown = -1,
+        None = 0,
         Common = 1,
         Trial = 2
     }
