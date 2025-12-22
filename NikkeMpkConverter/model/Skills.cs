@@ -480,7 +480,9 @@ namespace NikkeMpkConverter.model
 		IsCheckGradeUnder = 60,
 		IsCheckCharacter = 61,
 		IsCheckNotTarget = 62,
-		IsCheckFunctionOverlap = 63
+		IsCheckFunctionOverlap = 63,
+		IsFirstBurstMember = 64,
+		IsNotFirstBurstMember = 65
     }
 
     public enum FunctionStatus

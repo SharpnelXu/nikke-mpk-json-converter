@@ -113,7 +113,12 @@ namespace NikkeMpkConverter.model
         OnlyRL = 10,
 		BurstStep1 = 11,
 		BurstStep2 = 12,
-		BurstStep3 = 13
+		BurstStep3 = 13,
+		OnlyFire = 14,
+		OnlyWater = 15,
+		OnlyWind = 16,
+		OnlyElectronic = 17,
+		OnlyIron = 18
     }
 
     public enum ShotTiming
