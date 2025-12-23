@@ -33,8 +33,8 @@ namespace NikkeMpkConverter
 
 
                 // Normal conversion mode
-                string inputPath;
-                string? outputPath = null;
+                string inputPath = ".\\";
+                string? outputPath = ".\\";
                 bool mpkToJson = true; // Default conversion direction
 
                 // Process command line arguments if provided
@@ -53,7 +53,8 @@ namespace NikkeMpkConverter
                 }
                 else
                 {
-                    throw new ArgumentException("Please provide the input file path as the first argument. Optionally, provide the output file path as the second argument.");
+                    // throw new ArgumentException("Please provide the input file path as the first argument. Optionally, provide the output file path as the second argument.");
+                    mpkToJson = true;
                 }
 
                 Console.WriteLine($"Input file: {inputPath}");
@@ -2176,41 +2177,280 @@ namespace NikkeMpkConverter
                     },
                     stopOnFirstMismatch: false
                 );
+            }
 
-                result &= await MpkConverter.ConvertTableAsync<OutpostBattleStaticInfo>(
-                    inputPath + "OutpostBattleTable" + inputExtension,
-                    outputPath + "OutpostBattleTable" + outputExtension,
-                    (details, jsonItem, mpkItem) =>
+            result &= await MpkConverter.ConvertTableAsync<OutpostBattleStaticInfo>(
+                inputPath + "OutpostBattleTable" + inputExtension,
+                outputPath + "OutpostBattleTable" + outputExtension,
+                (details, jsonItem, mpkItem) =>
+                {
+                    if (jsonItem.Id != mpkItem.Id)
                     {
-                        if (jsonItem.Id != mpkItem.Id)
-                        {
-                            details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
-                        }
-                        else
-                        {
-                            details.Add($"ID: {jsonItem.Id}");
-                        }
-                    },
-                    // shouldSkipFailure: (jsonItem, mpkToJsonItem) =>
-                    // {
-                    //     jsonItem.Order = mpkToJsonItem?.Order ?? jsonItem.Order;
-                    //     return mpkToJsonItem != null && JsonSerializer.Serialize(jsonItem).Equals(JsonSerializer.Serialize(mpkToJsonItem));
-                    // },
-                    stopOnFirstMismatch: true,
-                    processItem: (item) =>
+                        details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                    }
+                    else
                     {
-                        for (var i = 0; i < item.OutpostRewardList.Length; i++)
+                        details.Add($"ID: {jsonItem.Id}");
+                    }
+                },
+                // shouldSkipFailure: (jsonItem, mpkToJsonItem) =>
+                // {
+                //     jsonItem.Order = mpkToJsonItem?.Order ?? jsonItem.Order;
+                //     return mpkToJsonItem != null && JsonSerializer.Serialize(jsonItem).Equals(JsonSerializer.Serialize(mpkToJsonItem));
+                // },
+                stopOnFirstMismatch: true,
+                processItem: (item) =>
+                {
+                    for (var i = 0; i < item.OutpostRewardList.Length; i++)
+                    {
+                        var rewardItem = item.OutpostRewardList[i];
+                        if (!Enum.IsDefined(typeof(PrepareRewardType), (int)rewardItem.ItemType))
                         {
-                            var rewardItem = item.OutpostRewardList[i];
-                            if (!Enum.IsDefined(typeof(PrepareRewardType), (int)rewardItem.ItemType))
-                            {
-                                unknownEnums.Add($"New PrepareRewardType enum value: {(int)rewardItem.ItemType} in OutpostBattleStaticInfo ID {item.Id}");
-                                rewardItem.ItemType = PrepareRewardType.Unknown;
-                            }
+                            unknownEnums.Add($"New PrepareRewardType enum value: {(int)rewardItem.ItemType} in OutpostBattleStaticInfo ID {item.Id}");
+                            rewardItem.ItemType = PrepareRewardType.Unknown;
                         }
                     }
-                );
-            }
+                }
+            );
+
+            result &= await MpkConverter.ConvertTableAsync<HexaBiosRecord>(
+                inputPath + "HexaBiosTable" + inputExtension,
+                outputPath + "HexaBiosTable" + outputExtension,
+                (details, jsonItem, mpkItem) =>
+                {
+                    if (jsonItem.Id != mpkItem.Id)
+                    {
+                        details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                    }
+                    else
+                    {
+                        details.Add($"ID: {jsonItem.Id}");
+                    }
+                },
+                stopOnFirstMismatch: true,
+                processItem: (item) =>
+                {
+                    if (!Enum.IsDefined(typeof(AttackType), (int)item.Element))
+                    {
+                        unknownEnums.Add($"New AttackType enum value: {(int)item.Element} in HexaBiosTable ID {item.Id}");
+                        item.Element = AttackType.Unknown;
+                    }
+                    if (string.IsNullOrWhiteSpace(item.Name_localkey))
+                    {
+                        item.Name_localkey = null;
+                    }
+                    if (string.IsNullOrWhiteSpace(item.Description_localkey))
+                    {
+                        item.Description_localkey = null;
+                    }
+                    if (string.IsNullOrWhiteSpace(item.Resource_id))
+                    {
+                        item.Resource_id = null;
+                    }
+                }
+            );
+
+            result &= await MpkConverter.ConvertTableAsync<HexaBiosUndefinedRecord>(
+                inputPath + "HexaBiosUndefinedTable" + inputExtension,
+                outputPath + "HexaBiosUndefinedTable" + outputExtension,
+                (details, jsonItem, mpkItem) =>
+                {
+                    if (jsonItem.Id != mpkItem.Id)
+                    {
+                        details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                    }
+                    else
+                    {
+                        details.Add($"ID: {jsonItem.Id}");
+                    }
+                },
+                stopOnFirstMismatch: true,
+                processItem: (item) =>
+                {
+                    if (string.IsNullOrWhiteSpace(item.Name_localkey))
+                    {
+                        item.Name_localkey = null;
+                    }
+                    if (string.IsNullOrWhiteSpace(item.Description_localkey))
+                    {
+                        item.Description_localkey = null;
+                    }
+                    if (string.IsNullOrWhiteSpace(item.Resource_id))
+                    {
+                        item.Resource_id = null;
+                    }
+                }
+            );
+            result &= await MpkConverter.ConvertTableAsync<HexaBiosOptionRecord>(
+                inputPath + "HexaBiosOptionTable" + inputExtension,
+                outputPath + "HexaBiosOptionTable" + outputExtension,
+                (details, jsonItem, mpkItem) =>
+                {
+                    if (jsonItem.Id != mpkItem.Id)
+                    {
+                        details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                    }
+                    else
+                    {
+                        details.Add($"ID: {jsonItem.Id}");
+                    }
+                },
+                stopOnFirstMismatch: true,
+                processItem: (item) =>
+                {
+                    if (string.IsNullOrWhiteSpace(item.State_effect_localkey))
+                    {
+                        item.State_effect_localkey = null;
+                    }
+                }
+            );
+            result &= await MpkConverter.ConvertTableAsync<HexaBiosOptionRandomRecord>(
+                inputPath + "HexaBiosOptionRandomTable" + inputExtension,
+                outputPath + "HexaBiosOptionRandomTable" + outputExtension,
+                (details, jsonItem, mpkItem) =>
+                {
+                    if (jsonItem.Id != mpkItem.Id)
+                    {
+                        details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                    }
+                    else
+                    {
+                        details.Add($"ID: {jsonItem.Id}");
+                    }
+                },
+                stopOnFirstMismatch: true,
+                processItem: (item) =>
+                {
+                }
+            );
+            result &= await MpkConverter.ConvertTableAsync<HexaBlockRecord>(
+                inputPath + "HexaBlockTable" + inputExtension,
+                outputPath + "HexaBlockTable" + outputExtension,
+                (details, jsonItem, mpkItem) =>
+                {
+                    if (jsonItem.Id != mpkItem.Id)
+                    {
+                        details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                    }
+                    else
+                    {
+                        details.Add($"ID: {jsonItem.Id}");
+                    }
+                },
+                stopOnFirstMismatch: true,
+                processItem: (item) =>
+                {
+                    if (!Enum.IsDefined(typeof(HexaBlockDesignType), (int)item.Block_type))
+                    {
+                        unknownEnums.Add($"New HexaBlockDesignType enum value: {(int)item.Block_type} in HexaBlockTable ID {item.Id}");
+                        item.Block_type = HexaBlockDesignType.Unknown;
+                    }
+                    if (!Enum.IsDefined(typeof(AttackType), (int)item.Element))
+                    {
+                        unknownEnums.Add($"New AttackType enum value: {(int)item.Element} in HexaBlockTable ID {item.Id}");
+                        item.Element = AttackType.Unknown;
+                    }
+                    if (string.IsNullOrWhiteSpace(item.Name_localkey))
+                    {
+                        item.Name_localkey = null;
+                    }
+                    if (string.IsNullOrWhiteSpace(item.Description_localkey))
+                    {
+                        item.Description_localkey = null;
+                    }
+                }
+            );
+            result &= await MpkConverter.ConvertTableAsync<HexaBlockUndefinedRecord>(
+                inputPath + "HexaBlockUndefinedTable" + inputExtension,
+                outputPath + "HexaBlockUndefinedTable" + outputExtension,
+                (details, jsonItem, mpkItem) =>
+                {
+                    if (jsonItem.Id != mpkItem.Id)
+                    {
+                        details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                    }
+                    else
+                    {
+                        details.Add($"ID: {jsonItem.Id}");
+                    }
+                },
+                stopOnFirstMismatch: true,
+                processItem: (item) =>
+                {
+                    if (!Enum.IsDefined(typeof(HexaBlockDesignType), (int)item.Block_type))
+                    {
+                        unknownEnums.Add($"New HexaBlockDesignType enum value: {(int)item.Block_type} in HexaBlockUndefinedTable ID {item.Id}");
+                        item.Block_type = HexaBlockDesignType.Unknown;
+                    }
+                }
+            );
+            result &= await MpkConverter.ConvertTableAsync<HexaBoardSlotRecord>(
+                inputPath + "HexaBoardSlotTable" + inputExtension,
+                outputPath + "HexaBoardSlotTable" + outputExtension,
+                (details, jsonItem, mpkItem) =>
+                {
+                    if (jsonItem.Id != mpkItem.Id)
+                    {
+                        details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                    }
+                    else
+                    {
+                        details.Add($"ID: {jsonItem.Id}");
+                    }
+                },
+                stopOnFirstMismatch: true,
+                processItem: (item) =>
+                {
+                }
+            );
+            result &= await MpkConverter.ConvertTableAsync<HexaFunctionGroupRecord>(
+                inputPath + "HexaFunctionGroupTable" + inputExtension,
+                outputPath + "HexaFunctionGroupTable" + outputExtension,
+                (details, jsonItem, mpkItem) =>
+                {
+                    if (jsonItem.Id != mpkItem.Id)
+                    {
+                        details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                    }
+                    else
+                    {
+                        details.Add($"ID: {jsonItem.Id}");
+                    }
+                },
+                stopOnFirstMismatch: true,
+                processItem: (item) =>
+                {
+                }
+            );
+            result &= await MpkConverter.ConvertTableAsync<HexaFunctionRecord>(
+                inputPath + "HexaFunctionTable" + inputExtension,
+                outputPath + "HexaFunctionTable" + outputExtension,
+                (details, jsonItem, mpkItem) =>
+                {
+                    if (jsonItem.Id != mpkItem.Id)
+                    {
+                        details.Add($"ID Mismatch: Json {jsonItem.Id} vs MPK {mpkItem.Id}");
+                    }
+                    else
+                    {
+                        details.Add($"ID: {jsonItem.Id}");
+                    }
+                },
+                stopOnFirstMismatch: true,
+                processItem: (item) =>
+                {
+                    if (!Enum.IsDefined(typeof(HexaBiosFilterType), (int)item.Bios_type))
+                    {
+                        unknownEnums.Add($"New HexaBiosFilterType enum value: {(int)item.Bios_type} in HexaFunctionTable ID {item.Id}");
+                        item.Bios_type = HexaBiosFilterType.Unknown;
+                    }
+
+                    if (string.IsNullOrWhiteSpace(item.Resource_id))
+                    {
+                        item.Resource_id = null;
+                    }
+                }
+            );
             
             if (unknownEnums.Count > 0)
             {
